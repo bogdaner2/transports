@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Transports.Core.Driver
+namespace Transports.Core.Models
 {
     [Serializable]
     public class DriverShift
@@ -47,26 +47,13 @@ namespace Transports.Core.Driver
         {
             using (var fileStream = new FileStream("DriverShifts.xml", FileMode.OpenOrCreate))
             {
-                try
-                {
-                    ListOfDriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
-                }
-                catch (Exception)
-                {
-                }
+                ListOfDriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
             }
         }
 
         public override string ToString()
         {
-            try
-            {
-                return string.Format($"{Driver.Name} | Len{Route.Lenth}");
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
+            return string.Format($"{Driver.Name} | Len{Route.Lenth}");
         }
     }
 }

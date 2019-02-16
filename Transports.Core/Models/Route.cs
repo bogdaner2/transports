@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using Transport.Data;
-using Transports.Core.Driver;
 
-namespace Transports.Core
+namespace Transports.Core.Models
 {
     [Serializable]
     public class Route : Base
@@ -55,9 +53,9 @@ namespace Transports.Core
                 select x).ToList();
         }
 
-        public List<Driver.Driver> GetRouteDriversList()
+        public List<Models.Driver> GetRouteDriversList()
         {
-            var res = new List<Driver.Driver>();
+            var res = new List<Models.Driver>();
             foreach (var driverShift in DriverShift.ListOfDriverShifts)
                 if (driverShift.Route == this)
                     res.Add(driverShift.Driver);

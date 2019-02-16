@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Transports.Core
+namespace Transports.Core.Models
 {
     [Serializable]
     [DataContract]

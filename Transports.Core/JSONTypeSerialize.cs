@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using Transports.Core;
-using Transports.Core.Driver;
+using Transports.Core.Models;
 
 namespace Transport.Data
 {
-    public class JsonTypeSerialize : ISerializeLab
+    public class JsonTypeSerialize
     {
         public static JsonTypeSerialize _instance;
 
@@ -25,7 +25,7 @@ namespace Transport.Data
                 case List<Route> list:
                     Serialize(new DataContractJsonSerializer(list.GetType()), type);
                     break;
-                case List<Transports.Core.Transport.Transport> list:
+                case List<Transports.Core.Models.Transport> list:
                     Serialize(new DataContractJsonSerializer(list.GetType()), type);
                     break;
                 case List<Transportation> list:
@@ -48,7 +48,7 @@ namespace Transport.Data
                 case List<Route> list:
                     //Deserialize(new DataContractJsonSerializer(list.GetType()), ref type);
                     break;
-                case List<Transports.Core.Transport.Transport> list:
+                case List<Transports.Core.Models.Transport> list:
                     // Deserialize(new DataContractJsonSerializer(list.GetType()),ref  type);
                     break;
                 case List<Transportation> list:

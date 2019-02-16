@@ -1,25 +1,14 @@
 ﻿using System;
 
-namespace Transports.Core.Transport
+namespace Transports.Core.Models
 {
     [Serializable]
-    public class TechPasport : Base
+    public class TechPassport : Base
     {
-        // public int Pass { private get; set; }
-
-        public TechPasport(string b, int year)
+        public TechPassport(string b, int year)
         {
             Brand = b;
             YearOfManufacture = year;
-        }
-
-        //public int GetPass()
-        //{
-        //    return Pass;
-        //}
-
-        public TechPasport()
-        {
         }
 
         public string Brand { get; set; }

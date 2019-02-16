@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using Transport.Data;
 
-namespace Transports.Core.Transport
+namespace Transports.Core.Models
 {
     [Serializable]
     public class Transport : Base
     {
         public static List<Transport> ListOfTransport = new List<Transport>();
 
-        public Transport(string typeOfTransport, TechPasport tp)
+        public Transport(string typeOfTransport, TechPassport tp)
         {
             TypeOfTransport = typeOfTransport;
             Passport = tp;
@@ -22,7 +21,7 @@ namespace Transports.Core.Transport
         {
         }
 
-        public TechPasport Passport { get; set; }
+        public TechPassport Passport { get; set; }
 
         public string TypeOfTransport { get; set; }
 

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using Transport.Data;
 
-namespace Transports.Core
+namespace Transports.Core.Models
 {
     [Serializable]
     public class Transportation : Base
     {
         public static List<Transportation> ListOfTransportation = new List<Transportation>();
 
-        public Transportation(Driver.Driver d, Route r, Transport.Transport t)
+        public Transportation(Driver d, Route r, Transport t)
         {
             Route = r;
             Driver = d;
@@ -22,8 +21,8 @@ namespace Transports.Core
         public Transportation() {}
 
         public Route Route { get; set; }
-        public Driver.Driver Driver { get; set; }
-        public Transport.Transport Transport { get; set; }
+        public Models.Driver Driver { get; set; }
+        public Models.Transport Transport { get; set; }
 
 
         public static void Serialize(XmlSerializer xml)

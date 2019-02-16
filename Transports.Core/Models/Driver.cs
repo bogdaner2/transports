@@ -4,22 +4,15 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Transports.Core.Driver
+namespace Transports.Core.Models
 {
     [Serializable]
     [DataContract]
     public class Driver : Human
     {
-        public enum RangEnum
-        {
-            A,
-            B,
-            C,
-            D
-        }
+        public bool IsAdult() => Age >= 18;
 
         public static List<Driver> DriverList = new List<Driver>();
-        private string rang;
 
         public Driver(string name, int age, int rang) : base(name, age)
         {
@@ -28,6 +21,14 @@ namespace Transports.Core.Driver
             Rang = rang.ToString();
             DriverList.Add(this);
         }
+        public enum RangEnum
+        {
+            A,
+            B,
+            C,
+            D
+        }
+        private string rang;
 
         public Driver() : this("Ivan", 16, 1)
         {
@@ -53,8 +54,6 @@ namespace Transports.Core.Driver
             }
         }
 
-        public Driver this[int Index] => DriverList[Index];
-
         public List<Route> GetDriverRoutesList()
         {
             var res = new List<Route>();
@@ -62,11 +61,6 @@ namespace Transports.Core.Driver
                 if (ds.Driver == this)
                     res.Add(ds.Route);
             return res;
-        }
-
-        public bool isAdult()
-        {
-            return Age >= 18 ? true : false;
         }
 
         public void PassExam()
