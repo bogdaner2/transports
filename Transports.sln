@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transports.Core", "Transports.Core\Transports.Core.csproj", "{36A6C538-1505-4FBA-BB65-174B65CC9FDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Desktop", "Transports.Desktop\Transports.Desktop.csproj", "{88A3F5F4-B454-45D9-B496-A68F25957563}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Transports.Web.WCF", "Transports.Web.WCF\", "{B7A37928-0977-4481-B95D-983A22232242}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_51727"
+		Debug.AspNetCompiler.PhysicalPath = "Transports.Web.WCF\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51727\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_51727"
+		Release.AspNetCompiler.PhysicalPath = "Transports.Web.WCF\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51727\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "51727"
+		SlnRelativePath = "Transports.Web.WCF\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transports.Tests", "Transports.Tests\Transports.Tests.csproj", "{7DD246B3-F4BB-48AA-9A10-76142A896E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Web.Forms", "Transports.Web.Forms\Transports.Web.Forms.csproj", "{4E13489C-6A3A-45B7-B78E-D3BFB1F35E44}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36A6C538-1505-4FBA-BB65-174B65CC9FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A6C538-1505-4FBA-BB65-174B65CC9FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A6C538-1505-4FBA-BB65-174B65CC9FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A6C538-1505-4FBA-BB65-174B65CC9FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88A3F5F4-B454-45D9-B496-A68F25957563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88A3F5F4-B454-45D9-B496-A68F25957563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88A3F5F4-B454-45D9-B496-A68F25957563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88A3F5F4-B454-45D9-B496-A68F25957563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7A37928-0977-4481-B95D-983A22232242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A37928-0977-4481-B95D-983A22232242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A37928-0977-4481-B95D-983A22232242}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A37928-0977-4481-B95D-983A22232242}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7DD246B3-F4BB-48AA-9A10-76142A896E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD246B3-F4BB-48AA-9A10-76142A896E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD246B3-F4BB-48AA-9A10-76142A896E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD246B3-F4BB-48AA-9A10-76142A896E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E13489C-6A3A-45B7-B78E-D3BFB1F35E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E13489C-6A3A-45B7-B78E-D3BFB1F35E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E13489C-6A3A-45B7-B78E-D3BFB1F35E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E13489C-6A3A-45B7-B78E-D3BFB1F35E44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2704E0D4-9C2C-4724-8DFB-35950A1FB533}
+	EndGlobalSection
+EndGlobal
