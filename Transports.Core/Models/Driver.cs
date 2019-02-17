@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq.Mapping;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -8,32 +9,23 @@ namespace Transports.Core.Models
 {
     [Serializable]
     [DataContract]
-    public class Driver : Human
+    [Table(Name = "dbo.Drivers")]
+    public class Driver
     {
-        public bool IsAdult() => Age >= 18;
-
         public static List<Driver> DriverList = new List<Driver>();
 
-        public Driver(string name, int age, int rang) : base(name, age)
-        {
-            Name = name;
-            Age = age;
-            Rang = rang.ToString();
-            DriverList.Add(this);
-        }
-        public enum RangEnum
-        {
-            A,
-            B,
-            C,
-            D
-        }
-        private string rang;
+        [Column(IsPrimaryKey = true)]
+        public Guid Id { get; set; }
 
-        public Driver() : this("Ivan", 16, 1)
-        {
-        }
+        [Column]
+        [DataMember]
+        public string Name { get; set; }
 
+        [Column]
+        [DataMember]
+        public int Age { get; set; }
+
+        [Column]
         [DataMember]
         public string Rang
         {
@@ -54,6 +46,21 @@ namespace Transports.Core.Models
             }
         }
 
+        private string rang;
+
+        public Driver(string name, int age, int rang)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Age = age;
+            Rang = rang.ToString();
+            DriverList.Add(this);
+        }
+
+        public Driver() : this("Ivan", 16, 1) { }
+
+        public bool IsAdult() => Age >= 18;
+
         public List<Route> GetDriverRoutesList()
         {
             var res = new List<Route>();
@@ -63,30 +70,16 @@ namespace Transports.Core.Models
             return res;
         }
 
-        public void PassExam()
+        public bool PassExam(bool isPrepared)
         {
-            //var random = new Random();
-            //if (Rang != "D")
-            //{
-            //    if (random.Next(0, 10) <= 3) MessageBox.Show("Info", "Pass");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Info", "Max is D");
-            //}
-        }
+            var random = new Random();
+            var chance = isPrepared ? 7 : 3;
+            if (Rang != "D")
+            {
+                if (random.Next(0, 10) <= chance) return true;
+            }
 
-        public void PassExam(bool IsPrepared)
-        {
-            //var random = new Random();
-            //if (Rang != "D")
-            //{
-            //    if (random.Next(0, 10) <= 8) MessageBox.Show("Info", "Pass");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Info", "Max is D");
-            //}
+            return false;
         }
 
         public static void Serialize(XmlSerializer xml)

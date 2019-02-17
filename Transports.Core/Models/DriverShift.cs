@@ -25,7 +25,7 @@ namespace Transports.Core.Models
 
         public Route Route
         {
-            get { return Route.RouteList.Find(x => x.Id == idRoute); }
+            get { return Route.Routes.Find(x => x.Id == idRoute); }
             set => idRoute = value.Id;
         }
 
@@ -53,7 +53,7 @@ namespace Transports.Core.Models
 
         public override string ToString()
         {
-            return string.Format($"{Driver.Name} | Len{Route.Lenth}");
+            return string.Format($"{Driver.Name} | Len{Route.Length}");
         }
     }
 }

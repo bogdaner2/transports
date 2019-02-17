@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq.Mapping;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -7,38 +8,31 @@ using System.Xml.Serialization;
 namespace Transports.Core.Models
 {
     [Serializable]
-    public class Route : Base
+    [Table(Name = "dbo.Routes")]
+    public class Route
     {
-        public static List<Route> RouteList = new List<Route>();
+        public static List<Route> Routes = new List<Route>();
 
-        private readonly int Km;
+        [Column(IsPrimaryKey = true)]
+        public Guid Id { get; set; }
+
+        private readonly int _km;
         private int Time;
 
-        public Route(int lenth, bool IsTrafficJam)
+        public Route(int length, bool isTrafficJam)
         {
-            Lenth = lenth;
-            this.IsTrafficJam = IsTrafficJam;
-            EstimattedTime = new Random().Next(1, 120);
-            RouteList.Add(this);
+            Id = Guid.NewGuid();
+            Length = length;
+            IsTrafficJam = isTrafficJam;
+            EstimatedTime = new Random().Next(1, 120);
+            Routes.Add(this);
         }
 
-        public Route(string start, string finish)
-        {
-            Start = start;
-            Finish = finish;
-            RouteList.Add(this);
-        }
+        public Route() { }
 
-        public Route()
-        {
-        }
+        public int Length { get; set; }
 
-        public string Start { get; }
-        public string Finish { get; set; }
-
-        public int Lenth { get; set; }
-
-        public int EstimattedTime
+        public int EstimatedTime
         {
             get => Time;
             set => Time = value * (IsTrafficJam ? 2 : 1);
@@ -48,30 +42,24 @@ namespace Transports.Core.Models
 
         public static List<Route> GetListByLen(int length)
         {
-            return (from x in RouteList
-                where x.Lenth > length
+            return (from x in Routes
+                where x.Length > length
                 select x).ToList();
         }
 
-        public List<Models.Driver> GetRouteDriversList()
+        public List<Driver> GetRouteDriversList()
         {
-            var res = new List<Models.Driver>();
+            var res = new List<Driver>();
             foreach (var driverShift in DriverShift.ListOfDriverShifts)
                 if (driverShift.Route == this)
                     res.Add(driverShift.Driver);
             return res;
         }
-
-        public int GetTime()
-        {
-            return 0;
-        }
-
         public static void Serialize(XmlSerializer xml)
         {
             using (var fs = new FileStream("Routes.xml", FileMode.Create))
             {
-                xml.Serialize(fs, RouteList);
+                xml.Serialize(fs, Routes);
             }
         }
 
@@ -81,7 +69,7 @@ namespace Transports.Core.Models
             {
                 try
                 {
-                    RouteList = (List<Route>) xml.Deserialize(fileStream);
+                    Routes = (List<Route>) xml.Deserialize(fileStream);
                 }
                 catch (Exception)
                 {
@@ -92,7 +80,7 @@ namespace Transports.Core.Models
         public override string ToString()
         {
             return string.Format(
-                $"{string.Format(Id.ToString().Substring(Id.ToString().Length - 5))}|Lenth : {Lenth} Time : {EstimattedTime}");
+                $"{string.Format(Id.ToString().Substring(Id.ToString().Length - 5))}|Length : {Length} Time : {EstimatedTime}");
         }
     }
 }

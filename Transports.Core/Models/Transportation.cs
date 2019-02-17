@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq.Mapping;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
     [Serializable]
-    public class Transportation : Base
+    [DataContract]
+    [Table(Name = "dbo.Transportations")]
+    public class Transportation
     {
         public static List<Transportation> ListOfTransportation = new List<Transportation>();
 
@@ -21,8 +25,8 @@ namespace Transports.Core.Models
         public Transportation() {}
 
         public Route Route { get; set; }
-        public Models.Driver Driver { get; set; }
-        public Models.Transport Transport { get; set; }
+        public Driver Driver { get; set; }
+        public Transport Transport { get; set; }
 
 
         public static void Serialize(XmlSerializer xml)
@@ -49,7 +53,7 @@ namespace Transports.Core.Models
         {
             try
             {
-                return string.Format($"{Route.Lenth} {Driver.Name} {Transport.TypeOfTransport}");
+                return string.Format($"{Route.Length} {Driver.Name} {Transport.TypeOfTransport}");
             }
             catch (Exception)
             {

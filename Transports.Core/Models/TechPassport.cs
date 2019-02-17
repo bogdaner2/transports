@@ -3,7 +3,7 @@
 namespace Transports.Core.Models
 {
     [Serializable]
-    public class TechPassport : Base
+    public class TechPassport
     {
         public TechPassport(string b, int year)
         {

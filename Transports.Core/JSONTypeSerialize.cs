@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
-using Transports.Core;
 using Transports.Core.Models;
 
-namespace Transport.Data
+namespace Transports.Core
 {
     public class JsonTypeSerialize
     {
@@ -25,7 +24,7 @@ namespace Transport.Data
                 case List<Route> list:
                     Serialize(new DataContractJsonSerializer(list.GetType()), type);
                     break;
-                case List<Transports.Core.Models.Transport> list:
+                case List<Transport> list:
                     Serialize(new DataContractJsonSerializer(list.GetType()), type);
                     break;
                 case List<Transportation> list:
@@ -46,13 +45,13 @@ namespace Transport.Data
                     Deserialize(new DataContractJsonSerializer(typeof(List<Driver>)), ref Driver.DriverList);
                     break;
                 case List<Route> list:
-                    //Deserialize(new DataContractJsonSerializer(list.GetType()), ref type);
+                    Deserialize(new DataContractJsonSerializer(list.GetType()), ref type);
                     break;
-                case List<Transports.Core.Models.Transport> list:
-                    // Deserialize(new DataContractJsonSerializer(list.GetType()),ref  type);
+                case List<Transport> list:
+                     Deserialize(new DataContractJsonSerializer(list.GetType()),ref  type);
                     break;
                 case List<Transportation> list:
-                    // Deserialize(new DataContractJsonSerializer(list.GetType()),ref type);
+                     Deserialize(new DataContractJsonSerializer(list.GetType()),ref type);
                     break;
                 default:
                     throw new ArgumentException(

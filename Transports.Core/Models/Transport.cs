@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Transports.Core.Models
 {
     [Serializable]
-    public class Transport : Base
+    public class Transport
     {
         public static List<Transport> ListOfTransport = new List<Transport>();
 
@@ -15,6 +15,12 @@ namespace Transports.Core.Models
             TypeOfTransport = typeOfTransport;
             Passport = tp;
             ListOfTransport.Add(this);
+        }
+
+        public int CountOfSeats
+        {
+            get => CountOfSeats;
+            set => CountOfSeats = 9;
         }
 
         private Transport()
