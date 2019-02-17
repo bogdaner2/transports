@@ -43,16 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InMemoryContext.cs" />
     <Compile Include="JSONTypeSerialize.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\DriverShift.cs" />
-    <Compile Include="Models\RangEnum.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Helpers\RangEnum.cs" />
     <Compile Include="Models\Route.cs" />
+    <Compile Include="Models\Shift.cs" />
     <Compile Include="Models\TechPassport.cs" />
     <Compile Include="Models\Transport.cs" />
-    <Compile Include="Models\Transportation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="ContextRepository.cs" />
     <Compile Include="TransportsContext.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

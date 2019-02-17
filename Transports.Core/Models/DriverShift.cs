@@ -1,37 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq.Mapping;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
     [Serializable]
-    public class DriverShift
+    [DataContract]
+    [Table(Name = "dbo.DriverShifts")]
+    public class DriverShift : IEntity
     {
-        public static List<DriverShift> ListOfDriverShifts = new List<DriverShift>();
+        
         private Guid idDriver;
-        private Guid idRoute;
+        private Guid idShift;
 
-        public DriverShift(Route route, Driver driver)
+        public DriverShift(Shift shift, Driver driver)
         {
-            Driver = driver;
-            Route = route;
-            ListOfDriverShifts.Add(this);
+            DriverLocal = driver;
+            Shift = shift;
+            InMemoryContext.DriverShifts.Add(this);
         }
 
         public DriverShift()
         {
         }
 
-        public Route Route
+        public Shift Shift { get; set; }
+        public Driver Driver { get; set; }
+
+        public Shift ShiftLocal
         {
-            get { return Route.Routes.Find(x => x.Id == idRoute); }
-            set => idRoute = value.Id;
+            get { return InMemoryContext.Shifts.Find(x => x.Id == idShift); }
+            set => idShift = value.Id;
         }
 
-        public Driver Driver
+        public Driver DriverLocal
         {
-            get { return Driver.DriverList.Find(x => x.Id == idDriver); }
+            get { return InMemoryContext.Drivers.Find(x => x.Id == idDriver); }
             set => idDriver = value.Id;
         }
 
@@ -39,7 +46,7 @@ namespace Transports.Core.Models
         {
             using (var fs = new FileStream("DriverShifts.xml", FileMode.Create))
             {
-                xml.Serialize(fs, ListOfDriverShifts);
+                xml.Serialize(fs, InMemoryContext.DriverShifts);
             }
         }
 
@@ -47,13 +54,13 @@ namespace Transports.Core.Models
         {
             using (var fileStream = new FileStream("DriverShifts.xml", FileMode.OpenOrCreate))
             {
-                ListOfDriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
+                InMemoryContext.DriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
             }
         }
 
         public override string ToString()
         {
-            return string.Format($"{Driver.Name} | Len{Route.Length}");
+            return string.Format($"{Driver.Name} | {Shift.Start.ToShortTimeString()} + {Shift.End.ToShortTimeString()}");
         }
     }
 }

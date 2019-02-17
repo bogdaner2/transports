@@ -3,21 +3,29 @@ using System.Collections.Generic;
 using System.Data.Linq.Mapping;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
     [Serializable]
+    [DataContract]
     [Table(Name = "dbo.Routes")]
-    public class Route
+    public class Route : IEntity
     {
-        public static List<Route> Routes = new List<Route>();
-
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
-
-        private readonly int _km;
-        private int Time;
+        [Column]
+        public int Length { get; set; }
+        [Column]
+        public bool IsTrafficJam { get; set; }
+        [Column]
+        public int EstimatedTime
+        {
+            get => _time;
+            set => _time = value * (IsTrafficJam ? 2 : 1);
+        }
+        private int _time;
 
         public Route(int length, bool isTrafficJam)
         {
@@ -25,41 +33,16 @@ namespace Transports.Core.Models
             Length = length;
             IsTrafficJam = isTrafficJam;
             EstimatedTime = new Random().Next(1, 120);
-            Routes.Add(this);
+            InMemoryContext.Routes.Add(this);
         }
 
         public Route() { }
 
-        public int Length { get; set; }
-
-        public int EstimatedTime
-        {
-            get => Time;
-            set => Time = value * (IsTrafficJam ? 2 : 1);
-        }
-
-        public bool IsTrafficJam { get; set; }
-
-        public static List<Route> GetListByLen(int length)
-        {
-            return (from x in Routes
-                where x.Length > length
-                select x).ToList();
-        }
-
-        public List<Driver> GetRouteDriversList()
-        {
-            var res = new List<Driver>();
-            foreach (var driverShift in DriverShift.ListOfDriverShifts)
-                if (driverShift.Route == this)
-                    res.Add(driverShift.Driver);
-            return res;
-        }
         public static void Serialize(XmlSerializer xml)
         {
             using (var fs = new FileStream("Routes.xml", FileMode.Create))
             {
-                xml.Serialize(fs, Routes);
+                xml.Serialize(fs, InMemoryContext.Routes);
             }
         }
 
@@ -69,7 +52,7 @@ namespace Transports.Core.Models
             {
                 try
                 {
-                    Routes = (List<Route>) xml.Deserialize(fileStream);
+                    InMemoryContext.Routes = (List<Route>) xml.Deserialize(fileStream);
                 }
                 catch (Exception)
                 {

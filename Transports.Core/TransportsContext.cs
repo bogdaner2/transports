@@ -8,8 +8,11 @@ namespace Transports.Core
     {
         public TransportsContext(string connection) : base(connection)
         {
-            if (!DatabaseExists())
-                CreateDatabase();
+            if (DatabaseExists())
+            {
+                DeleteDatabase();
+            }
+            CreateDatabase();
         }
 
         public TransportsContext() : this(
@@ -19,7 +22,10 @@ namespace Transports.Core
         }
 
         public Table<Driver> Drivers => GetTable<Driver>();
-        public Table<Transport> Transports => GetTable<Transport>();
+        public Table<Shift> Shifts => GetTable<Shift>();
+        public Table<Route> Routes => GetTable<Route>();
+        //public Table<Transport> Transports => GetTable<Transport>();
+        public Table<TechPassport> TechPassports => GetTable<TechPassport>();
 
     }
 }

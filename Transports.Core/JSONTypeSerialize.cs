@@ -27,9 +27,6 @@ namespace Transports.Core
                 case List<Transport> list:
                     Serialize(new DataContractJsonSerializer(list.GetType()), type);
                     break;
-                case List<Transportation> list:
-                    Serialize(new DataContractJsonSerializer(list.GetType()), type);
-                    break;
                 default:
                     throw new ArgumentException(
                         "unknown type",
@@ -42,16 +39,13 @@ namespace Transports.Core
             switch (type)
             {
                 case List<Driver> list:
-                    Deserialize(new DataContractJsonSerializer(typeof(List<Driver>)), ref Driver.DriverList);
+                    Deserialize(new DataContractJsonSerializer(typeof(List<Driver>)), ref InMemoryContext.Drivers);
                     break;
                 case List<Route> list:
                     Deserialize(new DataContractJsonSerializer(list.GetType()), ref type);
                     break;
                 case List<Transport> list:
                      Deserialize(new DataContractJsonSerializer(list.GetType()),ref  type);
-                    break;
-                case List<Transportation> list:
-                     Deserialize(new DataContractJsonSerializer(list.GetType()),ref type);
                     break;
                 default:
                     throw new ArgumentException(
@@ -60,7 +54,7 @@ namespace Transports.Core
             }
         }
 
-        public static JsonTypeSerialize getInstance()
+        public static JsonTypeSerialize GetInstance()
         {
             if (_instance == null) _instance = new JsonTypeSerialize();
             return _instance;

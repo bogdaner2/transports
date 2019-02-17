@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Linq.Mapping;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -10,10 +11,8 @@ namespace Transports.Core.Models
     [Serializable]
     [DataContract]
     [Table(Name = "dbo.Drivers")]
-    public class Driver
+    public class Driver : IEntity
     {
-        public static List<Driver> DriverList = new List<Driver>();
-
         [Column(IsPrimaryKey = true)]
         public Guid Id { get; set; }
 
@@ -54,20 +53,19 @@ namespace Transports.Core.Models
             Name = name;
             Age = age;
             Rang = rang.ToString();
-            DriverList.Add(this);
+            InMemoryContext.Drivers.Add(this);
         }
 
         public Driver() : this("Ivan", 16, 1) { }
 
         public bool IsAdult() => Age >= 18;
 
-        public List<Route> GetDriverRoutesList()
+        public List<Shift> GetDriverShiftsList()
         {
-            var res = new List<Route>();
-            foreach (var ds in DriverShift.ListOfDriverShifts)
-                if (ds.Driver == this)
-                    res.Add(ds.Route);
-            return res;
+            return InMemoryContext.DriverShifts
+                .Where(x => x.Driver == this)
+                .Select(x => x.Shift)
+                .ToList();
         }
 
         public bool PassExam(bool isPrepared)
@@ -86,7 +84,7 @@ namespace Transports.Core.Models
         {
             using (var fs = new FileStream("Drivers.xml", FileMode.Create))
             {
-                xml.Serialize(fs, DriverList);
+                xml.Serialize(fs, InMemoryContext.Drivers);
             }
         }
 
@@ -96,7 +94,7 @@ namespace Transports.Core.Models
             {
                 try
                 {
-                    DriverList = (List<Driver>) xml.Deserialize(fileStream);
+                    InMemoryContext.Drivers = (List<Driver>) xml.Deserialize(fileStream);
                 }
                 catch (Exception)
                 {

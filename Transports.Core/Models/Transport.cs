@@ -1,41 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
     [Serializable]
-    public class Transport
+    [DataContract]
+    [Table(Name = "dbo.Transports")]
+    public class Transport : IEntity
     {
-        public static List<Transport> ListOfTransport = new List<Transport>();
+        [Column(IsPrimaryKey = true)]
+        public Guid Id { get; set; }
+        [Column]
+        public string TypeOfTransport { get; set; }
+        [Column]
+        public int CountOfSeats { get; set; }
 
-        public Transport(string typeOfTransport, TechPassport tp)
+        private EntityRef<TechPassport> _passport;
+        [Association(ThisKey = "AddressId", OtherKey = "AddressId")]
+        public TechPassport Passport
+        {
+            set => _passport.Entity = value;
+            get => _passport.Entity;
+        }
+
+        public Transport(string typeOfTransport, TechPassport tp,int countOfSeats = 9)
         {
             TypeOfTransport = typeOfTransport;
             Passport = tp;
-            ListOfTransport.Add(this);
-        }
-
-        public int CountOfSeats
-        {
-            get => CountOfSeats;
-            set => CountOfSeats = 9;
+            CountOfSeats = countOfSeats;
+            InMemoryContext.Transports.Add(this);
         }
 
         private Transport()
         {
         }
 
-        public TechPassport Passport { get; set; }
-
-        public string TypeOfTransport { get; set; }
-
         public static void Serialize(XmlSerializer xml)
         {
             using (var fs = new FileStream("Transport.xml", FileMode.Create))
             {
-                xml.Serialize(fs, ListOfTransport);
+                xml.Serialize(fs, InMemoryContext.Transports);
             }
         }
 
@@ -45,7 +54,7 @@ namespace Transports.Core.Models
             {
                 try
                 {
-                    ListOfTransport = (List<Transport>) xml.Deserialize(fileStream);
+                    InMemoryContext.Transports = (List<Transport>) xml.Deserialize(fileStream);
                 }
                 catch (Exception)
                 {
