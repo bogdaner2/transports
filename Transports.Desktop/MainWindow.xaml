@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Select the entities list"  FontSize="50" FontWeight="Bold"></TextBlock>
+            <Button Content="Tickets" HorizontalAlignment="Stretch" Background="White" BorderBrush="GhostWhite" Margin="0,20,0,20"  />
+            <Button Content="Pilots"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Stewardesses"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Crews" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Flights" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Departures" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Aircrafts" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20" />
+            <Button Content="Aircraft types" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20" />
+        </StackPanel>
     </Grid>
 </Window>

@@ -32,8 +32,8 @@ namespace Transports.Core.Models
 
         public Shift ShiftLocal
         {
-            get { return InMemoryContext.Shifts.Find(x => x.Id == idShift); }
-            set => idShift = value.Id;
+            get { return InMemoryContext.Shifts.Find(x => x.ShiftID == idShift); }
+            set => idShift = value.ShiftID;
         }
 
         public Driver DriverLocal

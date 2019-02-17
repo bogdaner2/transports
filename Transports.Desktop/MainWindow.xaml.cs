@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using Transports.Core;
@@ -15,11 +16,20 @@ namespace Transports.Desktop
         public MainWindow()
         {
             InitializeComponent();
-            //_db = new TransportsContext();
-            //_db.Drivers.InsertOnSubmit(new Driver());
-            //_db.SubmitChanges();
-            var repo = new ContextRepository<Driver>();
-            repo.Create(new Driver());
+
+            var repo = new ContextRepository<Shift>();
+            var shift = new Shift
+            {
+                End = DateTime.Now,
+                Start = DateTime.Now
+            };
+
+            repo.Create(shift.AddRoutes(new List<Route>{
+                new Route(10, false),
+                new Route(10, false),
+                new Route(10, false)
+            }));
+            var items = repo.GetAll();
         }
 
     }

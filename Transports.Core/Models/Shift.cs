@@ -12,20 +12,33 @@ namespace Transports.Core.Models
     [Table(Name = "dbo.Shifts")]
     public class Shift : IEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
         [Column]
         public DateTime Start { get; set; }
         [Column]
         public DateTime End { get; set; }
 
-        //[Association(
-        //    Storage = "_CustomerAddresses",
-        //    ThisKey = "CustomerId",
-        //    OtherKey = "CustomerId")]
-        //public EntitySet<Route> Router { get; set; }
+        private Guid _ShiftID;
+        [Column(IsPrimaryKey = true, Storage = "_ShiftID")]
+        public Guid ShiftID
+        {
+            get => _ShiftID;
+            set => _ShiftID = value;
+        }
 
-        public Shift() {Id = Guid.NewGuid();}
+
+        private EntitySet<Route> _Routes;
+        [Association(Storage = "_Routes", OtherKey = "ShiftID")]
+        public EntitySet<Route> Routes
+        {
+            get => _Routes; 
+            set => _Routes.Assign(value); 
+        }
+
+        public Shift()
+        {
+            _Routes = new EntitySet<Route>();
+            ShiftID = Guid.NewGuid();
+        }
 
         public List<Driver> GetRouteDriversList()
         {
@@ -33,6 +46,16 @@ namespace Transports.Core.Models
                 .Where(x => x.Shift == this)
                 .Select(x => x.Driver)
                 .ToList();
+        }
+
+        public Shift AddRoutes(IEnumerable<Route> routes)
+        {
+            foreach (var route in routes)
+            {
+                route.ShiftID = ShiftID;
+                Routes.Add(route);
+            }
+            return this;
         }
 
     }

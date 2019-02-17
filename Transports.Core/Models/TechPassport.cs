@@ -15,10 +15,10 @@ namespace Transports.Core.Models
         public string Brand { get; set; }
         [Column]
         public int YearOfManufacture { get; set; }
-        public TechPassport(string b, int year)
+        public TechPassport(string brand, int year)
         {
             Id = Guid.NewGuid();
-            Brand = b;
+            Brand = brand;
             YearOfManufacture = year;
         }
 

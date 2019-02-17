@@ -13,23 +13,42 @@ namespace Transports.Core.Models
     [Table(Name = "dbo.Transports")]
     public class Transport : IEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
+        private Guid _TransportID;
+        private Guid _PassportID;
+        private EntityRef<TechPassport> _Passport;
+
+
+        [Column(IsPrimaryKey = true, Storage = "_TransportID")]
+        public Guid TransportID
+        {
+            get => _TransportID;
+            set => _TransportID = value;
+        }
+
+        [Column(Storage = "_PassportID")]
+        public Guid PassportID
+        {
+            get => _PassportID;
+            set => _PassportID = value;
+        }
+
         [Column]
         public string TypeOfTransport { get; set; }
         [Column]
         public int CountOfSeats { get; set; }
 
-        private EntityRef<TechPassport> _passport;
-        [Association(ThisKey = "AddressId", OtherKey = "AddressId")]
+
+        [Association(Storage = "_Passport", ThisKey = "PassportID", OtherKey = "Id")]
         public TechPassport Passport
         {
-            set => _passport.Entity = value;
-            get => _passport.Entity;
+            set => _Passport.Entity = value;
+            get => _Passport.Entity;
         }
 
         public Transport(string typeOfTransport, TechPassport tp,int countOfSeats = 9)
         {
+            _Passport = new EntityRef<TechPassport>();
+            TransportID = Guid.NewGuid();
             TypeOfTransport = typeOfTransport;
             Passport = tp;
             CountOfSeats = countOfSeats;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.IO;
 using System.Linq;
@@ -13,8 +14,6 @@ namespace Transports.Core.Models
     [Table(Name = "dbo.Routes")]
     public class Route : IEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
         [Column]
         public int Length { get; set; }
         [Column]
@@ -27,9 +26,36 @@ namespace Transports.Core.Models
         }
         private int _time;
 
+        private Guid _RouteID;
+        private Guid _ShiftID;
+        private EntityRef<Shift> _Shift;
+
+        [Column(IsPrimaryKey = true, Storage = "_RouteID")]
+        public Guid RouteID
+        {
+            get => _RouteID;
+            set => _RouteID = value;
+        }
+
+        [Column(Storage = "_ShiftID")]
+        public Guid ShiftID
+        {
+            get => _ShiftID;
+            set => _ShiftID = value;
+        }
+
+        [Association(Storage = "_Shift", ThisKey = "ShiftID")]
+        public Shift Shift
+        {
+            set => _Shift.Entity = value;
+            get => _Shift.Entity;
+        }
+
+
         public Route(int length, bool isTrafficJam)
         {
-            Id = Guid.NewGuid();
+            _Shift = new EntityRef<Shift>();
+            RouteID = Guid.NewGuid();
             Length = length;
             IsTrafficJam = isTrafficJam;
             EstimatedTime = new Random().Next(1, 120);
@@ -62,8 +88,9 @@ namespace Transports.Core.Models
 
         public override string ToString()
         {
-            return string.Format(
-                $"{string.Format(Id.ToString().Substring(Id.ToString().Length - 5))}|Length : {Length} Time : {EstimatedTime}");
+            return string.Empty;
+            //return string.Format(
+            //    $"{string.Format(Id.ToString().Substring(Id.ToString().Length - 5))}|Length : {Length} Time : {EstimatedTime}");
         }
     }
 }

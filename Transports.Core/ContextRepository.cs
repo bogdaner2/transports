@@ -10,11 +10,10 @@ namespace Transports.Core
     public class ContextRepository<T> where  T: class, IEntity
     {
         private readonly Table<T> _table;
-        private readonly TransportsContext _context;
+        //private static readonly TransportsContext _context = new TransportsContext();
         public ContextRepository()
         {
-            _context = new TransportsContext();
-            _table = _context.GetTable<T>();
+            _table = TransportsContext.Instance.GetTable<T>();
         }
 
         public List<T> GetAll()
@@ -32,7 +31,7 @@ namespace Transports.Core
             try
             {
                 _table.InsertOnSubmit(item);
-                _context.SubmitChanges();
+                Save();
                 return item;
             }
             catch
@@ -42,14 +41,14 @@ namespace Transports.Core
         }
         public void Save()
         {
-            _context.SubmitChanges();
+            TransportsContext.Instance.SubmitChanges();
         }
         public bool Delete(T item)
         {
             try
             {
                 _table.DeleteOnSubmit(item);
-                _context.SubmitChanges();
+                Save();
                 return true;
             }
             catch
