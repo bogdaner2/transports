@@ -12,21 +12,28 @@ namespace Transports.Core.Models
     [Table(Name = "dbo.Shifts")]
     public class Shift : IEntity
     {
+        private Guid _ShiftID;
+        private EntitySet<Route> _Routes;
+        private EntitySet<DriverShift> _DriverShift;
+
+
         [Column]
+        [DataMember]
         public DateTime Start { get; set; }
         [Column]
+        [DataMember]
+
         public DateTime End { get; set; }
 
-        private Guid _ShiftID;
         [Column(IsPrimaryKey = true, Storage = "_ShiftID")]
+        [DataMember]
+
         public Guid ShiftID
         {
             get => _ShiftID;
             set => _ShiftID = value;
         }
 
-
-        private EntitySet<Route> _Routes;
         [Association(Storage = "_Routes", OtherKey = "ShiftID")]
         public EntitySet<Route> Routes
         {
@@ -34,9 +41,17 @@ namespace Transports.Core.Models
             set => _Routes.Assign(value); 
         }
 
+        [Association(Storage = "_DriverShift", OtherKey = "ShiftID")]
+        public EntitySet<DriverShift> DriverShift
+        {
+            get => _DriverShift;
+            set => _DriverShift.Assign(value);
+        }
+
         public Shift()
         {
             _Routes = new EntitySet<Route>();
+            _DriverShift = new EntitySet<DriverShift>();
             ShiftID = Guid.NewGuid();
         }
 

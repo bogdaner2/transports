@@ -17,14 +17,6 @@ namespace Transports.Core.Models
         private Guid _PassportID;
         private EntityRef<TechPassport> _Passport;
 
-
-        [Column(IsPrimaryKey = true, Storage = "_TransportID")]
-        public Guid TransportID
-        {
-            get => _TransportID;
-            set => _TransportID = value;
-        }
-
         [Column(Storage = "_PassportID")]
         public Guid PassportID
         {
@@ -37,12 +29,16 @@ namespace Transports.Core.Models
         [Column]
         public int CountOfSeats { get; set; }
 
-
-        [Association(Storage = "_Passport", ThisKey = "PassportID", OtherKey = "Id")]
         public TechPassport Passport
         {
             set => _Passport.Entity = value;
             get => _Passport.Entity;
+        }
+
+        public Guid TransportID
+        {
+            get => _TransportID;
+            set => _TransportID = value;
         }
 
         public Transport(string typeOfTransport, TechPassport tp,int countOfSeats = 9)

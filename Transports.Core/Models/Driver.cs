@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.IO;
 using System.Linq;
@@ -13,8 +14,17 @@ namespace Transports.Core.Models
     [Table(Name = "dbo.Drivers")]
     public class Driver : IEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
+        private string _rang;
+        private EntitySet<DriverShift> _DriverShifts;
+        private Guid _DriverId;
+
+        [Column(IsPrimaryKey = true, Storage = "_DriverId")]
+        [DataMember]
+        public Guid DriverId
+        {
+            get => _DriverId;
+            set => _DriverId = value;
+        }
 
         [Column]
         [DataMember]
@@ -28,28 +38,35 @@ namespace Transports.Core.Models
         [DataMember]
         public string Rang
         {
-            get => rang;
+            get => _rang;
             set
             {
                 if (Age >= 18)
                     try
                     {
-                        rang = Enum.GetName(typeof(RangEnum), int.Parse(value));
+                        _rang = Enum.GetName(typeof(RangEnum), int.Parse(value));
                     }
                     catch (FormatException)
                     {
-                        rang = value;
+                        _rang = value;
                     }
                 else
-                    rang = "A";
+                    _rang = "A";
             }
         }
 
-        private string rang;
+        [Association(Storage = "_DriverShifts", OtherKey = "DriverId")]
+        public EntitySet<DriverShift> DriverShifts
+        {
+            get => _DriverShifts;
+            set => _DriverShifts.Assign(value);
+        }
+
 
         public Driver(string name, int age, int rang)
         {
-            Id = Guid.NewGuid();
+            DriverId = Guid.NewGuid();
+            DriverShifts = new EntitySet<DriverShift>();
             Name = name;
             Age = age;
             Rang = rang.ToString();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using Transports.Core;
 using Transports.Core.Models;
@@ -24,7 +23,8 @@ namespace Transports.Desktop
                 Start = DateTime.Now
             };
 
-            repo.Create(shift.AddRoutes(new List<Route>{
+            repo.Create(
+            shift.AddRoutes(new List<Route>{
                 new Route(10, false),
                 new Route(10, false),
                 new Route(10, false)
@@ -32,5 +32,9 @@ namespace Transports.Desktop
             var items = repo.GetAll();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

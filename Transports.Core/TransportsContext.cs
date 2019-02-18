@@ -11,11 +11,11 @@ namespace Transports.Core
         public static TransportsContext Instance => Lazy.Value;
         private TransportsContext(string connection) : base(connection)
         {
-            //if (DatabaseExists())
-            //{
-            //    DeleteDatabase();
-            //}
-            //CreateDatabase();
+            if (DatabaseExists())
+            {
+                DeleteDatabase();
+            }
+            CreateDatabase();
         }
 
         private TransportsContext() : this(

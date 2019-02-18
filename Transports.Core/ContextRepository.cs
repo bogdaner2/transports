@@ -10,7 +10,6 @@ namespace Transports.Core
     public class ContextRepository<T> where  T: class, IEntity
     {
         private readonly Table<T> _table;
-        //private static readonly TransportsContext _context = new TransportsContext();
         public ContextRepository()
         {
             _table = TransportsContext.Instance.GetTable<T>();

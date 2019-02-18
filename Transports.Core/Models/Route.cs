@@ -88,9 +88,8 @@ namespace Transports.Core.Models
 
         public override string ToString()
         {
-            return string.Empty;
-            //return string.Format(
-            //    $"{string.Format(Id.ToString().Substring(Id.ToString().Length - 5))}|Length : {Length} Time : {EstimatedTime}");
+            return string.Format(
+                $"{string.Format(RouteID.ToString().Substring(RouteID.ToString().Length - 5))}|Length : {Length} Time : {EstimatedTime}");
         }
     }
 }

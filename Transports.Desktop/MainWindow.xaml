@@ -9,14 +9,17 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Select the entities list"  FontSize="50" FontWeight="Bold"></TextBlock>
-            <Button Content="Tickets" HorizontalAlignment="Stretch" Background="White" BorderBrush="GhostWhite" Margin="0,20,0,20"  />
-            <Button Content="Pilots"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Stewardesses"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Crews" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Flights" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Departures" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Aircrafts" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20" />
-            <Button Content="Aircraft types" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20" />
+            <Button Content="Drivers" HorizontalAlignment="Stretch" Background="White" BorderBrush="GhostWhite" Margin="0,20,0,20" Click="Button_Click"  />
+            <Button Content="Driver shifts"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Shifts"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Routes" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Tech passports" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <Button Content="Transports" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
+            <ComboBox x:Name="storeCb">
+                <TextBlock>In memory storage</TextBlock>
+                <TextBlock>Serialized storage</TextBlock>
+                <TextBlock>SQL database</TextBlock>
+            </ComboBox>
         </StackPanel>
     </Grid>
 </Window>
