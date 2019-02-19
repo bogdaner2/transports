@@ -7,27 +7,20 @@ using System.Runtime.Serialization;
 
 namespace Transports.Core.Models
 {
-    [Serializable]
-    [DataContract]
-    [Table(Name = "dbo.Shifts")]
+    [Table(Name = "dbo.Shifts"), Serializable, DataContract]
     public class Shift : IEntity
     {
         private Guid _ShiftID;
         private EntitySet<Route> _Routes;
         private EntitySet<DriverShift> _DriverShift;
 
-
-        [Column]
-        [DataMember]
+        [Column, DataMember]
         public DateTime Start { get; set; }
-        [Column]
-        [DataMember]
 
+        [Column, DataMember]
         public DateTime End { get; set; }
 
-        [Column(IsPrimaryKey = true, Storage = "_ShiftID")]
-        [DataMember]
-
+        [Column(IsPrimaryKey = true, Storage = "_ShiftID"), DataMember]
         public Guid ShiftID
         {
             get => _ShiftID;

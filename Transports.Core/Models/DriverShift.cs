@@ -8,9 +8,7 @@ using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
-    [Serializable]
-    [DataContract]
-    [Table(Name = "dbo.DriverShifts")]
+    [Table(Name = "dbo.DriverShifts"), DataContract, Serializable]
     public class DriverShift : IEntity
     {
         
@@ -20,9 +18,46 @@ namespace Transports.Core.Models
         private EntityRef<Shift> _Shift;
         private EntityRef<Driver> _Driver;
 
+        [Column(IsPrimaryKey = true, Storage = "_DriverShiftID")]
+        public Guid DriverShiftID
+        {
+            get => _DriverShiftID;
+            set => _DriverShiftID = value;
+        }
+
+        [Column(Storage = "_ShiftID")]
+        public Guid ShiftID
+        {
+            get => _ShiftID;
+            set => _ShiftID = value;
+        }
+
+        [Column(Storage = "_DriverID")]
+        public Guid DriverID
+        {
+            get => _DriverID;
+            set => _DriverID = value;
+        }
+
+        [Association(Storage = "_Driver", ThisKey = "DriverID")]
+        public Driver Driver
+        {
+            set => _Driver.Entity = value;
+            get => _Driver.Entity;
+        }
+
+        [Association(Storage = "_Shift", ThisKey = "ShiftID")]
+        public Shift Shift
+        {
+            set => _Shift.Entity = value;
+            get => _Shift.Entity;
+        }
 
         public DriverShift(Shift shift, Driver driver)
         {
+            DriverShiftID = Guid.NewGuid();
+            _Shift = new EntityRef<Shift>();
+            _Driver = new EntityRef<Driver>();
             Driver = driver;
             Shift = shift;
             InMemoryContext.DriverShifts.Add(this);
@@ -30,24 +65,11 @@ namespace Transports.Core.Models
 
         public DriverShift()
         {
+            DriverShiftID = Guid.NewGuid();
             _Shift = new EntityRef<Shift>();
             _Driver = new EntityRef<Driver>();
+            InMemoryContext.DriverShifts.Add(this);
         }
-
-        public Shift Shift { get; set; }
-        public Driver Driver { get; set; }
-
-        //public Shift ShiftLocal
-        //{
-        //    get { return InMemoryContext.Shifts.Find(x => x.ShiftID == idShift); }
-        //    set => idShift = value.ShiftID;
-        //}
-
-        //public Driver DriverLocal
-        //{
-        //    get { return InMemoryContext.Drivers.Find(x => x.Id == idDriver); }
-        //    set => idDriver = value.Id;
-        //}
 
         public static void Serialize(XmlSerializer xml)
         {

@@ -8,14 +8,25 @@ using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
-    [Serializable]
-    [DataContract]
-    [Table(Name = "dbo.Transports")]
+    [Table(Name = "dbo.Transports"), DataContract, Serializable]
     public class Transport : IEntity
     {
         private Guid _TransportID;
         private Guid _PassportID;
         private EntityRef<TechPassport> _Passport;
+
+        [Column(Storage = "_TransportID", IsPrimaryKey = true)]
+        public Guid TransportID
+        {
+            get => _TransportID;
+            set => _TransportID = value;
+        }
+
+        [Column]
+        public string TypeOfTransport { get; set; }
+        [Column]
+        public int CountOfSeats { get; set; }
+
 
         [Column(Storage = "_PassportID")]
         public Guid PassportID
@@ -24,21 +35,11 @@ namespace Transports.Core.Models
             set => _PassportID = value;
         }
 
-        [Column]
-        public string TypeOfTransport { get; set; }
-        [Column]
-        public int CountOfSeats { get; set; }
-
+        [Association(Storage = "_Passport", ThisKey = "PassportID")]
         public TechPassport Passport
         {
             set => _Passport.Entity = value;
             get => _Passport.Entity;
-        }
-
-        public Guid TransportID
-        {
-            get => _TransportID;
-            set => _TransportID = value;
         }
 
         public Transport(string typeOfTransport, TechPassport tp,int countOfSeats = 9)

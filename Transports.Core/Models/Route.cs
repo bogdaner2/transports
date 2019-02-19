@@ -9,35 +9,35 @@ using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
-    [Serializable]
-    [DataContract]
-    [Table(Name = "dbo.Routes")]
+    [Table(Name = "dbo.Routes"), Serializable, DataContract]
     public class Route : IEntity
     {
-        [Column]
-        public int Length { get; set; }
-        [Column]
-        public bool IsTrafficJam { get; set; }
-        [Column]
-        public int EstimatedTime
-        {
-            get => _time;
-            set => _time = value * (IsTrafficJam ? 2 : 1);
-        }
         private int _time;
-
         private Guid _RouteID;
         private Guid _ShiftID;
         private EntityRef<Shift> _Shift;
 
-        [Column(IsPrimaryKey = true, Storage = "_RouteID")]
+        [Column(IsPrimaryKey = true, Storage = "_RouteID"), DataMember]
         public Guid RouteID
         {
             get => _RouteID;
             set => _RouteID = value;
         }
 
-        [Column(Storage = "_ShiftID")]
+        [Column, DataMember]
+        public int Length { get; set; }
+
+        [Column, DataMember]
+        public bool IsTrafficJam { get; set; }
+
+        [Column, DataMember]
+        public int EstimatedTime
+        {
+            get => _time;
+            set => _time = value * (IsTrafficJam ? 2 : 1);
+        }
+
+        [Column(Storage = "_ShiftID"), DataMember]
         public Guid ShiftID
         {
             get => _ShiftID;

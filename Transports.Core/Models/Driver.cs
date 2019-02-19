@@ -9,33 +9,27 @@ using System.Xml.Serialization;
 
 namespace Transports.Core.Models
 {
-    [Serializable]
-    [DataContract]
-    [Table(Name = "dbo.Drivers")]
+    [Table(Name = "dbo.Drivers"), Serializable, DataContract]
     public class Driver : IEntity
     {
         private string _rang;
         private EntitySet<DriverShift> _DriverShifts;
-        private Guid _DriverId;
+        private Guid _DriverID;
 
-        [Column(IsPrimaryKey = true, Storage = "_DriverId")]
-        [DataMember]
+        [Column(IsPrimaryKey = true, Storage = "_DriverID"), DataMember]
         public Guid DriverId
         {
-            get => _DriverId;
-            set => _DriverId = value;
+            get => _DriverID;
+            set => _DriverID = value;
         }
 
-        [Column]
-        [DataMember]
+        [Column, DataMember]
         public string Name { get; set; }
 
-        [Column]
-        [DataMember]
+        [Column, DataMember]
         public int Age { get; set; }
 
-        [Column]
-        [DataMember]
+        [Column, DataMember]
         public string Rang
         {
             get => _rang;
@@ -55,7 +49,7 @@ namespace Transports.Core.Models
             }
         }
 
-        [Association(Storage = "_DriverShifts", OtherKey = "DriverId")]
+        [Association(Storage = "_DriverShifts", OtherKey = "DriverID")]
         public EntitySet<DriverShift> DriverShifts
         {
             get => _DriverShifts;

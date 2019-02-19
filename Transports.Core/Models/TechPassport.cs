@@ -4,27 +4,28 @@ using System.Runtime.Serialization;
 
 namespace Transports.Core.Models
 {
-    [Serializable]
-    [DataContract]
-    [Table(Name = "dbo.TechPassports")]
+    [Table(Name = "dbo.TechPassports"), Serializable, DataContract]
     public class TechPassport : IEntity
     {
-        [Column(IsPrimaryKey = true)]
-        public Guid Id { get; set; }
+        private Guid _TechPassportID;
+
+        [Column(IsPrimaryKey = true, Storage = "_TechPassportID")]
+        public Guid TechPassportID
+        {
+            get => _TechPassportID;
+            set => _TechPassportID = value;
+        }
         [Column]
         public string Brand { get; set; }
         [Column]
         public int YearOfManufacture { get; set; }
         public TechPassport(string brand, int year)
         {
-            Id = Guid.NewGuid();
+            TechPassportID = Guid.NewGuid();
             Brand = brand;
             YearOfManufacture = year;
         }
 
-        public override string ToString()
-        {
-            return string.Format($"{Brand}");
-        }
+        public override string ToString() => string.Format($"{Brand}");
     }
 }
