@@ -27,8 +27,9 @@ namespace Transports.Core
         public Table<Driver> Drivers => GetTable<Driver>();
         public Table<Shift> Shifts => GetTable<Shift>();
         public Table<Route> Routes => GetTable<Route>();
-        public Table<Transport> Transports => GetTable<Transport>();
+        public Table<DriverShift> DriverShifts => GetTable<DriverShift>();
         public Table<TechPassport> TechPassports => GetTable<TechPassport>();
+        public Table<Transport> Transports => GetTable<Transport>();
 
     }
 }
