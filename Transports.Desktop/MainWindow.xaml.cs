@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Transports.Core;
 using Transports.Core.Models;
+using Transports.Desktop.Views;
 
 namespace Transports.Desktop
 {
@@ -32,9 +33,34 @@ namespace Transports.Desktop
             var items = repo.GetAll();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_On_Drivers_Page(object sender, RoutedEventArgs e)
         {
-            
+            Main.Content = new DriversView();
+        }
+
+        private void Button_On_Shifts_Page(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new ShiftsView();
+        }
+
+        private void Button_On_DriverShifts_Page(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new DriverShiftsView();
+        }
+
+        private void Button_On_Routes_Page(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new RoutesView();
+        }
+
+        private void Button_On_Transports_Page(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new TransportsView();
+        }
+
+        private void Button_On_Passports_Page(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new TechPassportsView();
         }
     }
 }

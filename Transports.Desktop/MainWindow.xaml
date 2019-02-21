@@ -5,21 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Transports.Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Select the entities list"  FontSize="50" FontWeight="Bold"></TextBlock>
-            <Button Content="Drivers" HorizontalAlignment="Stretch" Background="White" BorderBrush="GhostWhite" Margin="0,20,0,20" Click="Button_Click"  />
-            <Button Content="Driver shifts"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Shifts"  HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Routes" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Tech passports" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <Button Content="Transports" HorizontalAlignment="Stretch"  Background="White" BorderBrush="GhostWhite" Margin="0,0,0,20"  />
-            <ComboBox x:Name="storeCb">
-                <TextBlock>In memory storage</TextBlock>
-                <TextBlock>Serialized storage</TextBlock>
-                <TextBlock>SQL database</TextBlock>
-            </ComboBox>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" >
+            <Button Content="Drivers" Click="Button_On_Drivers_Page"></Button>
+            <Button Content="Shifts" Click="Button_On_Shifts_Page"></Button>
+            <Button Content="DriverShifts" Click="Button_On_DriverShifts_Page"></Button>
+            <Button Content="Routes" Click="Button_On_Routes_Page"></Button>
+            <Button Content="Transports" Click="Button_On_Transports_Page"></Button>
+            <Button Content="Passports" Click="Button_On_Passports_Page"></Button>
         </StackPanel>
+        <Frame x:Name="Main" Margin="0,24,-0.4,-0.2" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

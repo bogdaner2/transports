@@ -56,8 +56,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\DriverShiftsView.xaml.cs">
+      <DependentUpon>DriverShiftsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DriversView.xaml.cs">
       <DependentUpon>DriversView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoutesView.xaml.cs">
+      <DependentUpon>RoutesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShiftsView.xaml.cs">
+      <DependentUpon>ShiftsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TechPassportsView.xaml.cs">
+      <DependentUpon>TechPassportsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TransportsView.xaml.cs">
+      <DependentUpon>TransportsView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -71,7 +86,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DriverShiftsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DriversView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoutesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShiftsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TechPassportsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TransportsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
