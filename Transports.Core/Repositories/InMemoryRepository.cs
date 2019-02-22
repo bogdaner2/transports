@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using System.Linq.Expressions;
+using Transports.Core.Contexts;
 using Transports.Core.Models;
 
 namespace Transports.Core
 {
-    public class ContextRepository<T> where  T: class, IEntity
+    public class InMemoryRepository<T> where T : class, IEntity
     {
         private readonly Table<T> _table;
-        public ContextRepository()
+        public InMemoryRepository()
         {
             _table = TransportsContext.Instance.GetTable<T>();
         }

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Transports.Core.Contexts;
 
 namespace Transports.Core.Models
 {
@@ -59,7 +60,7 @@ namespace Transports.Core.Models
             Length = length;
             IsTrafficJam = isTrafficJam;
             EstimatedTime = new Random().Next(1, 120);
-            InMemoryContext.Routes.Add(this);
+            InMemoryContext.Instance.Routes.Add(this);
         }
 
         public Route() { }
@@ -68,7 +69,7 @@ namespace Transports.Core.Models
         {
             using (var fs = new FileStream("Routes.xml", FileMode.Create))
             {
-                xml.Serialize(fs, InMemoryContext.Routes);
+                xml.Serialize(fs, InMemoryContext.Instance.Routes);
             }
         }
 
@@ -78,7 +79,7 @@ namespace Transports.Core.Models
             {
                 try
                 {
-                    InMemoryContext.Routes = (List<Route>) xml.Deserialize(fileStream);
+                    InMemoryContext.Instance.Routes = (List<Route>) xml.Deserialize(fileStream);
                 }
                 catch (Exception)
                 {

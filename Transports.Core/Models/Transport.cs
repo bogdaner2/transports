@@ -5,6 +5,7 @@ using System.Data.Linq.Mapping;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Transports.Core.Contexts;
 
 namespace Transports.Core.Models
 {
@@ -49,18 +50,16 @@ namespace Transports.Core.Models
             TypeOfTransport = typeOfTransport;
             Passport = tp;
             CountOfSeats = countOfSeats;
-            InMemoryContext.Transports.Add(this);
+            InMemoryContext.Instance.Transports.Add(this);
         }
 
-        private Transport()
-        {
-        }
+        private Transport() { }
 
         public static void Serialize(XmlSerializer xml)
         {
             using (var fs = new FileStream("Transport.xml", FileMode.Create))
             {
-                xml.Serialize(fs, InMemoryContext.Transports);
+                xml.Serialize(fs, InMemoryContext.Instance.Transports);
             }
         }
 
@@ -70,7 +69,7 @@ namespace Transports.Core.Models
             {
                 try
                 {
-                    InMemoryContext.Transports = (List<Transport>) xml.Deserialize(fileStream);
+                    InMemoryContext.Instance.Transports = (List<Transport>) xml.Deserialize(fileStream);
                 }
                 catch (Exception)
                 {

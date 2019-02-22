@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemoryContext.cs" />
+    <Compile Include="Contexts\InMemoryContext.cs" />
+    <Compile Include="Interfaces\IContext.cs" />
+    <Compile Include="Repositories\InMemoryRepository.cs" />
     <Compile Include="JSONTypeSerialize.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\DriverShift.cs" />
@@ -54,8 +56,8 @@
     <Compile Include="Models\TechPassport.cs" />
     <Compile Include="Models\Transport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ContextRepository.cs" />
-    <Compile Include="TransportsContext.cs" />
+    <Compile Include="Repositories\ContextRepository.cs" />
+    <Compile Include="Contexts\TransportsContext.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

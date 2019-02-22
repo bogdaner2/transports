@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
+using Transports.Core.Contexts;
 using Transports.Core.Models;
 
 namespace Transports.Core
@@ -39,7 +40,7 @@ namespace Transports.Core
             switch (type)
             {
                 case List<Driver> list:
-                    Deserialize(new DataContractJsonSerializer(typeof(List<Driver>)), ref InMemoryContext.Drivers);
+                    Deserialize(new DataContractJsonSerializer(typeof(List<Driver>)), ref InMemoryContext.Instance.Drivers);
                     break;
                 case List<Route> list:
                     Deserialize(new DataContractJsonSerializer(list.GetType()), ref type);

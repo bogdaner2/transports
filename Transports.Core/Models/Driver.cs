@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Transports.Core.Contexts;
 
 namespace Transports.Core.Models
 {
@@ -64,7 +65,7 @@ namespace Transports.Core.Models
             Name = name;
             Age = age;
             Rang = rang.ToString();
-            InMemoryContext.Drivers.Add(this);
+            InMemoryContext.Instance.Drivers.Add(this);
         }
 
         public Driver() : this("Ivan", 16, 1) { }
@@ -73,7 +74,7 @@ namespace Transports.Core.Models
 
         public List<Shift> GetDriverShiftsList()
         {
-            return InMemoryContext.DriverShifts
+            return InMemoryContext.Instance.DriverShifts
                 .Where(x => x.Driver == this)
                 .Select(x => x.Shift)
                 .ToList();
@@ -95,7 +96,7 @@ namespace Transports.Core.Models
         {
             using (var fs = new FileStream("Drivers.xml", FileMode.Create))
             {
-                xml.Serialize(fs, InMemoryContext.Drivers);
+                xml.Serialize(fs, InMemoryContext.Instance.Drivers);
             }
         }
 
@@ -105,7 +106,7 @@ namespace Transports.Core.Models
             {
                 try
                 {
-                    InMemoryContext.Drivers = (List<Driver>) xml.Deserialize(fileStream);
+                    InMemoryContext.Instance.Drivers = (List<Driver>) xml.Deserialize(fileStream);
                 }
                 catch (Exception)
                 {

@@ -4,6 +4,7 @@ using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Linq;
 using System.Runtime.Serialization;
+using Transports.Core.Contexts;
 
 namespace Transports.Core.Models
 {
@@ -50,7 +51,7 @@ namespace Transports.Core.Models
 
         public List<Driver> GetRouteDriversList()
         {
-            return InMemoryContext.DriverShifts
+            return InMemoryContext.Instance.DriverShifts
                 .Where(x => x.Shift == this)
                 .Select(x => x.Driver)
                 .ToList();

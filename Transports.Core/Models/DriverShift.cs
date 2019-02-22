@@ -5,6 +5,7 @@ using System.Data.Linq.Mapping;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Transports.Core.Contexts;
 
 namespace Transports.Core.Models
 {
@@ -60,7 +61,7 @@ namespace Transports.Core.Models
             _Driver = new EntityRef<Driver>();
             Driver = driver;
             Shift = shift;
-            InMemoryContext.DriverShifts.Add(this);
+            InMemoryContext.Instance.DriverShifts.Add(this);
         }
 
         public DriverShift()
@@ -68,14 +69,14 @@ namespace Transports.Core.Models
             DriverShiftID = Guid.NewGuid();
             _Shift = new EntityRef<Shift>();
             _Driver = new EntityRef<Driver>();
-            InMemoryContext.DriverShifts.Add(this);
+            InMemoryContext.Instance.DriverShifts.Add(this);
         }
 
         public static void Serialize(XmlSerializer xml)
         {
             using (var fs = new FileStream("DriverShifts.xml", FileMode.Create))
             {
-                xml.Serialize(fs, InMemoryContext.DriverShifts);
+                xml.Serialize(fs, InMemoryContext.Instance.DriverShifts);
             }
         }
 
@@ -83,7 +84,7 @@ namespace Transports.Core.Models
         {
             using (var fileStream = new FileStream("DriverShifts.xml", FileMode.OpenOrCreate))
             {
-                InMemoryContext.DriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
+                InMemoryContext.Instance.DriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
             }
         }
 
