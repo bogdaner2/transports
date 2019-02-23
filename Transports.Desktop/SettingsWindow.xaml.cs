@@ -18,8 +18,12 @@ namespace Transports.Desktop
 
         private void OnOk(object sender, RoutedEventArgs e)
         {
-            Enum.TryParse((TypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(), out StoreType storeType);
-            Enum.TryParse((SerializationComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(), out SerializationProvider serializationProvider);
+            Enum.TryParse(
+                (TypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(),
+                out StoreType storeType);
+            Enum.TryParse(
+                (SerializationComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(),
+                out SerializationProvider serializationProvider);
 
             StateService.SetStoreType(storeType);
             StateService.SetSerializationProvider(serializationProvider);

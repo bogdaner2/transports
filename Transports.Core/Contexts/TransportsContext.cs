@@ -12,6 +12,7 @@ namespace Transports.Core.Contexts
         public static TransportsContext Instance => Lazy.Value;
         private TransportsContext(string connection) : base(connection)
         {
+            DeleteDB();
             if (!DatabaseExists())
             {
                 CreateDatabase();
@@ -23,6 +24,8 @@ namespace Transports.Core.Contexts
         {
 
         }
+
+        private void DeleteDB() => DeleteDatabase();
 
         public Table<Driver> Drivers => GetTable<Driver>();
         public Table<Shift> Shifts => GetTable<Shift>();

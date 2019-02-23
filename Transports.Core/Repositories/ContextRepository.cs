@@ -4,11 +4,12 @@ using System.Data.Linq;
 using System.Linq;
 using System.Linq.Expressions;
 using Transports.Core.Contexts;
+using Transports.Core.Interfaces;
 using Transports.Core.Models;
 
-namespace Transports.Core
+namespace Transports.Core.Repositories
 {
-    public class ContextRepository<T> where  T: class, IEntity
+    public class ContextRepository<T> : IRepository<T> where T : class, IEntity
     {
         private readonly Table<T> _table;
         public ContextRepository()
@@ -16,7 +17,7 @@ namespace Transports.Core
             _table = TransportsContext.Instance.GetTable<T>();
         }
 
-        public List<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return _table.ToList();
         }
@@ -43,7 +44,7 @@ namespace Transports.Core
         {
             TransportsContext.Instance.SubmitChanges();
         }
-        public bool Delete(T item)
+        public bool Remove(T item)
         {
             try
             {

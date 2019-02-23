@@ -1,38 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using Transports.Core;
-using Transports.Core.Contexts;
-using Transports.Core.Models;
+﻿using System.Windows;
 using Transports.Desktop.Views;
 
 namespace Transports.Desktop
 {
-    /// <summary>
-    ///     Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private readonly TransportsContext _db;
         public MainWindow()
         {
             InitializeComponent();
-
-        //var repo = new ContextRepository<Shift>();
-        //var shift = new Shift
-        //{
-        //    End = DateTime.Now,
-        //    Start = DateTime.Now
-        //};
-
-        //repo.Create(
-        //shift.AddRoutes(new List<Route>{
-        //    new Route(10, false),
-        //    new Route(10, false),
-        //    new Route(10, false)
-        //}));
-        //var items = repo.GetAll();
-    }
+            Main.Content = new DriversView();
+        }
 
         private void Button_On_Drivers_Page(object sender, RoutedEventArgs e)
         {

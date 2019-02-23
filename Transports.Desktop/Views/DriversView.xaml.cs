@@ -18,5 +18,15 @@ namespace Transports.Desktop.Views
         {
             DriverViewModel.AddDriver();
         }
+
+        private void Update_Driver_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void Remove_Driver_OnClick(object sender, RoutedEventArgs e)
+        {
+            DriverViewModel.RemoveDriver();
+        }
     }
 }

@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Transports.Core;
 using Transports.Core.Contexts;
 using Transports.Core.Models;
+using Transports.Core.Repositories;
 using Transports.Desktop.MVVM;
 
 namespace Transports.Desktop.ViewModels
@@ -10,6 +12,7 @@ namespace Transports.Desktop.ViewModels
     {
         private Driver _selectedDriver;
         private ObservableCollection<Driver> _drivers;
+
         private readonly ContextRepository<Driver> _repo;
         public Driver SelectedDriver
         {
@@ -25,31 +28,62 @@ namespace Transports.Desktop.ViewModels
 
         public DriversViewModel()
         {
+            _drivers = new ObservableCollection<Driver>();
             _repo = new ContextRepository<Driver>();
+            _selectedDriver = new Driver();
         }
 
         public void LoadData()
         {
-            Drivers = new ObservableCollection<Driver>();
-            
-            if(Drivers.Count != 0)
-                SelectedDriver = Drivers[0];
+            if (StateService.StoreType == StoreType.InMemory)
+            {
+                InMemoryContext.Instance.LoadData();
+                Drivers = new ObservableCollection<Driver>(InMemoryContext.Instance.Drivers);
+            }
+            else
+            {
+                Drivers = new ObservableCollection<Driver>(_repo.GetAll());
+            }
         }
 
-        public Driver AddDriver()
+        public void AddDriver()
         {
-            Drivers.Add(SelectedDriver);
+            var newDriver = SelectedDriver.Clone() as Driver;
+
+            newDriver.DriverId = Guid.NewGuid();
+
+            Drivers.Add(newDriver);
 
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Drivers.Add(SelectedDriver);
+                InMemoryContext.Instance.Drivers.Add(newDriver);
             }
             else
             {
                 _repo.Create(SelectedDriver);
             }
+        }
 
-            return SelectedDriver;
+        public void UpdateDriver()
+        {
+            if (StateService.StoreType == StoreType.InDatabase)
+            {
+                _repo.Save();
+            }
+        }
+
+        public void RemoveDriver()
+        {
+            Drivers.Remove(SelectedDriver);
+
+            if (StateService.StoreType == StoreType.InMemory)
+            {
+                InMemoryContext.Instance.Drivers.Remove(SelectedDriver);
+            }
+
+            _repo.Remove(SelectedDriver);
+
+            _selectedDriver = new Driver();
         }
     }
 }

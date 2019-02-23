@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -11,9 +10,8 @@ using Transports.Core.Contexts;
 namespace Transports.Core.Models
 {
     [Table(Name = "dbo.Drivers"), Serializable, DataContract]
-    public class Driver : IEntity
+    public class Driver : ICloneable, IEntity
     {
-        private string _rang;
         private EntitySet<DriverShift> _DriverShifts;
         private Guid _DriverID;
 
@@ -31,24 +29,7 @@ namespace Transports.Core.Models
         public int Age { get; set; }
 
         [Column, DataMember]
-        public string Rang
-        {
-            get => _rang;
-            set
-            {
-                if (Age >= 18)
-                    try
-                    {
-                        _rang = Enum.GetName(typeof(RangEnum), int.Parse(value));
-                    }
-                    catch (FormatException)
-                    {
-                        _rang = value;
-                    }
-                else
-                    _rang = "A";
-            }
-        }
+        public RangEnum Rang { get; set; }
 
         [Association(Storage = "_DriverShifts", OtherKey = "DriverID")]
         public EntitySet<DriverShift> DriverShifts
@@ -57,18 +38,17 @@ namespace Transports.Core.Models
             set => _DriverShifts.Assign(value);
         }
 
-
-        public Driver(string name, int age, int rang)
+        public Driver(string name, int age, RangEnum rang)
         {
             DriverId = Guid.NewGuid();
-            DriverShifts = new EntitySet<DriverShift>();
+            _DriverShifts = new EntitySet<DriverShift>();
             Name = name;
             Age = age;
-            Rang = rang.ToString();
+            Rang = rang;
             InMemoryContext.Instance.Drivers.Add(this);
         }
-
-        public Driver() : this("Ivan", 16, 1) { }
+        public Driver() { InMemoryContext.Instance.Drivers.Add(this); }
+        public Driver(bool @default = false) : this("Ivan", 16, RangEnum.A) { }
 
         public bool IsAdult() => Age >= 18;
 
@@ -80,11 +60,11 @@ namespace Transports.Core.Models
                 .ToList();
         }
 
-        public bool PassExam(bool isPrepared)
+        public bool PassExam(bool isPrepared = false)
         {
             var random = new Random();
             var chance = isPrepared ? 7 : 3;
-            if (Rang != "D")
+            if (Rang != RangEnum.D)
             {
                 if (random.Next(0, 10) <= chance) return true;
             }
@@ -92,31 +72,36 @@ namespace Transports.Core.Models
             return false;
         }
 
-        public static void Serialize(XmlSerializer xml)
-        {
-            using (var fs = new FileStream("Drivers.xml", FileMode.Create))
-            {
-                xml.Serialize(fs, InMemoryContext.Instance.Drivers);
-            }
-        }
+        //public static void Serialize(XmlSerializer xml)
+        //{
+        //    using (var fs = new FileStream("Drivers.xml", FileMode.Create))
+        //    {
+        //        xml.Serialize(fs, InMemoryContext.Instance.Drivers);
+        //    }
+        //}
 
-        public static void Deserialize(XmlSerializer xml)
-        {
-            using (var fileStream = new FileStream("Drivers.xml", FileMode.OpenOrCreate))
-            {
-                try
-                {
-                    InMemoryContext.Instance.Drivers = (List<Driver>) xml.Deserialize(fileStream);
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
+        //public static void Deserialize(XmlSerializer xml)
+        //{
+        //    using (var fileStream = new FileStream("Drivers.xml", FileMode.OpenOrCreate))
+        //    {
+        //        try
+        //        {
+        //            InMemoryContext.Instance.Drivers = (List<Driver>) xml.Deserialize(fileStream);
+        //        }
+        //        catch (Exception)
+        //        {
+        //        }
+        //    }
+        //}
 
         public override string ToString()
         {
             return string.Format($"{Name} {Age} years.Rang {Rang}");
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

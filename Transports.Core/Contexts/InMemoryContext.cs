@@ -17,5 +17,15 @@ namespace Transports.Core.Contexts
         public List<DriverShift> DriverShifts = new List<DriverShift>();
         public List<Transport> Transports = new List<Transport>();
         public List<Route> Routes = new List<Route>();
+
+        public void LoadData()
+        {
+
+        }
+
+        public void SaveData()
+        {
+
+        }
     }
 }
