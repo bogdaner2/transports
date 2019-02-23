@@ -8,17 +8,14 @@
         Title="MainWindow" Height="550" Width="820">
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" >
-            <Button Content="Drivers" Click="Button_On_Drivers_Page"></Button>
-            <Button Content="Shifts" Click="Button_On_Shifts_Page"></Button>
-            <Button Content="DriverShifts" Click="Button_On_DriverShifts_Page"></Button>
-            <Button Content="Routes" Click="Button_On_Routes_Page"></Button>
-            <Button Content="Transports" Click="Button_On_Transports_Page"></Button>
-            <Button Content="Passports" Click="Button_On_Passports_Page"></Button>
-            <Label Content="Choose way for store data"/>
-            <ListBox Height="28" Width="100"/>
-            <Label Content="Choose way for load data"/>
-            <ListBox Height="28" Width="100"/>
+            <Label Width="200" HorizontalContentAlignment="Center">Transports system</Label>
+            <Button Margin="20,0,0,0" Width="80" Content="Drivers" Click="Button_On_Drivers_Page"></Button>
+            <Button Margin="20,0,0,0" Width="80" Content="Shifts" Click="Button_On_Shifts_Page"></Button>
+            <Button Margin="20,0,0,0" Width="80" Content="DriverShifts" Click="Button_On_DriverShifts_Page"></Button>
+            <Button Margin="20,0,0,0" Width="80" Content="Routes" Click="Button_On_Routes_Page"></Button>
+            <Button Margin="20,0,0,0" Width="80" Content="Transports" Click="Button_On_Transports_Page"></Button>
+            <Button Margin="20,0,0,0" Width="80" Content="Passports" Click="Button_On_Passports_Page"></Button>
         </StackPanel>
-        <Frame x:Name="Main" Margin="0,24,-0.4,-0.2" NavigationUIVisibility="Hidden" />
+        <Frame x:Name="Main" Margin="0,31,-0.4,-0.2" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

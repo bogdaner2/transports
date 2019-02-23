@@ -18,21 +18,21 @@ namespace Transports.Desktop
         {
             InitializeComponent();
 
-            var repo = new ContextRepository<Shift>();
-            var shift = new Shift
-            {
-                End = DateTime.Now,
-                Start = DateTime.Now
-            };
+        //var repo = new ContextRepository<Shift>();
+        //var shift = new Shift
+        //{
+        //    End = DateTime.Now,
+        //    Start = DateTime.Now
+        //};
 
-            repo.Create(
-            shift.AddRoutes(new List<Route>{
-                new Route(10, false),
-                new Route(10, false),
-                new Route(10, false)
-            }));
-            var items = repo.GetAll();
-        }
+        //repo.Create(
+        //shift.AddRoutes(new List<Route>{
+        //    new Route(10, false),
+        //    new Route(10, false),
+        //    new Route(10, false)
+        //}));
+        //var items = repo.GetAll();
+    }
 
         private void Button_On_Drivers_Page(object sender, RoutedEventArgs e)
         {

@@ -3,7 +3,7 @@
     public static class StateService
     {
         public static StoreType StoreType { get; private set; }
-        public static WayDataLoad WayDataLoad { get; private set; }
+        public static SerializationProvider SerializationProvider { get; private set; }
 
         public static StoreType SetStoreType(StoreType type)
         {
@@ -11,10 +11,10 @@
             return StoreType;
         }
 
-        public static WayDataLoad SetWayForDataLoad(WayDataLoad way)
+        public static SerializationProvider SetSerializationProvider(SerializationProvider provider)
         {
-            WayDataLoad = way;
-            return WayDataLoad;
+            SerializationProvider = provider;
+            return SerializationProvider;
         }
     }
 
@@ -24,9 +24,10 @@
         InDatabase
     }
 
-    public enum WayDataLoad
+    public enum SerializationProvider
     {
-        Serialization,
-        FromDatabase
+        XmlSerializer,
+        DataContractSerializer,
+        JsonSerializer
     }
 }
