@@ -63,6 +63,8 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DriversViewModel.cs" />
+    <Compile Include="ViewModels\TechPassportsViewModel.cs" />
+    <Compile Include="ViewModels\TransportsViewModel.cs" />
     <Compile Include="Views\DriverShiftsView.xaml.cs">
       <DependentUpon>DriverShiftsView.xaml</DependentUpon>
     </Compile>

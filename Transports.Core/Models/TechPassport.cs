@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Data.Linq.Mapping;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Transports.Core.Models
 {
     [Table(Name = "dbo.TechPassports"), Serializable, DataContract]
-    public class TechPassport : IEntity
+    public class TechPassport : ICloneable, IEntity
     {
         private Guid _TechPassportID;
 
-        [Column(IsPrimaryKey = true, Storage = "_TechPassportID")]
+        [Column(IsPrimaryKey = true, Storage = "_TechPassportID"), DataMember]
         public Guid TechPassportID
         {
             get => _TechPassportID;
             set => _TechPassportID = value;
         }
-        [Column]
+        [Column, DataMember]
         public string Brand { get; set; }
-        [Column]
+        [Column, DataMember]
         public int YearOfManufacture { get; set; }
         public TechPassport(string brand, int year)
         {
@@ -26,8 +27,14 @@ namespace Transports.Core.Models
             YearOfManufacture = year;
         }
 
-        public TechPassport() { }
+        public TechPassport() { TechPassportID = Guid.NewGuid(); }
 
-        public override string ToString() => string.Format($"{Brand}");
+        public override string ToString()
+        {
+            return string.Format(
+                $"Id : {TechPassportID.ToString().Substring(TechPassportID.ToString().Length - 6)} | Brand : {Brand}");
+        }
+
+        public object Clone() => MemberwiseClone();
     }
 }

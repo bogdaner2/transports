@@ -10,7 +10,7 @@ using Transports.Core.Contexts;
 namespace Transports.Core.Models
 {
     [Table(Name = "dbo.Transports"), DataContract, Serializable]
-    public class Transport : IEntity
+    public class Transport : ICloneable, IEntity
     {
         private Guid _TransportID;
         private Guid _PassportID;
@@ -52,8 +52,9 @@ namespace Transports.Core.Models
             CountOfSeats = countOfSeats;
         }
 
-        private Transport() { }
+        public Transport() { TransportID = Guid.NewGuid(); }
 
         public override string ToString() => string.Format($"{TypeOfTransport}");
+        public object Clone() => MemberwiseClone();
     }
 }

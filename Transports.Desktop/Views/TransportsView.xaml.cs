@@ -1,28 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Transports.Desktop.ViewModels;
 
 namespace Transports.Desktop.Views
 {
-    /// <summary>
-    /// Interaction logic for TransportsView.xaml
-    /// </summary>
     public partial class TransportsView : Page
     {
+        private TransportsViewModel TransportsViewModel { get; set; }
         public TransportsView()
         {
             InitializeComponent();
+            TransportsViewModel = new TransportsViewModel();
+            DataContext = TransportsViewModel;
+        }
+
+        private void Add_Transport_OnClick(object sender, RoutedEventArgs e)
+        {
+            TransportsViewModel.AddTransport();
+        }
+
+        private void Update_Transport_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void Remove_Transport_OnClick(object sender, RoutedEventArgs e)
+        {
+            TransportsViewModel.RemoveTransport();
         }
     }
 }
