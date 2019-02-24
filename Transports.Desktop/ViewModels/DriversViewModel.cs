@@ -50,8 +50,6 @@ namespace Transports.Desktop.ViewModels
         {
             var newDriver = SelectedDriver.Clone() as Driver;
 
-            newDriver.DriverId = Guid.NewGuid();
-
             Drivers.Add(newDriver);
 
             if (StateService.StoreType == StoreType.InMemory)

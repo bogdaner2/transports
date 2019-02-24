@@ -45,9 +45,12 @@ namespace Transports.Core.Models
             Name = name;
             Age = age;
             Rang = rang;
-            InMemoryContext.Instance.Drivers.Add(this);
         }
-        public Driver() { InMemoryContext.Instance.Drivers.Add(this); }
+
+        public Driver()
+        {
+            DriverId = Guid.NewGuid();
+        }
         public Driver(bool @default = false) : this("Ivan", 16, RangEnum.A) { }
 
         public bool IsAdult() => Age >= 18;
@@ -71,28 +74,6 @@ namespace Transports.Core.Models
 
             return false;
         }
-
-        //public static void Serialize(XmlSerializer xml)
-        //{
-        //    using (var fs = new FileStream("Drivers.xml", FileMode.Create))
-        //    {
-        //        xml.Serialize(fs, InMemoryContext.Instance.Drivers);
-        //    }
-        //}
-
-        //public static void Deserialize(XmlSerializer xml)
-        //{
-        //    using (var fileStream = new FileStream("Drivers.xml", FileMode.OpenOrCreate))
-        //    {
-        //        try
-        //        {
-        //            InMemoryContext.Instance.Drivers = (List<Driver>) xml.Deserialize(fileStream);
-        //        }
-        //        catch (Exception)
-        //        {
-        //        }
-        //    }
-        //}
 
         public override string ToString()
         {

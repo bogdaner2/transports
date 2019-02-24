@@ -49,7 +49,7 @@ namespace Transports.Core.Models
             ShiftID = Guid.NewGuid();
         }
 
-        public List<Driver> GetRouteDriversList()
+        public List<Driver> GetDriverShiftsList()
         {
             return InMemoryContext.Instance.DriverShifts
                 .Where(x => x.Shift == this)

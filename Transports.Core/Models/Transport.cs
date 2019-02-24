@@ -50,32 +50,31 @@ namespace Transports.Core.Models
             TypeOfTransport = typeOfTransport;
             Passport = tp;
             CountOfSeats = countOfSeats;
-            InMemoryContext.Instance.Transports.Add(this);
         }
 
         private Transport() { }
 
-        public static void Serialize(XmlSerializer xml)
-        {
-            using (var fs = new FileStream("Transport.xml", FileMode.Create))
-            {
-                xml.Serialize(fs, InMemoryContext.Instance.Transports);
-            }
-        }
+        //public static void Serialize(XmlSerializer xml)
+        //{
+        //    using (var fs = new FileStream("Transport.xml", FileMode.Create))
+        //    {
+        //        xml.Serialize(fs, InMemoryContext.Instance.Transports);
+        //    }
+        //}
 
-        public static void Deserialize(XmlSerializer xml)
-        {
-            using (var fileStream = new FileStream("Transport.xml", FileMode.OpenOrCreate))
-            {
-                try
-                {
-                    InMemoryContext.Instance.Transports = (List<Transport>) xml.Deserialize(fileStream);
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
+        //public static void Deserialize(XmlSerializer xml)
+        //{
+        //    using (var fileStream = new FileStream("Transport.xml", FileMode.OpenOrCreate))
+        //    {
+        //        try
+        //        {
+        //            InMemoryContext.Instance.Transports = (List<Transport>) xml.Deserialize(fileStream);
+        //        }
+        //        catch (Exception)
+        //        {
+        //        }
+        //    }
+        //}
 
         public override string ToString()
         {

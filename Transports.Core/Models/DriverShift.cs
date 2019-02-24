@@ -61,7 +61,6 @@ namespace Transports.Core.Models
             _Driver = new EntityRef<Driver>();
             Driver = driver;
             Shift = shift;
-            InMemoryContext.Instance.DriverShifts.Add(this);
         }
 
         public DriverShift()
@@ -69,24 +68,23 @@ namespace Transports.Core.Models
             DriverShiftID = Guid.NewGuid();
             _Shift = new EntityRef<Shift>();
             _Driver = new EntityRef<Driver>();
-            InMemoryContext.Instance.DriverShifts.Add(this);
         }
 
-        public static void Serialize(XmlSerializer xml)
-        {
-            using (var fs = new FileStream("DriverShifts.xml", FileMode.Create))
-            {
-                xml.Serialize(fs, InMemoryContext.Instance.DriverShifts);
-            }
-        }
+        //public static void Serialize(XmlSerializer xml)
+        //{
+        //    using (var fs = new FileStream("DriverShifts.xml", FileMode.Create))
+        //    {
+        //        xml.Serialize(fs, InMemoryContext.Instance.DriverShifts);
+        //    }
+        //}
 
-        public static void Deserialize(XmlSerializer xml)
-        {
-            using (var fileStream = new FileStream("DriverShifts.xml", FileMode.OpenOrCreate))
-            {
-                InMemoryContext.Instance.DriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
-            }
-        }
+        //public static void Deserialize(XmlSerializer xml)
+        //{
+        //    using (var fileStream = new FileStream("DriverShifts.xml", FileMode.OpenOrCreate))
+        //    {
+        //        InMemoryContext.Instance.DriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
+        //    }
+        //}
 
         public override string ToString()
         {

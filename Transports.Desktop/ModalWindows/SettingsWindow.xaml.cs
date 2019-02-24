@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Transports.Desktop
+namespace Transports.Desktop.ModalWindows
 {
     public partial class SettingsWindow : Window
     {

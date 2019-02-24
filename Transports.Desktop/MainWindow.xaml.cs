@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Transports.Desktop.ModalWindows;
 using Transports.Desktop.Views;
 
 namespace Transports.Desktop
@@ -9,6 +10,11 @@ namespace Transports.Desktop
         {
             InitializeComponent();
             Main.Content = new DriversView();
+
+            if (StateService.StoreType == StoreType.InMemory)
+            {
+                Closing += (sender, args) => new SaveDataWindow().Show();
+            }
         }
 
         private void Button_On_Drivers_Page(object sender, RoutedEventArgs e)

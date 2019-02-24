@@ -46,7 +46,7 @@
     <Compile Include="Contexts\InMemoryContext.cs" />
     <Compile Include="Interfaces\IContext.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="SerializationProviders\JSONTypeSerialize.cs" />
+    <Compile Include="SerializationProviders\JsonSerializer.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\DriverShift.cs" />
     <Compile Include="Interfaces\IEntity.cs" />

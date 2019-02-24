@@ -60,32 +60,31 @@ namespace Transports.Core.Models
             Length = length;
             IsTrafficJam = isTrafficJam;
             EstimatedTime = new Random().Next(1, 120);
-            InMemoryContext.Instance.Routes.Add(this);
         }
 
         public Route() { }
 
-        public static void Serialize(XmlSerializer xml)
-        {
-            using (var fs = new FileStream("Routes.xml", FileMode.Create))
-            {
-                xml.Serialize(fs, InMemoryContext.Instance.Routes);
-            }
-        }
+        //public static void Serialize(XmlSerializer xml)
+        //{
+        //    using (var fs = new FileStream("Routes.xml", FileMode.Create))
+        //    {
+        //        xml.Serialize(fs, InMemoryContext.Instance.Routes);
+        //    }
+        //}
 
-        public static void Deserialize(XmlSerializer xml)
-        {
-            using (var fileStream = new FileStream("Routes.xml", FileMode.OpenOrCreate))
-            {
-                try
-                {
-                    InMemoryContext.Instance.Routes = (List<Route>) xml.Deserialize(fileStream);
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
+        //public static void Deserialize(XmlSerializer xml)
+        //{
+        //    using (var fileStream = new FileStream("Routes.xml", FileMode.OpenOrCreate))
+        //    {
+        //        try
+        //        {
+        //            InMemoryContext.Instance.Routes = (List<Route>) xml.Deserialize(fileStream);
+        //        }
+        //        catch (Exception)
+        //        {
+        //        }
+        //    }
+        //}
 
         public override string ToString()
         {
