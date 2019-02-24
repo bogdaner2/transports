@@ -11,6 +11,7 @@ namespace Transports.Desktop.ViewModels
     {
         private Driver _selectedDriver;
         private ObservableCollection<Driver> _drivers;
+        private string _updateBtnVisibility;
 
         private readonly ContextRepository<Driver> _repo;
         public Driver SelectedDriver
@@ -25,11 +26,19 @@ namespace Transports.Desktop.ViewModels
             set => SetProperty(ref _drivers, value);
         }
 
+        public string UpdateBtnVisibility
+        {
+            get => _updateBtnVisibility;
+            set => SetProperty(ref _updateBtnVisibility, value);
+        }
+
         public DriversViewModel()
         {
-            _drivers = new ObservableCollection<Driver>();
             _repo = new ContextRepository<Driver>();
             _selectedDriver = new Driver();
+            UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
+
+            LoadData();
         }
 
         public void LoadData()

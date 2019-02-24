@@ -70,22 +70,6 @@ namespace Transports.Core.Models
             _Driver = new EntityRef<Driver>();
         }
 
-        //public static void Serialize(XmlSerializer xml)
-        //{
-        //    using (var fs = new FileStream("DriverShifts.xml", FileMode.Create))
-        //    {
-        //        xml.Serialize(fs, InMemoryContext.Instance.DriverShifts);
-        //    }
-        //}
-
-        //public static void Deserialize(XmlSerializer xml)
-        //{
-        //    using (var fileStream = new FileStream("DriverShifts.xml", FileMode.OpenOrCreate))
-        //    {
-        //        InMemoryContext.Instance.DriverShifts = (List<DriverShift>) xml.Deserialize(fileStream);
-        //    }
-        //}
-
         public override string ToString()
         {
             return string.Format($"{Driver.Name} | {Shift.Start.ToShortTimeString()} + {Shift.End.ToShortTimeString()}");

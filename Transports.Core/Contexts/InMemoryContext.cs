@@ -31,6 +31,9 @@ namespace Transports.Core.Contexts
                 case SerializationProvider.JsonSerializer:
                     DeserializeJson();
                     break;
+                case SerializationProvider.XmlSerializer:
+                    DeserializeXml();
+                    break;
             }
         }
         public void SaveData()
@@ -40,50 +43,51 @@ namespace Transports.Core.Contexts
                 case SerializationProvider.JsonSerializer:
                     SerializeJson();
                     break;
+                case SerializationProvider.XmlSerializer:
+                    DeserializeXml();
+                    break;
             }
         }
 
         public void SerializeJson()
         {
-            JsonSerializer.Serialize(new DataContractJsonSerializer(Drivers.GetType()), Drivers);
-            JsonSerializer.Serialize(new DataContractJsonSerializer(Routes.GetType()), Routes);
-            JsonSerializer.Serialize(new DataContractJsonSerializer(Transports.GetType()), Transports);
-            JsonSerializer.Serialize(new DataContractJsonSerializer(Shifts.GetType()), Shifts);
-            JsonSerializer.Serialize(new DataContractJsonSerializer(DriverShifts.GetType()), DriverShifts);
-            JsonSerializer.Serialize(new DataContractJsonSerializer(TechPassports.GetType()), TechPassports);
+            JsonSerializerProvider.Serialize(new DataContractJsonSerializer(Drivers.GetType()), Drivers);
+            JsonSerializerProvider.Serialize(new DataContractJsonSerializer(Routes.GetType()), Routes);
+            JsonSerializerProvider.Serialize(new DataContractJsonSerializer(Transports.GetType()), Transports);
+            JsonSerializerProvider.Serialize(new DataContractJsonSerializer(Shifts.GetType()), Shifts);
+            JsonSerializerProvider.Serialize(new DataContractJsonSerializer(DriverShifts.GetType()), DriverShifts);
+            JsonSerializerProvider.Serialize(new DataContractJsonSerializer(TechPassports.GetType()), TechPassports);
         }
 
         public void DeserializeJson()
         {
-            JsonSerializer.Deserialize(new DataContractJsonSerializer(Drivers.GetType()), ref Drivers);
-            JsonSerializer.Deserialize(new DataContractJsonSerializer(Routes.GetType()),ref Routes);
-            JsonSerializer.Deserialize(new DataContractJsonSerializer(Transports.GetType()),ref Transports);
-            JsonSerializer.Deserialize(new DataContractJsonSerializer(Shifts.GetType()),ref Shifts);
-            JsonSerializer.Deserialize(new DataContractJsonSerializer(DriverShifts.GetType()),ref DriverShifts);
-            JsonSerializer.Deserialize(new DataContractJsonSerializer(TechPassports.GetType()),ref TechPassports);
+            JsonSerializerProvider.Deserialize(new DataContractJsonSerializer(Drivers.GetType()), ref Drivers);
+            JsonSerializerProvider.Deserialize(new DataContractJsonSerializer(Routes.GetType()),ref Routes);
+            JsonSerializerProvider.Deserialize(new DataContractJsonSerializer(Transports.GetType()),ref Transports);
+            JsonSerializerProvider.Deserialize(new DataContractJsonSerializer(Shifts.GetType()),ref Shifts);
+            JsonSerializerProvider.Deserialize(new DataContractJsonSerializer(DriverShifts.GetType()),ref DriverShifts);
+            JsonSerializerProvider.Deserialize(new DataContractJsonSerializer(TechPassports.GetType()),ref TechPassports);
         }
 
-        //private void Serialize<T>(XmlSerializer xml, IEnumerable<T> list)
-        //{
-        //    using (var fs = new FileStream(type.Name + ".xml", FileMode.Create))
-        //    {
-        //        xml.Serialize(fs, list);
-        //    }
-        //}
+        public void SerializeXml()
+        {
+            XmlSerializerProvider.Serialize(new XmlSerializer(Drivers.GetType()), Drivers);
+            XmlSerializerProvider.Serialize(new XmlSerializer(Routes.GetType()), Routes);
+            XmlSerializerProvider.Serialize(new XmlSerializer(Transports.GetType()), Transports);
+            XmlSerializerProvider.Serialize(new XmlSerializer(Shifts.GetType()), Shifts);
+            XmlSerializerProvider.Serialize(new XmlSerializer(DriverShifts.GetType()), DriverShifts);
+            XmlSerializerProvider.Serialize(new XmlSerializer(TechPassports.GetType()), TechPassports);
+        }
 
+        public void DeserializeXml()
+        {
+            XmlSerializerProvider.Serialize(new XmlSerializer(Drivers.GetType()), Drivers);
+            XmlSerializerProvider.Serialize(new XmlSerializer(Routes.GetType()), Routes);
+            XmlSerializerProvider.Serialize(new XmlSerializer(Transports.GetType()), Transports);
+            XmlSerializerProvider.Serialize(new XmlSerializer(Shifts.GetType()), Shifts);
+            XmlSerializerProvider.Serialize(new XmlSerializer(DriverShifts.GetType()), DriverShifts);
+            XmlSerializerProvider.Serialize(new XmlSerializer(TechPassports.GetType()), TechPassports);
+        }
 
-        //public static void Deserialize(XmlSerializer xml)
-        //{
-        //    using (var fileStream = new FileStream("Drivers.xml", FileMode.OpenOrCreate))
-        //    {
-        //        try
-        //        {
-        //            InMemoryContext.Instance.Drivers = (List<Driver>) xml.Deserialize(fileStream);
-        //        }
-        //        catch (Exception)
-        //        {
-        //        }
-        //    }
-        //}
     }
 }

@@ -75,14 +75,7 @@ namespace Transports.Core.Models
             return false;
         }
 
-        public override string ToString()
-        {
-            return string.Format($"{Name} {Age} years.Rang {Rang}");
-        }
-
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
+        public override string ToString() => string.Format($"{Name} {Age} years.Rang {Rang}");
+        public object Clone() => MemberwiseClone();
     }
 }

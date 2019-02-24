@@ -46,8 +46,8 @@
             <ComboBox Margin="10,0,10,0" Height="23" SelectedItem="{Binding SelectedDriver.Rang}"
                       ItemsSource="{Binding Source={StaticResource Rangs}}"/>
             <Button Margin="80,20,80,0" Content="Create" Click="Add_Driver_OnClick"/>
-            <Button Margin="80,20,80,0" Content="Update" Click="Update_Driver_OnClick"/>
             <Button Margin="80,20,80,0" Content="Delete" Click="Remove_Driver_OnClick"/>
+            <Button Margin="80,20,80,0" Visibility="{Binding UpdateBtnVisibility}" Content="Update" Click="Update_Driver_OnClick"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -24,7 +24,6 @@
         <TextBlock Grid.Row="2">Choose serialize provider (if store in memory):</TextBlock>
         <ComboBox Name="SerializationComboBox" Grid.Row="3" MinWidth="250" SelectedIndex="0">
             <ComboBoxItem>XmlSerializer</ComboBoxItem>
-            <ComboBoxItem>DataContractSerializer</ComboBoxItem>
             <ComboBoxItem>JsonSerializer</ComboBoxItem>
         </ComboBox>
 

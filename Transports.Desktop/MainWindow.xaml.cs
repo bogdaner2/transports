@@ -11,13 +11,14 @@ namespace Transports.Desktop
         public MainWindow()
         {
             InitializeComponent();
-            Main.Content = new DriversView();
 
             if (StateService.StoreType == StoreType.InMemory)
             {
                 Closing += (sender, args) => new SaveDataWindow().Show();
                 InMemoryContext.Instance.LoadData();
             }
+
+            Main.Content = new DriversView();
         }
 
         private void Button_On_Drivers_Page(object sender, RoutedEventArgs e)

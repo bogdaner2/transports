@@ -54,31 +54,6 @@ namespace Transports.Core.Models
 
         private Transport() { }
 
-        //public static void Serialize(XmlSerializer xml)
-        //{
-        //    using (var fs = new FileStream("Transport.xml", FileMode.Create))
-        //    {
-        //        xml.Serialize(fs, InMemoryContext.Instance.Transports);
-        //    }
-        //}
-
-        //public static void Deserialize(XmlSerializer xml)
-        //{
-        //    using (var fileStream = new FileStream("Transport.xml", FileMode.OpenOrCreate))
-        //    {
-        //        try
-        //        {
-        //            InMemoryContext.Instance.Transports = (List<Transport>) xml.Deserialize(fileStream);
-        //        }
-        //        catch (Exception)
-        //        {
-        //        }
-        //    }
-        //}
-
-        public override string ToString()
-        {
-            return string.Format($"{TypeOfTransport}");
-        }
+        public override string ToString() => string.Format($"{TypeOfTransport}");
     }
 }

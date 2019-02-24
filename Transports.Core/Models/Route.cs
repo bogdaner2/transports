@@ -64,28 +64,6 @@ namespace Transports.Core.Models
 
         public Route() { }
 
-        //public static void Serialize(XmlSerializer xml)
-        //{
-        //    using (var fs = new FileStream("Routes.xml", FileMode.Create))
-        //    {
-        //        xml.Serialize(fs, InMemoryContext.Instance.Routes);
-        //    }
-        //}
-
-        //public static void Deserialize(XmlSerializer xml)
-        //{
-        //    using (var fileStream = new FileStream("Routes.xml", FileMode.OpenOrCreate))
-        //    {
-        //        try
-        //        {
-        //            InMemoryContext.Instance.Routes = (List<Route>) xml.Deserialize(fileStream);
-        //        }
-        //        catch (Exception)
-        //        {
-        //        }
-        //    }
-        //}
-
         public override string ToString()
         {
             return string.Format(

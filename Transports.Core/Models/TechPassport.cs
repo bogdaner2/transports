@@ -26,6 +26,8 @@ namespace Transports.Core.Models
             YearOfManufacture = year;
         }
 
+        public TechPassport() { }
+
         public override string ToString() => string.Format($"{Brand}");
     }
 }

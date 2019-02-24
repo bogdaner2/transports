@@ -27,7 +27,6 @@
     public enum SerializationProvider
     {
         XmlSerializer,
-        DataContractSerializer,
         JsonSerializer
     }
 }
