@@ -20,7 +20,7 @@
                 <DataTemplate>
                     <StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding TechPassportID, StringFormat='Id: {0}'}"/>
+                            <TextBlock Text="{Binding TechPassportId, StringFormat='Id: {0}'}"/>
                             <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Brand, StringFormat='Band: {0}'}"/>
                             <TextBlock FontSize="20" Text="{Binding YearOfManufacture, StringFormat='Year: {0}'}"/>
                         </StackPanel>

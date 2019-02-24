@@ -1,35 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.IO;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
-using Transports.Core.Contexts;
+using Transports.Core.Interfaces.Models;
 
-namespace Transports.Core.Models
+namespace Transports.Core.Models.SQL
 {
-    [Table(Name = "dbo.Transports"), DataContract, Serializable]
-    public class Transport : ICloneable, IEntity
+    [Table(Name = "dbo.Transports")]
+    public class Transport : ITransport, IEntity
     {
         private Guid _TransportID;
         private Guid _PassportID;
         private EntityRef<TechPassport> _Passport;
 
-        [Column(Storage = "_TransportID", IsPrimaryKey = true), DataMember]
+        [Column(Storage = "_TransportID", IsPrimaryKey = true)]
         public Guid TransportID
         {
             get => _TransportID;
             set => _TransportID = value;
         }
 
-        [Column, DataMember]
+        public Guid TransportId { get; set; }
+
+        [Column]
         public string TypeOfTransport { get; set; }
-        [Column, DataMember]
+        [Column]
         public int CountOfSeats { get; set; }
 
 
-        [Column(Storage = "_PassportID"), DataMember]
+        [Column(Storage = "_PassportID")]
         public Guid PassportID
         {
             get => _PassportID;

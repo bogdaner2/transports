@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
-using Transports.Core.Contexts;
 
-namespace Transports.Core.Models
+namespace Transports.Core.Models.SQL
 {
-    [Table(Name = "dbo.Routes"), Serializable, DataContract]
+    [Table(Name = "dbo.Routes")]
     public class Route : IEntity
     {
         private int _time;
@@ -18,27 +13,27 @@ namespace Transports.Core.Models
         private Guid _ShiftID;
         private EntityRef<Shift> _Shift;
 
-        [Column(IsPrimaryKey = true, Storage = "_RouteID"), DataMember]
+        [Column(IsPrimaryKey = true, Storage = "_RouteID")]
         public Guid RouteID
         {
             get => _RouteID;
             set => _RouteID = value;
         }
 
-        [Column, DataMember]
+        [Column]
         public int Length { get; set; }
 
-        [Column, DataMember]
+        [Column]
         public bool IsTrafficJam { get; set; }
 
-        [Column, DataMember]
+        [Column]
         public int EstimatedTime
         {
             get => _time;
             set => _time = value * (IsTrafficJam ? 2 : 1);
         }
 
-        [Column(Storage = "_ShiftID"), DataMember]
+        [Column(Storage = "_ShiftID")]
         public Guid ShiftID
         {
             get => _ShiftID;

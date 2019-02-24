@@ -62,7 +62,10 @@
     <Compile Include="ModalWindows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DriverShiftViewModel.cs" />
     <Compile Include="ViewModels\DriversViewModel.cs" />
+    <Compile Include="ViewModels\RoutesViewModel.cs" />
+    <Compile Include="ViewModels\ShiftsViewModel.cs" />
     <Compile Include="ViewModels\TechPassportsViewModel.cs" />
     <Compile Include="ViewModels\TransportsViewModel.cs" />
     <Compile Include="Views\DriverShiftsView.xaml.cs">

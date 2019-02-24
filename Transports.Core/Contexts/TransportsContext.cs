@@ -3,6 +3,7 @@ using System.Data.Linq;
 using System.IO;
 using Transports.Core.Interfaces;
 using Transports.Core.Models;
+using Transports.Core.Models.SQL;
 
 namespace Transports.Core.Contexts
 {

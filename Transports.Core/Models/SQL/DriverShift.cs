@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.IO;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
-using Transports.Core.Contexts;
 
-namespace Transports.Core.Models
+namespace Transports.Core.Models.SQL
 {
-    [Table(Name = "dbo.DriverShifts"), DataContract, Serializable]
+    [Table(Name = "dbo.DriverShifts")]
     public class DriverShift : IEntity
     {
         

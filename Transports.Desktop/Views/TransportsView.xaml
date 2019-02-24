@@ -20,7 +20,7 @@
                 <DataTemplate>
                     <StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding TransportID, StringFormat='Id: {0}'}"/>
+                            <TextBlock Text="{Binding TransportId, StringFormat='Id: {0}'}"/>
                             <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding TypeOfTransport, StringFormat='Type: {0}'}"/>
                             <TextBlock FontSize="20" Text="{Binding CountOfSeats, StringFormat='Count of seats: {0}'}"/>
                             <TextBlock Text="{Binding Passport.TechPassportID, StringFormat='Passport id: {0}'}"/>

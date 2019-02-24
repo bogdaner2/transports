@@ -1,26 +1,29 @@
 ﻿using System.Collections.ObjectModel;
 using Transports.Core.Contexts;
-using Transports.Core.Models;
+using Transports.Core.Interfaces;
+using Transports.Core.Interfaces.Models;
 using Transports.Core.Repositories;
 using Transports.Core.Services;
 using Transports.Desktop.MVVM;
+using InMemory = Transports.Core.Models.InMemory;
+using InSQL = Transports.Core.Models.SQL;
 
 namespace Transports.Desktop.ViewModels
 {
     public class DriversViewModel : BaseViewModel
     {
-        private Driver _selectedDriver;
-        private ObservableCollection<Driver> _drivers;
+        private IDriver _selectedDriver;
+        private ObservableCollection<IDriver> _drivers;
         private string _updateBtnVisibility;
 
-        private readonly ContextRepository<Driver> _repo;
-        public Driver SelectedDriver
+        private readonly ContextRepository<InSQL.Driver> _repo;
+        public IDriver SelectedDriver
         {
             get => _selectedDriver;
             set => SetProperty(ref _selectedDriver, value);
         }
 
-        public ObservableCollection<Driver> Drivers
+        public ObservableCollection<IDriver> Drivers
         {
             get => _drivers;
             set => SetProperty(ref _drivers, value);
@@ -34,8 +37,8 @@ namespace Transports.Desktop.ViewModels
 
         public DriversViewModel()
         {
-            _repo = new ContextRepository<Driver>();
-            _selectedDriver = new Driver();
+            _repo = new ContextRepository<InSQL.Driver>();
+            _selectedDriver = new InMemory.Driver();
             UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
 
             LoadData();
@@ -45,17 +48,17 @@ namespace Transports.Desktop.ViewModels
         {
             if (StateService.StoreType == StoreType.InMemory)
             {
-                Drivers = new ObservableCollection<Driver>(InMemoryContext.Instance.Drivers);
+                Drivers = new ObservableCollection<IDriver>(InMemoryContext.Instance.Drivers);
             }
             else
             {
-                Drivers = new ObservableCollection<Driver>(_repo.GetAll());
+                Drivers = new ObservableCollection<IDriver>(_repo.GetAll());
             }
         }
 
         public void AddDriver()
         {
-            var newDriver = SelectedDriver.Clone() as Driver;
+            var newDriver = SelectedDriver.Clone() as InMemory.Driver;
 
             Drivers.Add(newDriver);
 
@@ -65,7 +68,7 @@ namespace Transports.Desktop.ViewModels
             }
             else
             {
-                _repo.Create(SelectedDriver);
+                _repo.Create((InSQL.Driver)SelectedDriver);
             }
         }
 
@@ -83,12 +86,11 @@ namespace Transports.Desktop.ViewModels
 
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Drivers.Remove(SelectedDriver);
+                InMemoryContext.Instance.Drivers.Remove((InMemory.Driver)SelectedDriver);
             }
 
-            _repo.Remove(SelectedDriver);
+            _repo.Remove((InSQL.Driver)SelectedDriver);
 
-            _selectedDriver = new Driver();
         }
     }
 }

@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Data.Linq.Mapping;
-using System.Linq;
 using System.Runtime.Serialization;
+using Transports.Core.Interfaces.Models;
 
-namespace Transports.Core.Models
+namespace Transports.Core.Models.SQL
 {
-    [Table(Name = "dbo.TechPassports"), Serializable, DataContract]
-    public class TechPassport : ICloneable, IEntity
+    [Table(Name = "dbo.TechPassports")] 
+    public class TechPassport : ITechPassport, IEntity
     {
         private Guid _TechPassportID;
 
-        [Column(IsPrimaryKey = true, Storage = "_TechPassportID"), DataMember]
+        [Column(IsPrimaryKey = true, Storage = "_TechPassportID")]
         public Guid TechPassportID
         {
             get => _TechPassportID;
             set => _TechPassportID = value;
         }
-        [Column, DataMember]
+
+        public Guid TechPassportId { get; set; }
+
+        [Column]
         public string Brand { get; set; }
-        [Column, DataMember]
+        [Column]
         public int YearOfManufacture { get; set; }
         public TechPassport(string brand, int year)
         {

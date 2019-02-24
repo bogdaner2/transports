@@ -1,34 +1,36 @@
 ﻿using System.Collections.ObjectModel;
 using Transports.Core.Contexts;
-using Transports.Core.Models;
+using Transports.Core.Interfaces.Models;
 using Transports.Core.Repositories;
 using Transports.Core.Services;
 using Transports.Desktop.MVVM;
+using InMemory = Transports.Core.Models.InMemory;
+using InSQL = Transports.Core.Models.SQL;
 
 namespace Transports.Desktop.ViewModels
 {
     public class TransportsViewModel : BaseViewModel
     {
-        private Transport _selectedTransport;
-        private ObservableCollection<Transport> _transports;
-        private ObservableCollection<TechPassport> _techPassports;
+        private ITransport _selectedTransport;
+        private ObservableCollection<ITransport> _transports;
+        private ObservableCollection<ITechPassport> _techPassports;
 
         private string _updateBtnVisibility;
 
-        private readonly ContextRepository<Transport> _repo;
-        public Transport SelectedTransport
+        private readonly ContextRepository<InSQL.Transport> _repo;
+        public ITransport SelectedTransport
         {
             get => _selectedTransport;
             set => SetProperty(ref _selectedTransport, value);
         }
 
-        public ObservableCollection<Transport> Transports
+        public ObservableCollection<ITransport> Transports
         {
             get => _transports;
             set => SetProperty(ref _transports, value);
         }
 
-        public ObservableCollection<TechPassport> TechPassports
+        public ObservableCollection<ITechPassport> TechPassports
         {
             get => _techPassports;
             set => SetProperty(ref _techPassports, value);
@@ -42,8 +44,8 @@ namespace Transports.Desktop.ViewModels
 
         public TransportsViewModel()
         {
-            _repo = new ContextRepository<Transport>();
-            _selectedTransport = new Transport();
+            _repo = new ContextRepository<InSQL.Transport>();
+            _selectedTransport = new InMemory.Transport();
             UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
 
             LoadData();
@@ -53,28 +55,28 @@ namespace Transports.Desktop.ViewModels
         {
             if (StateService.StoreType == StoreType.InMemory)
             {
-                Transports = new ObservableCollection<Transport>(InMemoryContext.Instance.Transports);
-                TechPassports = new ObservableCollection<TechPassport>(InMemoryContext.Instance.TechPassports);
+                Transports = new ObservableCollection<ITransport>(InMemoryContext.Instance.Transports);
+                TechPassports = new ObservableCollection<ITechPassport>(InMemoryContext.Instance.TechPassports);
             }
             else
             {
-                Transports = new ObservableCollection<Transport>(_repo.GetAll());
+                Transports = new ObservableCollection<ITransport>(_repo.GetAll());
             }
         }
 
         public void AddTransport()
         {
-            var newTransport = SelectedTransport.Clone() as Transport;
+            var newTransport = SelectedTransport.Clone();
 
-            Transports.Add(newTransport);
+            Transports.Add((ITransport)newTransport);
 
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Transports.Add(newTransport);
+                InMemoryContext.Instance.Transports.Add((InMemory.Transport)newTransport);
             }
             else
             {
-                _repo.Create(SelectedTransport);
+                _repo.Create((InSQL.Transport)SelectedTransport);
             }
         }
 
@@ -92,12 +94,10 @@ namespace Transports.Desktop.ViewModels
 
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Transports.Remove(SelectedTransport);
+                InMemoryContext.Instance.Transports.Remove((InMemory.Transport)SelectedTransport);
             }
 
-            _repo.Remove(SelectedTransport);
-
-            _selectedTransport = new Transport();
+            _repo.Remove((InSQL.Transport)SelectedTransport);
         }
     }
 }

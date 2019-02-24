@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Transports.Core.Models;
+using Transports.Core.Models.SQL;
 using Transports.Core.Repositories;
 
 namespace Transports.Web.WCF

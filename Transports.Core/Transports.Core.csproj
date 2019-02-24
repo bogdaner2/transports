@@ -45,21 +45,31 @@
   <ItemGroup>
     <Compile Include="Contexts\InMemoryContext.cs" />
     <Compile Include="Interfaces\IContext.cs" />
+    <Compile Include="Interfaces\Models\IDriver.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\Models\ITechPassport.cs" />
+    <Compile Include="Interfaces\Models\ITransport.cs" />
+    <Compile Include="Models\InMemory\Driver.cs" />
+    <Compile Include="Models\InMemory\DriverShift.cs" />
+    <Compile Include="Models\InMemory\Route.cs" />
+    <Compile Include="Models\InMemory\Shift.cs" />
+    <Compile Include="Models\InMemory\TechPassport.cs" />
+    <Compile Include="Models\InMemory\Transport.cs" />
+    <Compile Include="Models\SQL\Driver.cs" />
+    <Compile Include="Models\SQL\DriverShift.cs" />
+    <Compile Include="Models\SQL\Route.cs" />
+    <Compile Include="Models\SQL\Shift.cs" />
+    <Compile Include="Models\SQL\TechPassport.cs" />
+    <Compile Include="Models\SQL\Transport.cs" />
     <Compile Include="SerializationProviders\JsonSerializer.cs" />
-    <Compile Include="Models\Driver.cs" />
-    <Compile Include="Models\DriverShift.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Helpers\RangEnum.cs" />
-    <Compile Include="Models\Route.cs" />
-    <Compile Include="Models\Shift.cs" />
-    <Compile Include="Models\TechPassport.cs" />
-    <Compile Include="Models\Transport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ContextRepository.cs" />
     <Compile Include="Contexts\TransportsContext.cs" />
     <Compile Include="SerializationProviders\XmlSerializer.cs" />
     <Compile Include="Services\StateService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

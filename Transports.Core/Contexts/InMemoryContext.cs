@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Xml.Serialization;
 using Transports.Core.Interfaces;
-using Transports.Core.Models;
+using Transports.Core.Models.InMemory;
 using Transports.Core.SerializationProviders;
 using Transports.Core.Services;
 
