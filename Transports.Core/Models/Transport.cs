@@ -16,20 +16,20 @@ namespace Transports.Core.Models
         private Guid _PassportID;
         private EntityRef<TechPassport> _Passport;
 
-        [Column(Storage = "_TransportID", IsPrimaryKey = true)]
+        [Column(Storage = "_TransportID", IsPrimaryKey = true), DataMember]
         public Guid TransportID
         {
             get => _TransportID;
             set => _TransportID = value;
         }
 
-        [Column]
+        [Column, DataMember]
         public string TypeOfTransport { get; set; }
-        [Column]
+        [Column, DataMember]
         public int CountOfSeats { get; set; }
 
 
-        [Column(Storage = "_PassportID")]
+        [Column(Storage = "_PassportID"), DataMember]
         public Guid PassportID
         {
             get => _PassportID;

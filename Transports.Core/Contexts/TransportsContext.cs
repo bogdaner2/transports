@@ -12,7 +12,6 @@ namespace Transports.Core.Contexts
         public static TransportsContext Instance => Lazy.Value;
         private TransportsContext(string connection) : base(connection)
         {
-            DeleteDB();
             if (!DatabaseExists())
             {
                 CreateDatabase();
@@ -20,7 +19,7 @@ namespace Transports.Core.Contexts
         }
 
         private TransportsContext() : this(
-            $@"Server=.\;AttachDbFilename={Directory.GetCurrentDirectory()}\Transports.mdf;Database=Transports;Trusted_Connection=True;")
+            $@"Server=.\;Database=Transports;Trusted_Connection=True;")
         {
 
         }
