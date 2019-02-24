@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using Transports.Core.Contexts;
+using Transports.Core.Services;
 using Transports.Desktop.ModalWindows;
 using Transports.Desktop.Views;
 
@@ -14,6 +16,7 @@ namespace Transports.Desktop
             if (StateService.StoreType == StoreType.InMemory)
             {
                 Closing += (sender, args) => new SaveDataWindow().Show();
+                InMemoryContext.Instance.LoadData();
             }
         }
 

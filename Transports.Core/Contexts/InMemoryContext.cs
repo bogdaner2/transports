@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using Transports.Core.Interfaces;
 using Transports.Core.Models;
 using Transports.Core.SerializationProviders;
+using Transports.Core.Services;
 
 namespace Transports.Core.Contexts
 {
@@ -21,10 +22,45 @@ namespace Transports.Core.Contexts
         public List<DriverShift> DriverShifts = new List<DriverShift>();
         public List<Transport> Transports = new List<Transport>();
         public List<Route> Routes = new List<Route>();
+        public List<TechPassport> TechPassports = new List<TechPassport>();
 
         public void LoadData()
         {
-            // Serialize()
+            switch (StateService.SerializationProvider)
+            {
+                case SerializationProvider.JsonSerializer:
+                    DeserializeJson();
+                    break;
+            }
+        }
+        public void SaveData()
+        {
+            switch (StateService.SerializationProvider)
+            {
+                case SerializationProvider.JsonSerializer:
+                    SerializeJson();
+                    break;
+            }
+        }
+
+        public void SerializeJson()
+        {
+            JsonSerializer.Serialize(new DataContractJsonSerializer(Drivers.GetType()), Drivers);
+            JsonSerializer.Serialize(new DataContractJsonSerializer(Routes.GetType()), Routes);
+            JsonSerializer.Serialize(new DataContractJsonSerializer(Transports.GetType()), Transports);
+            JsonSerializer.Serialize(new DataContractJsonSerializer(Shifts.GetType()), Shifts);
+            JsonSerializer.Serialize(new DataContractJsonSerializer(DriverShifts.GetType()), DriverShifts);
+            JsonSerializer.Serialize(new DataContractJsonSerializer(TechPassports.GetType()), TechPassports);
+        }
+
+        public void DeserializeJson()
+        {
+            JsonSerializer.Deserialize(new DataContractJsonSerializer(Drivers.GetType()), ref Drivers);
+            JsonSerializer.Deserialize(new DataContractJsonSerializer(Routes.GetType()),ref Routes);
+            JsonSerializer.Deserialize(new DataContractJsonSerializer(Transports.GetType()),ref Transports);
+            JsonSerializer.Deserialize(new DataContractJsonSerializer(Shifts.GetType()),ref Shifts);
+            JsonSerializer.Deserialize(new DataContractJsonSerializer(DriverShifts.GetType()),ref DriverShifts);
+            JsonSerializer.Deserialize(new DataContractJsonSerializer(TechPassports.GetType()),ref TechPassports);
         }
 
         //private void Serialize<T>(XmlSerializer xml, IEnumerable<T> list)
@@ -35,45 +71,6 @@ namespace Transports.Core.Contexts
         //    }
         //}
 
-        public void SerializeJson(object type)
-        {
-            switch (type)
-            {
-                case List<Driver> list:
-                    JsonSerializer.Serialize(new DataContractJsonSerializer(list.GetType()), type);
-                    break;
-                case List<Route> list:
-                    JsonSerializer.Serialize(new DataContractJsonSerializer(list.GetType()), type);
-                    break;
-                case List<Transport> list:
-                    JsonSerializer.Serialize(new DataContractJsonSerializer(list.GetType()), type);
-                    break;
-                default:
-                    throw new ArgumentException(
-                        "unknown type",
-                        nameof(type));
-            }
-        }
-
-        public void DeserializeJson(object type)
-        {
-            switch (type)
-            {
-                case List<Driver> list:
-                    JsonSerializer.Deserialize(new DataContractJsonSerializer(typeof(List<Driver>)), ref Drivers);
-                    break;
-                case List<Route> list:
-                    JsonSerializer.Deserialize(new DataContractJsonSerializer(list.GetType()), ref type);
-                    break;
-                case List<Transport> list:
-                    JsonSerializer.Deserialize(new DataContractJsonSerializer(list.GetType()), ref type);
-                    break;
-                default:
-                    throw new ArgumentException(
-                        "unknown type",
-                        nameof(type));
-            }
-        }
 
         //public static void Deserialize(XmlSerializer xml)
         //{
@@ -88,10 +85,5 @@ namespace Transports.Core.Contexts
         //        }
         //    }
         //}
-
-        public void SaveData()
-        {
-            SerializeJson(Drivers);
-        }
     }
 }

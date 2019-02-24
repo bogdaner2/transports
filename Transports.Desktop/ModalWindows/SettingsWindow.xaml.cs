@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Transports.Core.Services;
 
 namespace Transports.Desktop.ModalWindows
 {

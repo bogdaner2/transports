@@ -1,4 +1,4 @@
-﻿namespace Transports.Desktop
+﻿namespace Transports.Core.Services
 {
     public static class StateService
     {

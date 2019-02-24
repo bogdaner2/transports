@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using Transports.Core.Contexts;
 
 namespace Transports.Desktop.ModalWindows
@@ -9,7 +8,11 @@ namespace Transports.Desktop.ModalWindows
         public SaveDataWindow()
         {
             InitializeComponent();
-            YesBtn.Click += (sender, e) => InMemoryContext.Instance.SaveData();
+            YesBtn.Click += (sender, e) =>
+            {
+                InMemoryContext.Instance.SaveData();
+                Environment.Exit(0);
+            };
             NoBtn.Click += (sender, e) => Environment.Exit(0);
         }
     }

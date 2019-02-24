@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Transports.Core;
+﻿using System.Collections.ObjectModel;
 using Transports.Core.Contexts;
 using Transports.Core.Models;
 using Transports.Core.Repositories;
+using Transports.Core.Services;
 using Transports.Desktop.MVVM;
 
 namespace Transports.Desktop.ViewModels
@@ -37,7 +36,6 @@ namespace Transports.Desktop.ViewModels
         {
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.LoadData();
                 Drivers = new ObservableCollection<Driver>(InMemoryContext.Instance.Drivers);
             }
             else
