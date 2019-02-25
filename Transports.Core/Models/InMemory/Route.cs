@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Transports.Core.Interfaces.Models;
 
 namespace Transports.Core.Models.InMemory
 {
     [Serializable, DataContract]
-    public class Route
+    public class Route : IRoute
     {
         private int _time;
 
@@ -18,11 +19,7 @@ namespace Transports.Core.Models.InMemory
         public bool IsTrafficJam { get; set; }
 
         [DataMember]
-        public int EstimatedTime
-        {
-            get => _time;
-            set => _time = value * (IsTrafficJam ? 2 : 1);
-        }
+        public int EstimatedTime { get; set; }
 
         public Route(int length, bool isTrafficJam)
         {
@@ -39,5 +36,7 @@ namespace Transports.Core.Models.InMemory
             return string.Format(
                 $"{string.Format(RouteId.ToString().Substring(RouteId.ToString().Length - 5))}|Length : {Length} Time : {EstimatedTime}");
         }
+
+        public object Clone() => MemberwiseClone();
     }
 }

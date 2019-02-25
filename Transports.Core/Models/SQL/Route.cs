@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.Runtime.Serialization;
+using Transports.Core.Interfaces.Models;
 
 namespace Transports.Core.Models.SQL
 {
     [Table(Name = "dbo.Routes")]
-    public class Route : IEntity
+    public class Route : IRoute, IEntity
     {
         private int _time;
         private Guid _RouteID;
@@ -20,6 +20,8 @@ namespace Transports.Core.Models.SQL
             set => _RouteID = value;
         }
 
+        public Guid RouteId { get; set; }
+
         [Column]
         public int Length { get; set; }
 
@@ -27,11 +29,9 @@ namespace Transports.Core.Models.SQL
         public bool IsTrafficJam { get; set; }
 
         [Column]
-        public int EstimatedTime
-        {
-            get => _time;
-            set => _time = value * (IsTrafficJam ? 2 : 1);
-        }
+        public int EstimatedTime { get; set; }
+
+        public object Clone() => MemberwiseClone();
 
         [Column(Storage = "_ShiftID")]
         public Guid ShiftID
