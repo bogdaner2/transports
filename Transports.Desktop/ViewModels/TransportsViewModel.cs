@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Transports.Core.Contexts;
 using Transports.Core.Interfaces.Models;
 using Transports.Core.Repositories;
@@ -13,11 +15,13 @@ namespace Transports.Desktop.ViewModels
     {
         private ITransport _selectedTransport;
         private ObservableCollection<ITransport> _transports;
-        private ObservableCollection<ITechPassport> _techPassports;
+        private ObservableCollection<Guid> _techPassportsIds;
 
         private string _updateBtnVisibility;
 
-        private readonly ContextRepository<InSQL.Transport> _repo;
+        private readonly ContextRepository<InSQL.Transport> _repoTransport;
+        private readonly ContextRepository<InSQL.TechPassport> _repoPassports;
+
         public ITransport SelectedTransport
         {
             get => _selectedTransport;
@@ -30,10 +34,10 @@ namespace Transports.Desktop.ViewModels
             set => SetProperty(ref _transports, value);
         }
 
-        public ObservableCollection<ITechPassport> TechPassports
+        public ObservableCollection<Guid> TechPassportsIds
         {
-            get => _techPassports;
-            set => SetProperty(ref _techPassports, value);
+            get => _techPassportsIds;
+            set => SetProperty(ref _techPassportsIds, value);
         }
 
         public string UpdateBtnVisibility
@@ -44,7 +48,8 @@ namespace Transports.Desktop.ViewModels
 
         public TransportsViewModel()
         {
-            _repo = new ContextRepository<InSQL.Transport>();
+            _repoTransport = new ContextRepository<InSQL.Transport>();
+            _repoPassports = new ContextRepository<InSQL.TechPassport>();
             _selectedTransport = new InMemory.Transport();
             UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
 
@@ -56,11 +61,12 @@ namespace Transports.Desktop.ViewModels
             if (StateService.StoreType == StoreType.InMemory)
             {
                 Transports = new ObservableCollection<ITransport>(InMemoryContext.Instance.Transports);
-                TechPassports = new ObservableCollection<ITechPassport>(InMemoryContext.Instance.TechPassports);
+                TechPassportsIds = new ObservableCollection<Guid>(InMemoryContext.Instance.TechPassports.Select(x => x.TechPassportId));
             }
             else
             {
-                Transports = new ObservableCollection<ITransport>(_repo.GetAll());
+                Transports = new ObservableCollection<ITransport>(_repoTransport.GetAll());
+                TechPassportsIds = new ObservableCollection<Guid>(_repoPassports.GetAll().Select(x => x.TechPassportID));
             }
         }
 
@@ -76,7 +82,7 @@ namespace Transports.Desktop.ViewModels
             }
             else
             {
-                _repo.Create((InSQL.Transport)SelectedTransport);
+                _repoTransport.Create((InSQL.Transport)SelectedTransport);
             }
         }
 
@@ -84,7 +90,7 @@ namespace Transports.Desktop.ViewModels
         {
             if (StateService.StoreType == StoreType.InDatabase)
             {
-                _repo.Save();
+                _repoPassports.Save();
             }
         }
 
@@ -95,9 +101,15 @@ namespace Transports.Desktop.ViewModels
             if (StateService.StoreType == StoreType.InMemory)
             {
                 InMemoryContext.Instance.Transports.Remove((InMemory.Transport)SelectedTransport);
-            }
 
-            _repo.Remove((InSQL.Transport)SelectedTransport);
+                SelectedTransport = new InMemory.Transport();
+            }
+            else
+            {
+                _repoTransport.Remove((InSQL.Transport)SelectedTransport);
+
+                SelectedTransport = new InSQL.Transport();
+            }
         }
     }
 }

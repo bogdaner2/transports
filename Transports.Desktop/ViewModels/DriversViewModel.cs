@@ -87,10 +87,13 @@ namespace Transports.Desktop.ViewModels
             if (StateService.StoreType == StoreType.InMemory)
             {
                 InMemoryContext.Instance.Drivers.Remove((InMemory.Driver)SelectedDriver);
+                SelectedDriver = new InMemory.Driver();
             }
-
-            _repo.Remove((InSQL.Driver)SelectedDriver);
-
+            else
+            {
+                _repo.Remove((InSQL.Driver)SelectedDriver);
+                SelectedDriver = new InSQL.Driver();
+            }
         }
     }
 }

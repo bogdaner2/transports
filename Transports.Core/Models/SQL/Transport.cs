@@ -21,7 +21,7 @@ namespace Transports.Core.Models.SQL
         }
 
         public Guid TransportId { get; set; }
-
+        public Guid TechPassportId { get; set; }
         [Column]
         public string TypeOfTransport { get; set; }
         [Column]

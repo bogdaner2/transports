@@ -86,10 +86,13 @@ namespace Transports.Desktop.ViewModels
             if (StateService.StoreType == StoreType.InMemory)
             {
                 InMemoryContext.Instance.TechPassports.Remove((InMemory.TechPassport)SelectedTechPassport);
+                SelectedTechPassport = new InMemory.TechPassport();
             }
-
-            _repo.Remove((InSQL.TechPassport)SelectedTechPassport);
-
+            else
+            {
+                _repo.Remove((InSQL.TechPassport)SelectedTechPassport);
+                SelectedTechPassport = new InSQL.TechPassport();
+            }
         }
     }
 }

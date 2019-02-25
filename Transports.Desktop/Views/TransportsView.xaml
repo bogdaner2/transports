@@ -23,7 +23,7 @@
                             <TextBlock Text="{Binding TransportId, StringFormat='Id: {0}'}"/>
                             <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding TypeOfTransport, StringFormat='Type: {0}'}"/>
                             <TextBlock FontSize="20" Text="{Binding CountOfSeats, StringFormat='Count of seats: {0}'}"/>
-                            <TextBlock Text="{Binding Passport.TechPassportID, StringFormat='Passport id: {0}'}"/>
+                            <TextBlock Text="{Binding TechPassportId, StringFormat='Passport id: {0}'}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
@@ -35,8 +35,8 @@
             <Label Margin="10,0,10,0" Content="Input count of seats"></Label>
             <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedTransport.CountOfSeats}"/>
             <Label Margin="10,0,10,0" Content="Select passport"></Label>
-            <ComboBox Margin="10,0,10,0" Height="23" SelectedItem="{Binding SelectedTransport.Passport}"
-                      ItemsSource="{Binding TechPassports}"/>
+            <ComboBox Margin="10,0,10,0" Height="23" SelectedItem="{Binding SelectedTransport.TechPassportId}"
+                      ItemsSource="{Binding TechPassportsIds}"/>
             <Button Margin="80,20,80,0" Content="Create" Click="Add_Transport_OnClick"/>
             <Button Margin="80,20,80,0" Content="Delete" Click="Remove_Transport_OnClick"/>
             <Button Margin="80,20,80,0" Visibility="{Binding UpdateBtnVisibility}" Content="Update" Click="Update_Transport_OnClick"/>
