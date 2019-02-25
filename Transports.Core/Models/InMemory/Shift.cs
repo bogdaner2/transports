@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Transports.Core.Interfaces.Models;
 
 namespace Transports.Core.Models.InMemory
 {
     [Serializable, DataContract]
-    public class Shift
+    public class Shift : IShift
     {
         [DataMember]
         public Guid ShiftId { get; set; }
@@ -19,5 +20,7 @@ namespace Transports.Core.Models.InMemory
         {
             ShiftId = Guid.NewGuid();
         }
+
+        public object Clone() => MemberwiseClone();
     }
 }

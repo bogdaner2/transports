@@ -29,10 +29,10 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Vertical" Margin="404,0,0,10">
-            <Label Margin="10,70,10,0" Content="Input type"></Label>
+            <Label Margin="10,70,10,0" Content="Select driver"></Label>
             <ComboBox Margin="10,0,10,0" Height="23" SelectedItem="{Binding SelectedDriverShift.DriverId}"
                       ItemsSource="{Binding DriversIds}"/>
-            <Label Margin="10,0,10,0" Content="Select passport"></Label>
+            <Label Margin="10,0,10,0" Content="Select shift"></Label>
             <ComboBox Margin="10,0,10,0" Height="23" SelectedItem="{Binding SelectedDriverShift.ShiftId}"
                       ItemsSource="{Binding ShiftIds}"/>
             <Button Margin="80,20,80,0" Content="Create" Click="Add_DriverShift_OnClick"/>

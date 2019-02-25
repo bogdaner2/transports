@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\Models\IDriverShift.cs" />
     <Compile Include="Interfaces\Models\IRoute.cs" />
+    <Compile Include="Interfaces\Models\IShift.cs" />
     <Compile Include="Interfaces\Models\ITechPassport.cs" />
     <Compile Include="Interfaces\Models\ITransport.cs" />
     <Compile Include="Models\InMemory\Driver.cs" />

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Runtime.Serialization;
+using Transports.Core.Interfaces.Models;
 
 namespace Transports.Core.Models.SQL
 {
     [Table(Name = "dbo.Shifts")]
-    public class Shift : IEntity
+    public class Shift : IShift, IEntity
     {
         private Guid _ShiftID;
         private EntitySet<Route> _Routes;
@@ -18,6 +19,8 @@ namespace Transports.Core.Models.SQL
 
         [Column]
         public DateTime End { get; set; }
+
+        public Guid ShiftId { get; set; }
 
         [Column(IsPrimaryKey = true, Storage = "_ShiftID")]
         public Guid ShiftID
@@ -57,5 +60,6 @@ namespace Transports.Core.Models.SQL
             return this;
         }
 
+        public object Clone() => MemberwiseClone();
     }
 }

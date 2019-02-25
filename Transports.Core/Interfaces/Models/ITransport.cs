@@ -8,6 +8,5 @@ namespace Transports.Core.Interfaces.Models
         Guid TechPassportId { get; set; }
         string TypeOfTransport { get; set; }
         int CountOfSeats { get; set; }
-        object Clone();
     }
 }

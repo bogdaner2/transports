@@ -7,6 +7,5 @@ namespace Transports.Core.Interfaces.Models
         Guid TechPassportId { get; set; }
         string Brand { get; set; }
         int YearOfManufacture { get; set; }
-        object Clone();
     }
 }

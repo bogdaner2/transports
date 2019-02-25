@@ -7,6 +7,5 @@ namespace Transports.Core.Interfaces.Models
         Guid DriverId { get;set; }
         Guid ShiftId { get; set; }
         Guid DriverShiftId { get; set; }
-        object Clone();
     }
 }
