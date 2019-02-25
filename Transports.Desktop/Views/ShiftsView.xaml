@@ -4,11 +4,44 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Transports.Desktop.Views"
+      xmlns:viewModels="clr-namespace:Transports.Desktop.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ShiftsView">
 
+    <Page.DataContext>
+        <viewModels:ShiftsViewModel>
+
+        </viewModels:ShiftsViewModel>
+    </Page.DataContext>
     <Grid>
-        
+        <ListBox Margin="1,0,401,0" SelectedItem="{Binding Path=SelectedShift, Mode=TwoWay}" ItemsSource="{Binding Shifts}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding ShiftId, StringFormat='Id: {0}'}"/>
+                            <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Length, StringFormat='Route length: {0}'}"/>
+                            <TextBlock FontSize="20" Text="{Binding EstimatedTime, StringFormat='Time: {0}'}"/>
+                            <TextBlock FontSize="20" Text="{Binding IsTrafficJam, StringFormat='Traffic jam?: {0}'}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Vertical" Margin="404,0,0,10">
+            <Label Margin="10,70,10,0" Content="Input route length: "></Label>
+            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedRoute.Length}"/>
+            <Label Margin="10,0,10,0" Content="Input estimated time: "></Label>
+            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedRoute.EstimatedTime}"/>
+            <Label Margin="10,0,10,0" Content="Is traffic jam?: "></Label>
+            <ComboBox Margin="10,0,10,0" Height="23">
+                <ComboBoxItem Content="No" />
+                <ComboBoxItem Content="Yes" IsSelected="{Binding SelectedRoute.IsTrafficJam, Mode=TwoWay}" />
+            </ComboBox>
+            <Button Margin="80,20,80,0" Content="Create" Click="Add_Shift_OnClick"/>
+            <Button Margin="80,20,80,0" Content="Delete" Click="Remove_Shift_OnClick"/>
+            <Button Margin="80,20,80,0" Visibility="{Binding UpdateBtnVisibility}" Content="Update" Click="Update_Shift_OnClick"/>
+        </StackPanel>
     </Grid>
 </Page>

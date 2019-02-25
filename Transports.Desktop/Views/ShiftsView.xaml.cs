@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Transports.Desktop.ViewModels;
 
 namespace Transports.Desktop.Views
 {
@@ -20,9 +21,27 @@ namespace Transports.Desktop.Views
     /// </summary>
     public partial class ShiftsView : Page
     {
+        private ShiftsViewModel ShiftsViewModel { get; set; }
         public ShiftsView()
         {
             InitializeComponent();
+            ShiftsViewModel = new ShiftsViewModel();
+            DataContext = ShiftsViewModel;
+        }
+
+        private void Add_Shift_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShiftsViewModel.AddShift();
+        }
+
+        private void Update_Shift_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void Remove_Shift_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShiftsViewModel.RemoveShift();
         }
     }
 }
