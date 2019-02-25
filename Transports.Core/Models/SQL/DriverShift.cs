@@ -2,11 +2,12 @@
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Runtime.Serialization;
+using Transports.Core.Interfaces.Models;
 
 namespace Transports.Core.Models.SQL
 {
     [Table(Name = "dbo.DriverShifts")]
-    public class DriverShift : IEntity
+    public class DriverShift : IDriverShift, IEntity
     {
         
         private Guid _DriverID;
@@ -70,5 +71,11 @@ namespace Transports.Core.Models.SQL
         {
             return string.Format($"{Driver.Name} | {Shift.Start.ToShortTimeString()} + {Shift.End.ToShortTimeString()}");
         }
+
+        public Guid DriverId { get; set; }
+        public Guid ShiftId { get; set; }
+        public Guid DriverShiftId { get; set; }
+
+        public object Clone() => MemberwiseClone();
     }
 }

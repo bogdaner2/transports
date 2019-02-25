@@ -1,19 +1,30 @@
 ﻿using System.Collections.ObjectModel;
 using Transports.Core.Contexts;
 using Transports.Core.Interfaces.Models;
+using Transports.Core.Models.InMemory;
 using Transports.Core.Repositories;
 using Transports.Core.Services;
 using Transports.Desktop.MVVM;
+using InSQL = Transports.Core.Models.SQL;
 
 namespace Transports.Desktop.ViewModels
 {
     public class RoutesViewModel : BaseViewModel
     {
-        private IRoute _selectedRoute;
+        private readonly ContextRepository<InSQL.Route> _repo;
         private ObservableCollection<IRoute> _Routes;
+        private IRoute _selectedRoute;
         private string _updateBtnVisibility;
 
-        private readonly ContextRepository<Core.Models.SQL.Route> _repo;
+        public RoutesViewModel()
+        {
+            _repo = new ContextRepository<InSQL.Route>();
+            _selectedRoute = new Route();
+            UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
+
+            LoadData();
+        }
+
         public IRoute SelectedRoute
         {
             get => _selectedRoute;
@@ -32,15 +43,6 @@ namespace Transports.Desktop.ViewModels
             set => SetProperty(ref _updateBtnVisibility, value);
         }
 
-        public RoutesViewModel()
-        {
-            _repo = new ContextRepository<Core.Models.SQL.Route>();
-            _selectedRoute = new Core.Models.InMemory.Route();
-            UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
-
-            LoadData();
-        }
-
         public void LoadData()
         {
             if (StateService.StoreType == StoreType.InMemory)
@@ -55,7 +57,7 @@ namespace Transports.Desktop.ViewModels
 
         public void AddRoute()
         {
-            var newRoute = SelectedRoute.Clone() as Core.Models.InMemory.Route;
+            var newRoute = SelectedRoute.Clone() as Route;
 
             Routes.Add(newRoute);
 
@@ -65,7 +67,7 @@ namespace Transports.Desktop.ViewModels
             }
             else
             {
-                _repo.Create((Core.Models.SQL.Route)SelectedRoute);
+                _repo.Create((InSQL.Route) SelectedRoute);
             }
         }
 
@@ -83,13 +85,13 @@ namespace Transports.Desktop.ViewModels
 
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Routes.Remove((Core.Models.InMemory.Route)SelectedRoute);
-                SelectedRoute = new Core.Models.InMemory.Route();
+                InMemoryContext.Instance.Routes.Remove((Route) SelectedRoute);
+                SelectedRoute = new Route();
             }
             else
             {
-                _repo.Remove((Core.Models.SQL.Route)SelectedRoute);
-                SelectedRoute = new Core.Models.SQL.Route();
+                _repo.Remove((InSQL.Route) SelectedRoute);
+                SelectedRoute = new InSQL.Route();
             }
         }
     }
