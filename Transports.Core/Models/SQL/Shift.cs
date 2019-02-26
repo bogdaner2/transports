@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.Runtime.Serialization;
 using Transports.Core.Interfaces.Models;
 
 namespace Transports.Core.Models.SQL
@@ -10,32 +9,24 @@ namespace Transports.Core.Models.SQL
     [Table(Name = "dbo.Shifts")]
     public class Shift : IShift, IEntity
     {
-        private Guid _ShiftID;
-        private EntitySet<Route> _Routes;
-        private EntitySet<DriverShift> _DriverShift;
+        private readonly EntitySet<DriverShift> _DriverShift;
+        private readonly EntitySet<Route> _Routes;
 
-        [Column]
-        public DateTime Start { get; set; }
-
-        [Column]
-        public DateTime End { get; set; }
-
-        public Guid ShiftId { get; set; }
-        public int TotalRoutes { get; set; }
-        public int TotalDrivers { get; set; }
+        public Shift()
+        {
+            _Routes = new EntitySet<Route>();
+            _DriverShift = new EntitySet<DriverShift>();
+            ShiftID = Guid.NewGuid();
+        }
 
         [Column(IsPrimaryKey = true, Storage = "_ShiftID")]
-        public Guid ShiftID
-        {
-            get => _ShiftID;
-            set => _ShiftID = value;
-        }
+        public Guid ShiftID { get; set; }
 
         [Association(Storage = "_Routes", OtherKey = "ShiftID")]
         public EntitySet<Route> Routes
         {
-            get => _Routes; 
-            set => _Routes.Assign(value); 
+            get => _Routes;
+            set => _Routes.Assign(value);
         }
 
         [Association(Storage = "_DriverShift", OtherKey = "ShiftID")]
@@ -45,11 +36,17 @@ namespace Transports.Core.Models.SQL
             set => _DriverShift.Assign(value);
         }
 
-        public Shift()
+        [Column] public DateTime Start { get; set; }
+
+        [Column] public DateTime End { get; set; }
+
+        public Guid ShiftId { get; set; }
+        public int TotalRoutes { get; set; }
+        public int TotalDrivers { get; set; }
+
+        public object Clone()
         {
-            _Routes = new EntitySet<Route>();
-            _DriverShift = new EntitySet<DriverShift>();
-            ShiftID = Guid.NewGuid();
+            return MemberwiseClone();
         }
 
         public Shift AddRoutes(IEnumerable<Route> routes)
@@ -59,9 +56,8 @@ namespace Transports.Core.Models.SQL
                 route.ShiftID = ShiftID;
                 Routes.Add(route);
             }
+
             return this;
         }
-
-        public object Clone() => MemberwiseClone();
     }
 }

@@ -3,21 +3,30 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Transports.Core.Contexts;
 using Transports.Core.Interfaces.Models;
-using InMemory = Transports.Core.Models.InMemory;
-using InSQL = Transports.Core.Models.SQL;
+using Transports.Core.Models.InMemory;
 using Transports.Core.Repositories;
 using Transports.Core.Services;
 using Transports.Desktop.MVVM;
+using InSQL = Transports.Core.Models.SQL;
 
 namespace Transports.Desktop.ViewModels
 {
     public class TechPassportsViewModel : BaseViewModel
     {
+        private readonly ContextRepository<InSQL.TechPassport> _repo;
         private ITechPassport _selectedTechPassport;
         private ObservableCollection<ITechPassport> _TechPassports;
         private string _updateBtnVisibility;
 
-        private readonly ContextRepository<InSQL.TechPassport> _repo;
+        public TechPassportsViewModel()
+        {
+            _repo = new ContextRepository<InSQL.TechPassport>();
+            _selectedTechPassport = new TechPassport();
+            UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
+
+            LoadData();
+        }
+
         public ITechPassport SelectedTechPassport
         {
             get => _selectedTechPassport;
@@ -36,52 +45,31 @@ namespace Transports.Desktop.ViewModels
             set => SetProperty(ref _updateBtnVisibility, value);
         }
 
-        public TechPassportsViewModel()
-        {
-            _repo = new ContextRepository<InSQL.TechPassport>();
-            _selectedTechPassport = new InMemory.TechPassport();
-            UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
-
-            LoadData();
-        }
-
         public void LoadData()
         {
             if (StateService.StoreType == StoreType.InMemory)
-            {
                 TechPassports = new ObservableCollection<ITechPassport>(InMemoryContext.Instance.TechPassports);
-            }
             else
-            {
                 TechPassports = new ObservableCollection<ITechPassport>(_repo.GetAll());
-            }
         }
 
         public void AddTechPassport()
         {
-
-            var newTechPassport = SelectedTechPassport.Clone() as InMemory.TechPassport;
+            var newTechPassport = SelectedTechPassport.Clone() as TechPassport;
 
             newTechPassport.TechPassportId = Guid.NewGuid();
 
             TechPassports.Add(newTechPassport);
 
             if (StateService.StoreType == StoreType.InMemory)
-            {
                 InMemoryContext.Instance.TechPassports.Add(newTechPassport);
-            }
             else
-            {
-                _repo.Create((InSQL.TechPassport)SelectedTechPassport);
-            }
+                _repo.Create((InSQL.TechPassport) SelectedTechPassport);
         }
 
         public void UpdateTechPassport()
         {
-            if (StateService.StoreType == StoreType.InDatabase)
-            {
-                _repo.Save();
-            }
+            if (StateService.StoreType == StoreType.InDatabase) _repo.Save();
         }
 
         public void RemoveTechPassport()
@@ -92,11 +80,11 @@ namespace Transports.Desktop.ViewModels
                     .Where(x => x.TechPassportId != SelectedTechPassport.TechPassportId)
                     .ToList();
                 TechPassports.Remove(SelectedTechPassport);
-                SelectedTechPassport = new InMemory.TechPassport();
+                SelectedTechPassport = new TechPassport();
             }
             else
             {
-                _repo.Remove((InSQL.TechPassport)SelectedTechPassport);
+                _repo.Remove((InSQL.TechPassport) SelectedTechPassport);
                 TechPassports.Remove(SelectedTechPassport);
                 SelectedTechPassport = new InSQL.TechPassport();
             }

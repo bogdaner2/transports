@@ -17,9 +17,9 @@ namespace Transports.Desktop.ViewModels
         private readonly ContextRepository<InSQL.Shift> _shiftRepo;
 
         private ObservableCollection<IRoute> _Routes;
-        private ObservableCollection<Guid> _ShiftIds;
 
         private IRoute _selectedRoute;
+        private ObservableCollection<Guid> _ShiftIds;
         private string _updateBtnVisibility;
 
         public RoutesViewModel()
@@ -80,28 +80,22 @@ namespace Transports.Desktop.ViewModels
             Routes.Add(newRoute);
 
             if (StateService.StoreType == StoreType.InMemory)
-            {
                 InMemoryContext.Instance.Routes.Add(newRoute);
-            }
             else
-            {
                 _routesRepo.Create((InSQL.Route) SelectedRoute);
-            }
         }
 
         public void UpdateRoute()
         {
-            if (StateService.StoreType == StoreType.InDatabase)
-            {
-                _routesRepo.Save();
-            }
+            if (StateService.StoreType == StoreType.InDatabase) _routesRepo.Save();
         }
 
         public void RemoveRoute()
         {
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Routes = InMemoryContext.Instance.Routes.Where(x => x.RouteId != SelectedRoute.RouteId).ToList();
+                InMemoryContext.Instance.Routes = InMemoryContext.Instance.Routes
+                    .Where(x => x.RouteId != SelectedRoute.RouteId).ToList();
                 Routes.Remove(SelectedRoute);
                 SelectedRoute = new Route();
             }

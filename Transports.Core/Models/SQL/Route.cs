@@ -8,46 +8,8 @@ namespace Transports.Core.Models.SQL
     [Table(Name = "dbo.Routes")]
     public class Route : IRoute, IEntity
     {
-        private int _time;
-        private Guid _RouteID;
-        private Guid _ShiftID;
         private EntityRef<Shift> _Shift;
-
-        [Column(IsPrimaryKey = true, Storage = "_RouteID")]
-        public Guid RouteID
-        {
-            get => _RouteID;
-            set => _RouteID = value;
-        }
-
-        public Guid RouteId { get; set; }
-
-        [Column]
-        public int Length { get; set; }
-
-        [Column]
-        public bool IsTrafficJam { get; set; }
-
-        [Column]
-        public int EstimatedTime { get; set; }
-
-        public Guid ShiftId { get; set; }
-
-        public object Clone() => MemberwiseClone();
-
-        [Column(Storage = "_ShiftID")]
-        public Guid ShiftID
-        {
-            get => _ShiftID;
-            set => _ShiftID = value;
-        }
-
-        [Association(Storage = "_Shift", ThisKey = "ShiftID")]
-        public Shift Shift
-        {
-            set => _Shift.Entity = value;
-            get => _Shift.Entity;
-        }
+        private int _time;
 
 
         public Route(int length, bool isTrafficJam)
@@ -59,7 +21,36 @@ namespace Transports.Core.Models.SQL
             EstimatedTime = new Random().Next(1, 120);
         }
 
-        public Route() { }
+        public Route()
+        {
+        }
+
+        [Column(IsPrimaryKey = true, Storage = "_RouteID")]
+        public Guid RouteID { get; set; }
+
+        [Column(Storage = "_ShiftID")] public Guid ShiftID { get; set; }
+
+        [Association(Storage = "_Shift", ThisKey = "ShiftID")]
+        public Shift Shift
+        {
+            set => _Shift.Entity = value;
+            get => _Shift.Entity;
+        }
+
+        public Guid RouteId { get; set; }
+
+        [Column] public int Length { get; set; }
+
+        [Column] public bool IsTrafficJam { get; set; }
+
+        [Column] public int EstimatedTime { get; set; }
+
+        public Guid ShiftId { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
         public override string ToString()
         {
