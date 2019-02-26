@@ -34,7 +34,7 @@
             <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedTransport.TypeOfTransport}"/>
             <Label Margin="10,0,10,0" Content="Input count of seats"></Label>
             <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedTransport.CountOfSeats}"/>
-            <Label Margin="10,0,10,0" Content="Select passport"></Label>
+            <Label Margin="10,0,10,0" Content="Select passport by id:"></Label>
             <ComboBox Margin="10,0,10,0" Height="23" SelectedItem="{Binding SelectedTransport.TechPassportId}"
                       ItemsSource="{Binding TechPassportsIds}"/>
             <Button Margin="80,20,80,0" Content="Create" Click="Add_Transport_OnClick"/>
