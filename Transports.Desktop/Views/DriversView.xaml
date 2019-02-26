@@ -32,6 +32,7 @@
                             <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Name, StringFormat='Name: {0}'}"/>
                             <TextBlock FontSize="20" Text="{Binding Rang, StringFormat='Rang: {0}'}"/>
                             <TextBlock Text="{Binding Age, StringFormat='Age: {0} year'}"/>
+                            <TextBlock Text="{Binding TotalShifts, StringFormat='Driver shifts: {0}'}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

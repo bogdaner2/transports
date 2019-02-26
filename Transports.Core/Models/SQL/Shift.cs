@@ -21,6 +21,8 @@ namespace Transports.Core.Models.SQL
         public DateTime End { get; set; }
 
         public Guid ShiftId { get; set; }
+        public int TotalRoutes { get; set; }
+        public int TotalDrivers { get; set; }
 
         [Column(IsPrimaryKey = true, Storage = "_ShiftID")]
         public Guid ShiftID

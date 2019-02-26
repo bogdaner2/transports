@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
+using Transports.Core.Contexts;
 using Transports.Core.Interfaces;
 using Transports.Core.Interfaces.Models;
 
@@ -20,9 +22,13 @@ namespace Transports.Core.Models.InMemory
         [DataMember]
         public RangEnum Rang { get; set; }
 
-        public Driver(string name, int age, RangEnum rang)
+        public int TotalShifts
         {
-            DriverId = Guid.NewGuid();
+            get => InMemoryContext.Instance.DriverShifts.Count(x => x.DriverId == DriverId);
+        }
+
+        public Driver(string name, int age, RangEnum rang) : this()
+        {
             Name = name;
             Age = age;
             Rang = rang;

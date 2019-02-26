@@ -24,6 +24,8 @@
                             <TextBlock Text="{Binding ShiftId, StringFormat='Id: {0}'}"/>
                             <TextBlock FontSize="20"  Text="{Binding Start, StringFormat='Start: {0:d}'}"/>
                             <TextBlock FontSize="20" Text="{Binding End, StringFormat='End: {0:d}'}"/>
+                            <TextBlock Text="{Binding TotalDrivers, StringFormat='Shift`s drivers: {0}'}"/>
+                            <TextBlock Text="{Binding TotalRoutes, StringFormat='Shift`s routes: {0}'}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

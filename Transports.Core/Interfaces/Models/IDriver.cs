@@ -9,6 +9,6 @@ namespace Transports.Core.Interfaces.Models
         string Name { get; set; }
         int Age { get; set; }
         RangEnum Rang { get; set; }
-        object Clone();
+        int TotalShifts { get; }
     }
 }

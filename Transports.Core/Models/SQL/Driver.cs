@@ -28,6 +28,8 @@ namespace Transports.Core.Models.SQL
         [Column]
         public RangEnum Rang { get; set; }
 
+        public int TotalShifts { get; set; }
+
         [Association(Storage = "_DriverShifts", OtherKey = "DriverID")]
         public EntitySet<DriverShift> DriverShifts
         {

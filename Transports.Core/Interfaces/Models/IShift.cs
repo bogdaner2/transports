@@ -7,5 +7,7 @@ namespace Transports.Core.Interfaces.Models
         DateTime Start { get; set; }
         DateTime End { get; set; }
         Guid ShiftId { get; set; }
+        int TotalRoutes { get; }
+        int TotalDrivers { get; }
     }
 }

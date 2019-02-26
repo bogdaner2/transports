@@ -17,7 +17,7 @@ namespace Transports.Core.Models.InMemory
 
         [DataMember]
         public bool IsTrafficJam { get; set; }
-
+       
         [DataMember]
         public int EstimatedTime { get; set; }
         [DataMember]
