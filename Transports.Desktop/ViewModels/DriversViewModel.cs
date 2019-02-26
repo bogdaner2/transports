@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Transports.Core.Contexts;
 using Transports.Core.Interfaces;
 using Transports.Core.Interfaces.Models;
@@ -60,6 +62,8 @@ namespace Transports.Desktop.ViewModels
         {
             var newDriver = SelectedDriver.Clone() as InMemory.Driver;
 
+            newDriver.DriverId = Guid.NewGuid();
+
             Drivers.Add(newDriver);
 
             if (StateService.StoreType == StoreType.InMemory)
@@ -82,16 +86,18 @@ namespace Transports.Desktop.ViewModels
 
         public void RemoveDriver()
         {
-            Drivers.Remove(SelectedDriver);
-
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Drivers.Remove((InMemory.Driver)SelectedDriver);
+
+                InMemoryContext.Instance.Drivers = InMemoryContext.Instance.Drivers
+                    .Where(x => x.DriverId != SelectedDriver.DriverId).ToList();
+                Drivers.Remove(SelectedDriver);
                 SelectedDriver = new InMemory.Driver();
             }
             else
             {
                 _repo.Remove((InSQL.Driver)SelectedDriver);
+                Drivers.Remove(SelectedDriver);
                 SelectedDriver = new InSQL.Driver();
             }
         }

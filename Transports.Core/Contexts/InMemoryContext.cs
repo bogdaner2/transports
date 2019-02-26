@@ -43,7 +43,7 @@ namespace Transports.Core.Contexts
                     SerializeJson();
                     break;
                 case SerializationProvider.XmlSerializer:
-                    DeserializeXml();
+                    SerializeXml();
                     break;
             }
         }

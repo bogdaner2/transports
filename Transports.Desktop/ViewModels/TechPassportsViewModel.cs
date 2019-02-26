@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Transports.Core.Contexts;
 using Transports.Core.Interfaces.Models;
 using InMemory = Transports.Core.Models.InMemory;
@@ -57,7 +59,10 @@ namespace Transports.Desktop.ViewModels
 
         public void AddTechPassport()
         {
+
             var newTechPassport = SelectedTechPassport.Clone() as InMemory.TechPassport;
+
+            newTechPassport.TechPassportId = Guid.NewGuid();
 
             TechPassports.Add(newTechPassport);
 
@@ -81,16 +86,18 @@ namespace Transports.Desktop.ViewModels
 
         public void RemoveTechPassport()
         {
-            TechPassports.Remove(SelectedTechPassport);
-
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.TechPassports.Remove((InMemory.TechPassport)SelectedTechPassport);
+                InMemoryContext.Instance.TechPassports = InMemoryContext.Instance.TechPassports
+                    .Where(x => x.TechPassportId != SelectedTechPassport.TechPassportId)
+                    .ToList();
+                TechPassports.Remove(SelectedTechPassport);
                 SelectedTechPassport = new InMemory.TechPassport();
             }
             else
             {
                 _repo.Remove((InSQL.TechPassport)SelectedTechPassport);
+                TechPassports.Remove(SelectedTechPassport);
                 SelectedTechPassport = new InSQL.TechPassport();
             }
         }

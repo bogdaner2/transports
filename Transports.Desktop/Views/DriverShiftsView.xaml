@@ -21,8 +21,8 @@
                     <StackPanel>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="{Binding DriverShiftId, StringFormat='Id: {0}'}"/>
-                            <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding DriverId, StringFormat='Driver id: {0}'}"/>
-                            <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding ShiftId, StringFormat='Shift id: {0}'}"/>
+                            <TextBlock FontWeight="Bold" Text="{Binding DriverId, StringFormat='Driver id: {0}'}"/>
+                            <TextBlock FontWeight="Bold" Text="{Binding ShiftId, StringFormat='Shift id: {0}'}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

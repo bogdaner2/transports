@@ -91,17 +91,21 @@ namespace Transports.Desktop.ViewModels
 
         public void AddDriverShift()
         {
-            var newDriverShift = SelectedDriverShift.Clone();
-
-            DriverShifts.Add((IDriverShift) newDriverShift);
-
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.DriverShifts.Add((DriverShift) newDriverShift);
+                var newDriverShift = SelectedDriverShift.Clone() as DriverShift;
+                newDriverShift.DriverShiftId = Guid.NewGuid();
+
+                DriverShifts.Add(newDriverShift);
+                InMemoryContext.Instance.DriverShifts.Add(newDriverShift);
             }
             else
             {
-                _repoDriverShift.Create((InSQL.DriverShift) SelectedDriverShift);
+                var newDriverShift = SelectedDriverShift.Clone() as InSQL.DriverShift;
+                newDriverShift.DriverShiftId = Guid.NewGuid();
+
+                DriverShifts.Add(newDriverShift);
+                _repoDriverShift.Create(newDriverShift);
             }
         }
 
@@ -115,18 +119,17 @@ namespace Transports.Desktop.ViewModels
 
         public void RemoveDriverShift()
         {
-            DriverShifts.Remove(SelectedDriverShift);
-
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.DriverShifts.Remove((DriverShift) SelectedDriverShift);
-
+                InMemoryContext.Instance.DriverShifts = InMemoryContext.Instance.DriverShifts
+                    .Where(x => x.DriverShiftId != SelectedDriverShift.DriverShiftId).ToList();
+                DriverShifts.Remove(SelectedDriverShift);
                 SelectedDriverShift = new DriverShift();
             }
             else
             {
                 _repoDriverShift.Remove((InSQL.DriverShift) SelectedDriverShift);
-
+                DriverShifts.Remove(SelectedDriverShift);
                 SelectedDriverShift = new InSQL.DriverShift();
             }
         }

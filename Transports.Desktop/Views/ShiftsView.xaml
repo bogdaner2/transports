@@ -21,24 +21,18 @@
                     <StackPanel>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="{Binding ShiftId, StringFormat='Id: {0}'}"/>
-                            <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Length, StringFormat='Route length: {0}'}"/>
-                            <TextBlock FontSize="20" Text="{Binding EstimatedTime, StringFormat='Time: {0}'}"/>
-                            <TextBlock FontSize="20" Text="{Binding IsTrafficJam, StringFormat='Traffic jam?: {0}'}"/>
+                            <TextBlock FontSize="20"  Text="{Binding Start, StringFormat='Start: {0:d}'}"/>
+                            <TextBlock FontSize="20" Text="{Binding End, StringFormat='End: {0:d}'}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Vertical" Margin="404,0,0,10">
-            <Label Margin="10,70,10,0" Content="Input route length: "></Label>
-            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedRoute.Length}"/>
-            <Label Margin="10,0,10,0" Content="Input estimated time: "></Label>
-            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedRoute.EstimatedTime}"/>
-            <Label Margin="10,0,10,0" Content="Is traffic jam?: "></Label>
-            <ComboBox Margin="10,0,10,0" Height="23">
-                <ComboBoxItem Content="No" />
-                <ComboBoxItem Content="Yes" IsSelected="{Binding SelectedRoute.IsTrafficJam, Mode=TwoWay}" />
-            </ComboBox>
+            <Label Margin="10,70,10,0" Content="Input start date: "></Label>
+            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedShift.Start}"/>
+            <Label Margin="10,0,10,0" Content="Input end date: "></Label>
+            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedShift.End}"/>
             <Button Margin="80,20,80,0" Content="Create" Click="Add_Shift_OnClick"/>
             <Button Margin="80,20,80,0" Content="Delete" Click="Remove_Shift_OnClick"/>
             <Button Margin="80,20,80,0" Visibility="{Binding UpdateBtnVisibility}" Content="Update" Click="Update_Shift_OnClick"/>

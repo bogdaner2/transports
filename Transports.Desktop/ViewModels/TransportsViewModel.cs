@@ -3,24 +3,34 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Transports.Core.Contexts;
 using Transports.Core.Interfaces.Models;
+using Transports.Core.Models.InMemory;
 using Transports.Core.Repositories;
 using Transports.Core.Services;
 using Transports.Desktop.MVVM;
-using InMemory = Transports.Core.Models.InMemory;
 using InSQL = Transports.Core.Models.SQL;
 
 namespace Transports.Desktop.ViewModels
 {
     public class TransportsViewModel : BaseViewModel
     {
+        private readonly ContextRepository<InSQL.TechPassport> _repoPassports;
+
+        private readonly ContextRepository<InSQL.Transport> _repoTransport;
         private ITransport _selectedTransport;
-        private ObservableCollection<ITransport> _transports;
         private ObservableCollection<Guid> _techPassportsIds;
+        private ObservableCollection<ITransport> _transports;
 
         private string _updateBtnVisibility;
 
-        private readonly ContextRepository<InSQL.Transport> _repoTransport;
-        private readonly ContextRepository<InSQL.TechPassport> _repoPassports;
+        public TransportsViewModel()
+        {
+            _repoTransport = new ContextRepository<InSQL.Transport>();
+            _repoPassports = new ContextRepository<InSQL.TechPassport>();
+            _selectedTransport = new Transport();
+            UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
+
+            LoadData();
+        }
 
         public ITransport SelectedTransport
         {
@@ -46,68 +56,63 @@ namespace Transports.Desktop.ViewModels
             set => SetProperty(ref _updateBtnVisibility, value);
         }
 
-        public TransportsViewModel()
-        {
-            _repoTransport = new ContextRepository<InSQL.Transport>();
-            _repoPassports = new ContextRepository<InSQL.TechPassport>();
-            _selectedTransport = new InMemory.Transport();
-            UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
-
-            LoadData();
-        }
-
         public void LoadData()
         {
             if (StateService.StoreType == StoreType.InMemory)
             {
                 Transports = new ObservableCollection<ITransport>(InMemoryContext.Instance.Transports);
-                TechPassportsIds = new ObservableCollection<Guid>(InMemoryContext.Instance.TechPassports.Select(x => x.TechPassportId));
+                TechPassportsIds =
+                    new ObservableCollection<Guid>(
+                        InMemoryContext.Instance.TechPassports.Select(x => x.TechPassportId));
             }
             else
             {
                 Transports = new ObservableCollection<ITransport>(_repoTransport.GetAll());
-                TechPassportsIds = new ObservableCollection<Guid>(_repoPassports.GetAll().Select(x => x.TechPassportID));
+                TechPassportsIds =
+                    new ObservableCollection<Guid>(_repoPassports.GetAll().Select(x => x.TechPassportID));
             }
         }
 
         public void AddTransport()
         {
-            var newTransport = SelectedTransport.Clone();
-
-            Transports.Add((ITransport)newTransport);
-
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Transports.Add((InMemory.Transport)newTransport);
+                var newTransport = SelectedTransport.Clone() as Transport;
+
+                newTransport.TransportId = Guid.NewGuid();
+
+                Transports.Add(newTransport);
+                InMemoryContext.Instance.Transports.Add(newTransport);
             }
             else
             {
-                _repoTransport.Create((InSQL.Transport)SelectedTransport);
+                var newTransport = SelectedTransport.Clone() as InSQL.Transport;
+
+                newTransport.TransportId = Guid.NewGuid();
+
+                _repoTransport.Create(newTransport);
             }
         }
 
         public void UpdateTransport()
         {
-            if (StateService.StoreType == StoreType.InDatabase)
-            {
-                _repoPassports.Save();
-            }
+            if (StateService.StoreType == StoreType.InDatabase) _repoPassports.Save();
         }
 
         public void RemoveTransport()
         {
-            Transports.Remove(SelectedTransport);
-
             if (StateService.StoreType == StoreType.InMemory)
             {
-                InMemoryContext.Instance.Transports.Remove((InMemory.Transport)SelectedTransport);
-
-                SelectedTransport = new InMemory.Transport();
+                InMemoryContext.Instance.Transports = InMemoryContext.Instance.Transports
+                    .Where(x => x.TransportId != SelectedTransport.TransportId)
+                    .ToList();
+                Transports.Remove(SelectedTransport);
+                SelectedTransport = new Transport();
             }
             else
             {
-                _repoTransport.Remove((InSQL.Transport)SelectedTransport);
-
+                _repoTransport.Remove((InSQL.Transport) SelectedTransport);
+                Transports.Remove(SelectedTransport);
                 SelectedTransport = new InSQL.Transport();
             }
         }
