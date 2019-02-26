@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Transports.Desktop.Views"
       xmlns:viewModels="clr-namespace:Transports.Desktop.ViewModels"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ShiftsView">
@@ -30,9 +31,9 @@
         </ListBox>
         <StackPanel Orientation="Vertical" Margin="404,0,0,10">
             <Label Margin="10,70,10,0" Content="Input start date: "></Label>
-            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedShift.Start}"/>
+            <DatePicker Margin="10,0,10,0" Height="23" DisplayDate="{Binding System:DateTime.Now}" SelectedDate="{Binding SelectedShift.Start, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
             <Label Margin="10,0,10,0" Content="Input end date: "></Label>
-            <TextBox Margin="10,0,10,0" Height="23" Text="{Binding SelectedShift.End}"/>
+            <DatePicker Margin="10,0,10,0" Height="23" DisplayDate="{Binding System:DateTime.Now}" SelectedDate="{Binding SelectedShift.End, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
             <Button Margin="80,20,80,0" Content="Create" Click="Add_Shift_OnClick"/>
             <Button Margin="80,20,80,0" Content="Delete" Click="Remove_Shift_OnClick"/>
             <Button Margin="80,20,80,0" Visibility="{Binding UpdateBtnVisibility}" Content="Update" Click="Update_Shift_OnClick"/>

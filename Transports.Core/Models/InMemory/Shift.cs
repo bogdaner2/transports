@@ -10,10 +10,10 @@ namespace Transports.Core.Models.InMemory
         [DataMember]
         public Guid ShiftId { get; set; }
 
-        [DataMember]
+        [DataMember(EmitDefaultValue = false)]
         public DateTime Start { get; set; }
 
-        [DataMember]
+        [DataMember(EmitDefaultValue = false)]
         public DateTime End { get; set; }
 
         public Shift()

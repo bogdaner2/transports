@@ -13,14 +13,19 @@ namespace Transports.Desktop.ViewModels
 {
     public class RoutesViewModel : BaseViewModel
     {
-        private readonly ContextRepository<InSQL.Route> _repo;
+        private readonly ContextRepository<InSQL.Route> _routesRepo;
+        private readonly ContextRepository<InSQL.Shift> _shiftRepo;
+
         private ObservableCollection<IRoute> _Routes;
+        private ObservableCollection<Guid> _ShiftIds;
+
         private IRoute _selectedRoute;
         private string _updateBtnVisibility;
 
         public RoutesViewModel()
         {
-            _repo = new ContextRepository<InSQL.Route>();
+            _routesRepo = new ContextRepository<InSQL.Route>();
+            _shiftRepo = new ContextRepository<InSQL.Shift>();
             _selectedRoute = new Route();
             UpdateBtnVisibility = StateService.StoreType == StoreType.InMemory ? "Hidden" : "Visible";
 
@@ -39,6 +44,13 @@ namespace Transports.Desktop.ViewModels
             set => SetProperty(ref _Routes, value);
         }
 
+        public ObservableCollection<Guid> ShiftIds
+        {
+            get => _ShiftIds;
+            set => SetProperty(ref _ShiftIds, value);
+        }
+
+
         public string UpdateBtnVisibility
         {
             get => _updateBtnVisibility;
@@ -50,10 +62,12 @@ namespace Transports.Desktop.ViewModels
             if (StateService.StoreType == StoreType.InMemory)
             {
                 Routes = new ObservableCollection<IRoute>(InMemoryContext.Instance.Routes);
+                ShiftIds = new ObservableCollection<Guid>(InMemoryContext.Instance.Shifts.Select(x => x.ShiftId));
             }
             else
             {
-                Routes = new ObservableCollection<IRoute>(_repo.GetAll());
+                Routes = new ObservableCollection<IRoute>(_routesRepo.GetAll());
+                ShiftIds = new ObservableCollection<Guid>(_shiftRepo.GetAll().Select(x => x.ShiftId));
             }
         }
 
@@ -71,7 +85,7 @@ namespace Transports.Desktop.ViewModels
             }
             else
             {
-                _repo.Create((InSQL.Route) SelectedRoute);
+                _routesRepo.Create((InSQL.Route) SelectedRoute);
             }
         }
 
@@ -79,7 +93,7 @@ namespace Transports.Desktop.ViewModels
         {
             if (StateService.StoreType == StoreType.InDatabase)
             {
-                _repo.Save();
+                _routesRepo.Save();
             }
         }
 
@@ -93,7 +107,7 @@ namespace Transports.Desktop.ViewModels
             }
             else
             {
-                _repo.Remove((InSQL.Route) SelectedRoute);
+                _routesRepo.Remove((InSQL.Route) SelectedRoute);
                 Routes.Remove(SelectedRoute);
                 SelectedRoute = new InSQL.Route();
             }

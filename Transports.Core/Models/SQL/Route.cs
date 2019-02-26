@@ -31,6 +31,8 @@ namespace Transports.Core.Models.SQL
         [Column]
         public int EstimatedTime { get; set; }
 
+        public Guid ShiftId { get; set; }
+
         public object Clone() => MemberwiseClone();
 
         [Column(Storage = "_ShiftID")]

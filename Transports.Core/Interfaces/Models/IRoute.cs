@@ -8,5 +8,6 @@ namespace Transports.Core.Interfaces.Models
         int Length { get; set; }
         bool IsTrafficJam { get; set; }
         int EstimatedTime { get; set; }
+        Guid ShiftId { get; set; }
     }
 }

@@ -20,6 +20,8 @@ namespace Transports.Core.Models.InMemory
 
         [DataMember]
         public int EstimatedTime { get; set; }
+        [DataMember]
+        public Guid ShiftId { get; set; }
 
         public Route(int length, bool isTrafficJam)
         {
