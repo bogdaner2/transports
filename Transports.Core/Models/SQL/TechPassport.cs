@@ -19,7 +19,7 @@ namespace Transports.Core.Models.SQL
             TechPassportID = Guid.NewGuid();
         }
 
-        [Column(IsPrimaryKey = true, Storage = "_TechPassportID")]
+        [Column(IsPrimaryKey = true)]
         public Guid TechPassportID { get; set; }
 
         public Guid TechPassportId { get; set; }

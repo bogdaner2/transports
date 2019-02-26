@@ -24,11 +24,11 @@ namespace Transports.Core.Models.SQL
             TransportID = Guid.NewGuid();
         }
 
-        [Column(Storage = "_TransportID", IsPrimaryKey = true)]
+        [Column(IsPrimaryKey = true)]
         public Guid TransportID { get; set; }
 
 
-        [Column(Storage = "_PassportID")] public Guid PassportID { get; set; }
+        [Column] public Guid PassportID { get; set; }
 
         [Association(Storage = "_Passport", ThisKey = "PassportID")]
         public TechPassport Passport

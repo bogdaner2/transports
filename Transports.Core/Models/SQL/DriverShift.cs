@@ -28,12 +28,12 @@ namespace Transports.Core.Models.SQL
             _Driver = new EntityRef<Driver>();
         }
 
-        [Column(IsPrimaryKey = true, Storage = "_DriverShiftID")]
+        [Column(IsPrimaryKey = true)]
         public Guid DriverShiftID { get; set; }
 
-        [Column(Storage = "_ShiftID")] public Guid ShiftID { get; set; }
+        [Column] public Guid ShiftID { get; set; }
 
-        [Column(Storage = "_DriverID")] public Guid DriverID { get; set; }
+        [Column] public Guid DriverID { get; set; }
 
         [Association(Storage = "_Driver", ThisKey = "DriverID")]
         public Driver Driver

@@ -80,12 +80,12 @@ namespace Transports.Core.Contexts
 
         public void DeserializeXml()
         {
-            XmlSerializerProvider.Serialize(new XmlSerializer(Drivers.GetType()), Drivers);
-            XmlSerializerProvider.Serialize(new XmlSerializer(Routes.GetType()), Routes);
-            XmlSerializerProvider.Serialize(new XmlSerializer(Transports.GetType()), Transports);
-            XmlSerializerProvider.Serialize(new XmlSerializer(Shifts.GetType()), Shifts);
-            XmlSerializerProvider.Serialize(new XmlSerializer(DriverShifts.GetType()), DriverShifts);
-            XmlSerializerProvider.Serialize(new XmlSerializer(TechPassports.GetType()), TechPassports);
+            XmlSerializerProvider.Deserialize(new XmlSerializer(Drivers.GetType()),ref Drivers);
+            XmlSerializerProvider.Deserialize(new XmlSerializer(Routes.GetType()),ref Routes);
+            XmlSerializerProvider.Deserialize(new XmlSerializer(Transports.GetType()),ref Transports);
+            XmlSerializerProvider.Deserialize(new XmlSerializer(Shifts.GetType()),ref Shifts);
+            XmlSerializerProvider.Deserialize(new XmlSerializer(DriverShifts.GetType()),ref DriverShifts);
+            XmlSerializerProvider.Deserialize(new XmlSerializer(TechPassports.GetType()),ref TechPassports);
         }
 
     }

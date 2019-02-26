@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Transports.Core.Contexts;
 using Transports.Core.Interfaces.Models;
@@ -55,6 +56,8 @@ namespace Transports.Desktop.ViewModels
         public void AddShift()
         {
             var newShift = SelectedShift.Clone() as Shift;
+
+            newShift.ShiftId = Guid.NewGuid();
 
             Shifts.Add(newShift);
 

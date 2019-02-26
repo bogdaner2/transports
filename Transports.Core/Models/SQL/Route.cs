@@ -25,10 +25,10 @@ namespace Transports.Core.Models.SQL
         {
         }
 
-        [Column(IsPrimaryKey = true, Storage = "_RouteID")]
+        [Column(IsPrimaryKey = true)]
         public Guid RouteID { get; set; }
 
-        [Column(Storage = "_ShiftID")] public Guid ShiftID { get; set; }
+        [Column] public Guid ShiftID { get; set; }
 
         [Association(Storage = "_Shift", ThisKey = "ShiftID")]
         public Shift Shift

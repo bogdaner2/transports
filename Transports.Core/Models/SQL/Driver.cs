@@ -28,14 +28,14 @@ namespace Transports.Core.Models.SQL
         {
         }
 
-        [Association(Storage = "_DriverShifts", OtherKey = "DriverID")]
+        [Association(Storage = "_DriverShifts", OtherKey = "DriverId")]
         public EntitySet<DriverShift> DriverShifts
         {
             get => _DriverShifts;
             set => _DriverShifts.Assign(value);
         }
 
-        [Column(IsPrimaryKey = true, Storage = "_DriverID")]
+        [Column(IsPrimaryKey = true)]
         public Guid DriverId { get; set; }
 
         [Column] public string Name { get; set; }

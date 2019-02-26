@@ -19,7 +19,7 @@ namespace Transports.Core.Models.SQL
             ShiftID = Guid.NewGuid();
         }
 
-        [Column(IsPrimaryKey = true, Storage = "_ShiftID")]
+        [Column(IsPrimaryKey = true)]
         public Guid ShiftID { get; set; }
 
         [Association(Storage = "_Routes", OtherKey = "ShiftID")]
