@@ -1,63 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using Transports.Core.Interfaces.Models;
 
 namespace Transports.Core.Models.SQL
 {
-    [Table(Name = "dbo.Shifts")]
     public class Shift : IShift, IEntity
     {
-        private readonly EntitySet<DriverShift> _DriverShift;
-        private readonly EntitySet<Route> _Routes;
-
-        public Shift()
-        {
-            _Routes = new EntitySet<Route>();
-            _DriverShift = new EntitySet<DriverShift>();
-            ShiftID = Guid.NewGuid();
-        }
-
-        [Column(IsPrimaryKey = true)]
-        public Guid ShiftID { get; set; }
-
-        [Association(Storage = "_Routes", OtherKey = "ShiftID")]
-        public EntitySet<Route> Routes
-        {
-            get => _Routes;
-            set => _Routes.Assign(value);
-        }
-
-        [Association(Storage = "_DriverShift", OtherKey = "ShiftID")]
-        public EntitySet<DriverShift> DriverShift
-        {
-            get => _DriverShift;
-            set => _DriverShift.Assign(value);
-        }
-
-        [Column] public DateTime Start { get; set; }
-
-        [Column] public DateTime End { get; set; }
-
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        [Key]
         public Guid ShiftId { get; set; }
-        public int TotalRoutes { get; set; }
-        public int TotalDrivers { get; set; }
+
+        [NotMapped]
+        public int TotalRoutes { get; }
+        [NotMapped]
+        public int TotalDrivers { get; }
 
         public object Clone()
         {
             return MemberwiseClone();
-        }
-
-        public Shift AddRoutes(IEnumerable<Route> routes)
-        {
-            foreach (var route in routes)
-            {
-                route.ShiftID = ShiftID;
-                Routes.Add(route);
-            }
-
-            return this;
         }
     }
 }

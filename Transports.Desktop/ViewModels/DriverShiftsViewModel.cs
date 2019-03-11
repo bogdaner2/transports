@@ -85,7 +85,7 @@ namespace Transports.Desktop.ViewModels
                 DriversIds =
                     new ObservableCollection<Guid>(_repoDrivers.GetAll().Select(x => x.DriverId));
                 ShiftIds =
-                    new ObservableCollection<Guid>(_repoShifts.GetAll().Select(x => x.ShiftID));
+                    new ObservableCollection<Guid>(_repoShifts.GetAll().Select(x => x.ShiftId));
             }
         }
 

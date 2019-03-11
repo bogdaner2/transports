@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Linq;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,10 +12,10 @@ namespace Transports.Core.Repositories
 {
     public class ContextRepository<T> : IRepository<T> where T : class, IEntity
     {
-        private readonly Table<T> _table;
+        private readonly DbSet<T> _table;
         public ContextRepository()
         {
-            _table = TransportsContext.Instance.GetTable<T>();
+            _table = TransportsContext.Instance.Set<T>();
         }
 
         public IEnumerable<T> GetAll()
@@ -31,7 +32,7 @@ namespace Transports.Core.Repositories
         {
             try
             {
-                _table.InsertOnSubmit(item);
+                _table.Add(item);
                 Save();
                 return item;
             }
@@ -40,15 +41,15 @@ namespace Transports.Core.Repositories
                 return null;
             }
         }
-        public void Save()
+        public async void Save()
         {
-            TransportsContext.Instance.SubmitChanges();
+            await TransportsContext.Instance.SaveChangesAsync();
         }
         public bool Remove(T item)
         {
             try
             {
-                _table.DeleteOnSubmit(item);
+                _table.Remove(item);
                 Save();
                 return true;
             }

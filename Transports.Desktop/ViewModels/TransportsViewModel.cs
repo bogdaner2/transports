@@ -69,7 +69,7 @@ namespace Transports.Desktop.ViewModels
             {
                 Transports = new ObservableCollection<ITransport>(_repoTransport.GetAll());
                 TechPassportsIds =
-                    new ObservableCollection<Guid>(_repoPassports.GetAll().Select(x => x.TechPassportID));
+                    new ObservableCollection<Guid>(_repoPassports.GetAll().Select(x => x.TechPassportId));
             }
         }
 
