@@ -10,10 +10,13 @@ namespace Transports.Core.Models.SQL
 {
     public class Shift : IShift, IEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid ShiftId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        [Key]
-        public Guid ShiftId { get; set; }
+
+        public ICollection<DriverShift> DriverShifts { get; set; }
 
         [NotMapped]
         public int TotalRoutes { get; }

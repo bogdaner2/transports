@@ -20,11 +20,20 @@ namespace Transports.Core.Contexts
 
         private TransportsContext(string connection) : base(connection)
         {
+            Database.CreateIfNotExists();
         }
 
         private TransportsContext() : this(
             $@"Server=.\;Database=Transports;Trusted_Connection=True;")
         {
+
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Transport>()
+                .HasRequired(t => t.TechPassport)
+                .WithRequiredPrincipal(tp => tp.Transport);
 
         }
     }

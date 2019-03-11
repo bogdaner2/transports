@@ -57,19 +57,33 @@ namespace Transports.Desktop.ViewModels
         {
             var newDriver = SelectedDriver.Clone() as Driver;
 
-            newDriver.DriverId = Guid.NewGuid();
+            var guid = Guid.NewGuid();
+
+            newDriver.DriverId = guid;
 
             Drivers.Add(newDriver);
 
             if (StateService.StoreType == StoreType.InMemory)
                 InMemoryContext.Instance.Drivers.Add(newDriver);
             else
-                _repo.Create((InSQL.Driver) SelectedDriver);
+                _repo.Create(new InSQL.Driver
+                {
+                    DriverId = guid, Name = SelectedDriver.Name, Age = SelectedDriver.Age, Rang = SelectedDriver.Rang
+                });
         }
 
         public void UpdateDriver()
         {
-            if (StateService.StoreType == StoreType.InDatabase) _repo.Save();
+            if (StateService.StoreType == StoreType.InDatabase)
+            {
+                var item = _repo.Get(x => x.DriverId == SelectedDriver.DriverId);
+
+                item.Name = SelectedDriver.Name;
+                item.Age = SelectedDriver.Age;
+                item.Rang = SelectedDriver.Rang;
+
+                _repo.Save();
+            }
         }
 
         public void RemoveDriver()
