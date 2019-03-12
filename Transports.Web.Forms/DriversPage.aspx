@@ -4,17 +4,17 @@
 <asp:Content ID="DriverPage" ContentPlaceHolderID="MainContent" runat="server">
     <div>
         <h1>Drivers list </h1>
-        <a href='newdriver' class='btn btn-warning' role='button'>Create</a>
+        <asp:Button runat="server" class='btn btn-warning' OnClick="OnClick" Text="Create" role='button'></asp:Button>
         <hr>
-        <asp:Repeater ID="Repeater" runat="server">
+        <asp:Repeater ID="Repeater" runat="server" onitemcommand="Repeater1_ItemCommand">
             <ItemTemplate>
                 <div>
                     <h5>Name: <%#Eval("Name") %></h5>
                     <h6>Age:  <%#Eval("Age") %></h6>
                     <h6>Rang:  <%#Eval("Rang") %></h6>
                 </div>
-                <asp:Button ID="btnUpdate" runat="server" class='btn btn-info' Text="Update"></asp:Button>
-                <asp:Button ID="btnDelete" runat="server" class='btn btn-info' Text="Delete"></asp:Button>
+                <asp:Button ID="test" runat="server" CommandName="Update" CommandArgument='<%# Eval("DriverId") %>' class='btn btn-info' Text="Update"></asp:Button>
+                <asp:Button ID="btnDelete" runat="server" CommandName="Delete" CommandArgument='<%# Eval("DriverId") %>' class='btn btn-info' Text="Delete"></asp:Button>
             </ItemTemplate>
         </asp:Repeater>
     </div>

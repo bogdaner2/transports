@@ -14,9 +14,11 @@ namespace Transports.Web.Forms
         void RegisterRoutes(RouteCollection routes)
         {
             routes.MapPageRoute(
-                "Drivers", "Drivers", "~/DriversPage.aspx");
+                "Drivers", "drivers", "~/DriversPage.aspx");
             routes.MapPageRoute(
                 "default", "", "~/DriversPage.aspx");
+            routes.MapPageRoute(
+                "driverCreate", "driverCreate", "~/DriverCreatePage.aspx");
 
         }
 

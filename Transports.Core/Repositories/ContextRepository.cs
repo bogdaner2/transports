@@ -41,9 +41,9 @@ namespace Transports.Core.Repositories
                 return null;
             }
         }
-        public async void Save()
+        public void Save()
         {
-            await TransportsContext.Instance.SaveChangesAsync();
+            TransportsContext.Instance.SaveChanges();
         }
         public bool Remove(T item)
         {
