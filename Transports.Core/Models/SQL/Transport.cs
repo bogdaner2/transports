@@ -16,11 +16,10 @@ namespace Transports.Core.Models.SQL
         public string TypeOfTransport { get; set; }
         public int CountOfSeats { get; set; }
 
-        public virtual TechPassport TechPassport { get; set; }
+        public TechPassport TechPassport { get; set; }
 
         [NotMapped]
         public Guid TechPassportId { get; set; }
-        // public TechPassport TechPassport { get; set; }
 
         public object Clone()
         {

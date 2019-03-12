@@ -11,10 +11,19 @@ namespace Transports.Web.Forms
 {
     public class Global : HttpApplication
     {
+        void RegisterRoutes(RouteCollection routes)
+        {
+            routes.MapPageRoute(
+                "Drivers", "Drivers", "~/DriversPage.aspx");
+            routes.MapPageRoute(
+                "default", "", "~/DriversPage.aspx");
+
+        }
+
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }

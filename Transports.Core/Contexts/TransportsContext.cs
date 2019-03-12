@@ -31,10 +31,6 @@ namespace Transports.Core.Contexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Transport>()
-                .HasRequired(t => t.TechPassport)
-                .WithRequiredPrincipal(tp => tp.Transport);
-
         }
     }
 }

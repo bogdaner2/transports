@@ -14,8 +14,6 @@ namespace Transports.Core.Models.SQL
         public string Brand { get; set; }
         public int YearOfManufacture { get; set; }
 
-        public virtual Transport Transport { get; set; }
-
         public object Clone()
         {
             return MemberwiseClone();
