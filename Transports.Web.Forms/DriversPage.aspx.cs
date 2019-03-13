@@ -37,6 +37,9 @@ namespace Transports.Web.Forms
                     repo.Remove(item);
                     Response.Redirect("drivers");
                     break;
+                case "Update":
+                    Response.Redirect("driverCreate?ID=" + e.CommandArgument);
+                    break;
             }
         }
         protected void OnClick(object sender, EventArgs e)

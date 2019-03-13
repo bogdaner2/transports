@@ -10,9 +10,6 @@
                 <asp:TextBox ID="driverAge" runat="server" Text=""></asp:TextBox><br />
                 <label>Input rang</label>
                 <asp:TextBox ID="driverRang" runat="server" Text=""></asp:TextBox><br />
-                <div>
-                    <button type="submit">Create</button>
-                </div>
-
-
+                <asp:Button ID="btnCreate" runat="server" class='btn btn-info' Text="Create" OnClick="btnCreate_Click" />
+                <asp:Button ID="btnUpdate" runat="server" class='btn btn-info' Text="Update" OnClick="btnUpdate_Click" />
 </asp:Content>
