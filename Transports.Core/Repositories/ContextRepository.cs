@@ -45,6 +45,15 @@ namespace Transports.Core.Repositories
         {
             TransportsContext.Instance.SaveChanges();
         }
+
+        public bool Update(T item)
+        {
+            TransportsContext.Instance.Entry(item).State = EntityState.Modified;
+            Save();
+
+            return true;
+        }
+
         public bool Remove(T item)
         {
             try

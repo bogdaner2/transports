@@ -2,7 +2,7 @@
 
 <asp:Content ID="DriverCreatePage" ContentPlaceHolderID="MainContent" runat="server">
         <div>
-            Create new driver
+            <asp:Label ID="Label" runat="server" Text=""></asp:Label>
         </div>
                 <label>Input name</label>
                 <asp:TextBox ID="driverName" runat="server" Text=""></asp:TextBox><br />

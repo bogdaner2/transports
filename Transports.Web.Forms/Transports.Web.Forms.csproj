@@ -122,7 +122,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Default.aspx" />
     <Content Include="DriverCreatePage.aspx" />
     <Content Include="DriversPage.aspx" />
     <Content Include="favicon.ico" />
@@ -137,6 +136,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="RouteCreateEditPage.aspx" />
+    <Content Include="RoutesPage.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -165,6 +166,8 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="ShiftAddEditPage.aspx" />
+    <Content Include="ShiftsPage.aspx" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -174,13 +177,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="DriverCreatePage.aspx.cs">
       <DependentUpon>DriverCreatePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -199,6 +195,34 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteCreateEditPage.aspx.cs">
+      <DependentUpon>RouteCreateEditPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RouteCreateEditPage.aspx.designer.cs">
+      <DependentUpon>RouteCreateEditPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RoutesPage.aspx.cs">
+      <DependentUpon>RoutesPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RoutesPage.aspx.designer.cs">
+      <DependentUpon>RoutesPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShiftAddEditPage.aspx.cs">
+      <DependentUpon>ShiftAddEditPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShiftAddEditPage.aspx.designer.cs">
+      <DependentUpon>ShiftAddEditPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShiftsPage.aspx.cs">
+      <DependentUpon>ShiftsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShiftsPage.aspx.designer.cs">
+      <DependentUpon>ShiftsPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

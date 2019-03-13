@@ -51,6 +51,11 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="drivers">Drivers</a></li>
+                        <li><a runat="server" href="routes">Routes</a></li>
+                        <li><a runat="server" href="shifts">Shifts</a></li>
+                        <li><a runat="server" href="driverShifts">Driver Shifts</a></li>
+                        <li><a runat="server" href="transports">Transports</a></li>
+                        <li><a runat="server" href="passports">Passports</a></li>
 
                     </ul>
                 </div>

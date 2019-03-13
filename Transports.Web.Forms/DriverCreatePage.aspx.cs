@@ -14,6 +14,7 @@ namespace Transports.Web.Forms
     {
         private Core.Repositories.ContextRepository<Driver> repo = new Core.Repositories.ContextRepository<Driver>();
         private Driver _loadedDriver;
+        private Guid _id;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,18 +22,29 @@ namespace Transports.Web.Forms
 
             if (id != null)
             {
-                var guid = Guid.Parse(id);
-                _loadedDriver = repo.Get(x => x.DriverId == guid);
+                _id = Guid.Parse(id);
 
-                driverName.Text = _loadedDriver.Name;
-                driverAge.Text = _loadedDriver.Age.ToString();
-                driverRang.Text = _loadedDriver.Rang.ToString();
-
-                btnCreate.Visible = false;
             }
-            else
+
+            if (!IsPostBack)
             {
-                btnUpdate.Visible = false;
+
+                if (id != null)
+                { 
+                    _loadedDriver = repo.Get(x => x.DriverId == _id);
+
+                    driverName.Text = _loadedDriver.Name;
+                    driverAge.Text = _loadedDriver.Age.ToString();
+                    driverRang.Text = _loadedDriver.Rang.ToString();
+
+                    btnCreate.Visible = false;
+                    Label.Text = "Update driver";
+                }
+                else
+                {
+                    btnUpdate.Visible = false;
+                    Label.Text = "Create new driver";
+                }
             }
         }
 
@@ -51,11 +63,13 @@ namespace Transports.Web.Forms
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            _loadedDriver.Name = driverName.Text;
-            _loadedDriver.Age = int.Parse(driverAge.Text);
-            _loadedDriver.Rang = (RangEnum)int.Parse(driverRang.Text);
+            var driver = repo.Get(x => x.DriverId == _id);
+            driver.Name = driverName.Text;
+            driver.Age = int.Parse(driverAge.Text);
+            Enum.TryParse(driverRang.Text, out RangEnum rang);
+            driver.Rang = rang;
 
-            repo.Save();
+            repo.Update(driver);
 
             Response.Redirect("drivers");
         }

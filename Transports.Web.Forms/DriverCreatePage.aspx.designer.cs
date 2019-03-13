@@ -13,6 +13,15 @@ namespace Transports.Web.Forms {
     public partial class DriverCreatePage {
         
         /// <summary>
+        /// Label control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label;
+        
+        /// <summary>
         /// driverName control.
         /// </summary>
         /// <remarks>
