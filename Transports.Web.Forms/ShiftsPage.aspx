@@ -1,15 +1,21 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ShiftsPage.aspx.cs" Inherits="Transports.Web.Forms.ShiftsPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="ShiftsPage.aspx.cs" Inherits="Transports.Web.Forms.ShiftsPage" %>
 
-<!DOCTYPE html>
+<asp:Content ID="ShiftPage" ContentPlaceHolderID="MainContent" runat="server">
+    <div>
+        <h1>Shifts list </h1>
+        <asp:Button runat="server" class='btn btn-warning' OnClick="OnClick" Text="Create" role='button'></asp:Button>
+        <hr>
+        <asp:Repeater ID="Repeater" runat="server" onitemcommand="Repeater1_ItemCommand">
+            <ItemTemplate>
+                <div>
+                    <span>Id: <%#Eval("ShiftId") %></span>
+                    <h5>Start: <%#Eval("Start") %></h5>
+                    <h5>End:  <%#Eval("End") %></h5>
+                </div>
+                <asp:Button ID="test" runat="server" CommandName="Update" CommandArgument='<%# Eval("ShiftId") %>' class='btn btn-info' Text="Update"></asp:Button>
+                <asp:Button ID="btnDelete" runat="server" CommandName="Delete" CommandArgument='<%# Eval("ShiftId") %>' class='btn btn-info' Text="Delete"></asp:Button>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
-        </div>
-    </form>
-</body>
-</html>

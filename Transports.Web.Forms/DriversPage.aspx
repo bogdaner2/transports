@@ -9,6 +9,7 @@
         <asp:Repeater ID="Repeater" runat="server" onitemcommand="Repeater1_ItemCommand">
             <ItemTemplate>
                 <div>
+                    <span>Id: <%#Eval("DriverId") %></span>
                     <h5>Name: <%#Eval("Name") %></h5>
                     <h6>Age:  <%#Eval("Age") %></h6>
                     <h6>Rang:  <%#Eval("Rang") %></h6>

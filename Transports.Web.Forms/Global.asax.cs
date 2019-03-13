@@ -19,6 +19,14 @@ namespace Transports.Web.Forms
                 "default", "", "~/DriversPage.aspx");
             routes.MapPageRoute(
                 "driverCreate", "driverCreate", "~/DriverCreatePage.aspx");
+            routes.MapPageRoute(
+                "shifts", "shifts", "~/ShiftsPage.aspx");
+            routes.MapPageRoute(
+                "shiftCreate", "shiftCreate", "~/ShiftAddEditPage.aspx");
+            routes.MapPageRoute(
+                "routes", "routes", "~/RoutesPage.aspx");
+            routes.MapPageRoute(
+                "routeCreate", "routeCreate", "~/RouteAddEditPage.aspx");
 
         }
 
