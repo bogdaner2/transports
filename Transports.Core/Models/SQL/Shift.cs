@@ -27,5 +27,10 @@ namespace Transports.Core.Models.SQL
         {
             return MemberwiseClone();
         }
+
+        public override string ToString()
+        {
+            return ShiftId.ToString();
+        }
     }
 }

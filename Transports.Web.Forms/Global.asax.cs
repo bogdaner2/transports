@@ -26,7 +26,7 @@ namespace Transports.Web.Forms
             routes.MapPageRoute(
                 "routes", "routes", "~/RoutesPage.aspx");
             routes.MapPageRoute(
-                "routeCreate", "routeCreate", "~/RouteAddEditPage.aspx");
+                "routeCreate", "routeCreate", "~/RouteCreateEditPage.aspx");
 
         }
 
