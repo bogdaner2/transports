@@ -54,7 +54,8 @@ namespace Transports.Web.Forms
 
             driver.Name = driverName.Text;
             driver.Age = int.Parse(driverAge.Text);
-            driver.Rang = (RangEnum)int.Parse(driverRang.Text);
+            Enum.TryParse(driverRang.Text, out RangEnum rang);
+            driver.Rang = rang;
 
             repo.Create(driver);
 
