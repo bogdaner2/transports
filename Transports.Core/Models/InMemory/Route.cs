@@ -7,8 +7,6 @@ namespace Transports.Core.Models.InMemory
     [Serializable, DataContract]
     public class Route : IRoute
     {
-        private int _time;
-
         [DataMember]
         public Guid RouteId { get; set; }
 

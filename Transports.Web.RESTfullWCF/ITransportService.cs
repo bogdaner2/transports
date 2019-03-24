@@ -13,7 +13,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "GET",
-            UriTemplate = "drivers",
+            UriTemplate = "api/drivers",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         List<Driver> GetDrivers();
@@ -21,7 +21,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "POST",
-            UriTemplate = "drivers",
+            UriTemplate = "api/drivers",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         Driver CreateDriver(Driver driver);
@@ -29,7 +29,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "PUT",
-            UriTemplate = "drivers",
+            UriTemplate = "api/drivers",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         bool UpdateDriver(Driver driver);
@@ -37,7 +37,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "DELETE",
-            UriTemplate = "drivers/{id}",
+            UriTemplate = "api/drivers/{id}",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         bool DeleteDriver(string id);
@@ -49,7 +49,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "GET",
-            UriTemplate = "shifts",
+            UriTemplate = "api/shifts",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         List<Shift> GetShifts();
@@ -57,7 +57,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "POST",
-            UriTemplate = "shifts",
+            UriTemplate = "api/shifts",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         Shift CreateShift(Shift shift);
@@ -65,7 +65,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "PUT",
-            UriTemplate = "shifts",
+            UriTemplate = "api/shifts",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         bool UpdateShift(Shift shift);
@@ -73,7 +73,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "DELETE",
-            UriTemplate = "shifts/{id}",
+            UriTemplate = "api/shifts/{id}",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         bool DeleteShift(string id);
@@ -85,7 +85,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "GET",
-            UriTemplate = "routes",
+            UriTemplate = "api/routes",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         List<Route> GetRoutes();
@@ -93,7 +93,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "POST",
-            UriTemplate = "routes",
+            UriTemplate = "api/routes",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         Route CreateRoute(Route route);
@@ -101,7 +101,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "PUT",
-            UriTemplate = "routes",
+            UriTemplate = "api/routes",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         bool UpdateRoute(Route route);
@@ -109,7 +109,7 @@ namespace Transports.Web.RESTfullWCF
         [OperationContract]
         [WebInvoke(
             Method = "DELETE",
-            UriTemplate = "routes/{id}",
+            UriTemplate = "api/routes/{id}",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         bool DeleteRoute(string id);
