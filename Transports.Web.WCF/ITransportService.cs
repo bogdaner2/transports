@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using Transports.Core.Models;
 using Transports.Core.Models.SQL;
 
-namespace Transports.Web.WCF
+namespace Transports.Web.RESTfullWCF
 {
     [ServiceContract]
     public interface ITransportService
     {
-        // Drivers
+        #region Drivers
+
         [OperationContract]
         [WebInvoke(
             Method = "GET",
@@ -33,7 +32,7 @@ namespace Transports.Web.WCF
             UriTemplate = "drivers",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
-        bool  UpdateDriver(Driver driver);
+        bool UpdateDriver(Driver driver);
 
         [OperationContract]
         [WebInvoke(
@@ -43,7 +42,10 @@ namespace Transports.Web.WCF
             RequestFormat = WebMessageFormat.Json)]
         bool DeleteDriver(string id);
 
-        //Shifts
+        #endregion
+
+        #region Shifts
+
         [OperationContract]
         [WebInvoke(
             Method = "GET",
@@ -71,12 +73,15 @@ namespace Transports.Web.WCF
         [OperationContract]
         [WebInvoke(
             Method = "DELETE",
-            UriTemplate = "shifts",
+            UriTemplate = "shifts/{id}",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
-        bool DeleteShift(Guid Id);
+        bool DeleteShift(string id);
 
-        //Routes
+        #endregion
+
+        #region Routes
+
         [OperationContract]
         [WebInvoke(
             Method = "GET",
@@ -104,9 +109,11 @@ namespace Transports.Web.WCF
         [OperationContract]
         [WebInvoke(
             Method = "DELETE",
-            UriTemplate = "routes",
+            UriTemplate = "routes/{id}",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
-        bool DeleteRoute(Guid Id);
+        bool DeleteRoute(string id);
+
+        #endregion
     }
 }

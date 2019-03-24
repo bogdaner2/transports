@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Web.Forms", "Tra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Core", "Transports.Core\Transports.Core.csproj", "{3D3D0DDB-ACE3-4328-AB1B-253ED94F6D65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Web.WCF", "Transports.Web.WCF\Transports.Web.WCF.csproj", "{76F0461F-EF17-469A-8D4F-DA8D152EAEB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Web.RESTfullWCF", "Transports.Web.WCF\Transports.Web.RESTfullWCF.csproj", "{76F0461F-EF17-469A-8D4F-DA8D152EAEB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.WCF.Service", "Transports.WCF.Service\Transports.WCF.Service.csproj", "{A9B8E9E3-4BED-4033-9D19-45B7CBC4A8D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{76F0461F-EF17-469A-8D4F-DA8D152EAEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F0461F-EF17-469A-8D4F-DA8D152EAEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F0461F-EF17-469A-8D4F-DA8D152EAEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9B8E9E3-4BED-4033-9D19-45B7CBC4A8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9B8E9E3-4BED-4033-9D19-45B7CBC4A8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9B8E9E3-4BED-4033-9D19-45B7CBC4A8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9B8E9E3-4BED-4033-9D19-45B7CBC4A8D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

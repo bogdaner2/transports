@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using Transports.Core.Models.SQL;
+using Transports.Web.Forms.Proxy;
 
 namespace Transports.Web.Forms
 {
     public partial class DriversPage : System.Web.UI.Page
     {
-        private Core.Repositories.ContextRepository<Driver> repo = new Core.Repositories.ContextRepository<Driver>();
+        private readonly Core.Repositories.ContextRepository<Driver> _repo = new Core.Repositories.ContextRepository<Driver>();
+        private readonly TransportsServiceClient _wcfClient = new TransportsServiceClient();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                _wcfClient.CreateDriver("Open drivers page");
                 Repeater.DataSource = GetDrivers();
                 Repeater.DataBind();
             }
@@ -24,7 +24,7 @@ namespace Transports.Web.Forms
 
         protected List<Driver> GetDrivers()
         {
-            return repo.GetAll().ToList();
+            return _repo.GetAll().ToList();
         }
 
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -33,8 +33,8 @@ namespace Transports.Web.Forms
             {
                 case "Delete":
                     var guid = new Guid(e.CommandArgument.ToString());
-                    var item = repo.Get(x => x.DriverId == guid);
-                    repo.Remove(item);
+                    var item = _repo.Get(x => x.DriverId == guid);
+                    _repo.Remove(item);
                     Response.Redirect("drivers");
                     break;
                 case "Update":

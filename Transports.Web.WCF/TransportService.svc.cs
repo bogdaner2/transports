@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Transports.Core.Models;
 using Transports.Core.Models.SQL;
 using Transports.Core.Repositories;
 
-namespace Transports.Web.WCF
+namespace Transports.Web.RESTfullWCF
 {
     public class TransportService : ITransportService
     {
-        private ContextRepository<Driver> _driverRepo = new ContextRepository<Driver>();
-        private ContextRepository<Shift> _shiftsRepo = new ContextRepository<Shift>();
-        private ContextRepository<Route> _routesRepo = new ContextRepository<Route>();
+        private readonly ContextRepository<Driver> _driverRepo = new ContextRepository<Driver>();
+        private readonly ContextRepository<Route> _routesRepo = new ContextRepository<Route>();
+        private readonly ContextRepository<Shift> _shiftsRepo = new ContextRepository<Shift>();
 
-        // Drivers
+        #region Drivers
+
         public List<Driver> GetDrivers()
         {
             return _driverRepo.GetAll().ToList();
@@ -35,14 +35,17 @@ namespace Transports.Web.WCF
             return _driverRepo.Update(updateDriver);
         }
 
-        public bool DeleteDriver(string Id)
+        public bool DeleteDriver(string id)
         {
-            var guid = Guid.Parse(Id);
+            var guid = Guid.Parse(id);
 
             return _driverRepo.Remove(_driverRepo.Get(x => x.DriverId == guid));
         }
 
-        // Shifts
+        #endregion
+
+        #region Shifts
+
         public List<Shift> GetShifts()
         {
             return _shiftsRepo.GetAll().ToList();
@@ -63,12 +66,17 @@ namespace Transports.Web.WCF
             return _shiftsRepo.Update(updateShift);
         }
 
-        public bool DeleteShift(Guid Id)
+        public bool DeleteShift(string id)
         {
-            return _shiftsRepo.Remove(_shiftsRepo.Get(x => x.ShiftId == Id));
+            var guid = Guid.Parse(id);
+
+            return _shiftsRepo.Remove(_shiftsRepo.Get(x => x.ShiftId == guid));
         }
 
-        // Routes
+        #endregion
+
+        #region Routes
+
         public List<Route> GetRoutes()
         {
             return _routesRepo.GetAll().ToList();
@@ -93,9 +101,13 @@ namespace Transports.Web.WCF
             return _routesRepo.Update(updateRoute);
         }
 
-        public bool DeleteRoute(Guid Id)
+        public bool DeleteRoute(string id)
         {
-            return _routesRepo.Remove(_routesRepo.Get(x => x.RouteId == Id));
+            var guid = Guid.Parse(id);
+
+            return _routesRepo.Remove(_routesRepo.Get(x => x.RouteId == guid));
         }
+
+        #endregion
     }
 }
