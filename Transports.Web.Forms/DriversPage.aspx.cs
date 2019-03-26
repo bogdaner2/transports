@@ -4,6 +4,11 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using Transports.Core.Models.SQL;
 using Transports.Web.Forms.Proxy;
+using System;
+using System.Configuration;
+using System.Messaging;
+using System.ServiceModel;
+using System.Transactions;
 
 namespace Transports.Web.Forms
 {
@@ -14,9 +19,20 @@ namespace Transports.Web.Forms
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            _wcfClient.Open();
+
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+            {
+                _wcfClient.CreateDriver("driver");
+
+                scope.Complete();
+            }
+
+            _wcfClient.Close();
+
             if (!IsPostBack)
             {
-                _wcfClient.CreateDriver("Open drivers page");
+               
                 Repeater.DataSource = GetDrivers();
                 Repeater.DataBind();
             }
