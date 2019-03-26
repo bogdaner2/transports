@@ -28,6 +28,9 @@ namespace Transports.Web.Forms
         {
             var id = Request.QueryString["ID"];
 
+            _wcfClient.Open();
+
+
             if (id != null)
             {
                 _id = Guid.Parse(id);
@@ -67,21 +70,17 @@ namespace Transports.Web.Forms
 
             // repo.Create(driver);
 
-            _wcfClient.Open();
-
             using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
             {
                 var serialized = JsonConvert.SerializeObject(driver);
-                Debug.WriteLine(serialized);
 
                 _wcfClient.CreateDriver(serialized);
-
-                Thread.Sleep(1000);
 
                 scope.Complete();
             }
 
-            _wcfClient.Close();
+            Thread.Sleep(3000);
+
 
             Response.Redirect("drivers");
         }
@@ -94,7 +93,16 @@ namespace Transports.Web.Forms
             Enum.TryParse(driverRang.Text, out RangEnum rang);
             driver.Rang = rang;
 
-            repo.Update(driver);
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var serialized = JsonConvert.SerializeObject(driver);
+
+                _wcfClient.UpdateDriver(serialized);
+
+                scope.Complete();
+            }
+
+            // repo.Update(driver);
 
             Response.Redirect("drivers");
         }

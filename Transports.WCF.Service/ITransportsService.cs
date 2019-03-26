@@ -12,5 +12,11 @@ namespace Transports.WCF.Service
     {
         [OperationContract(IsOneWay = true)]
         void CreateDriver(string driver);
+
+        [OperationContract(IsOneWay = true)]
+        void UpdateDriver(string updatedDriver);
+
+        [OperationContract(IsOneWay = true)]
+        void RemoveDriver(string driverId);
     }
 }

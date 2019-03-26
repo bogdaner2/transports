@@ -17,9 +17,21 @@
   <wsdl:message name="ITransportsService_CreateDriver_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateDriver" />
   </wsdl:message>
+  <wsdl:message name="ITransportsService_UpdateDriver_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateDriver" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_RemoveDriver_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDriver" />
+  </wsdl:message>
   <wsdl:portType name="ITransportsService">
     <wsdl:operation name="CreateDriver">
       <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/CreateDriver" message="tns:ITransportsService_CreateDriver_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDriver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/UpdateDriver" message="tns:ITransportsService_UpdateDriver_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDriver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/RemoveDriver" message="tns:ITransportsService_RemoveDriver_InputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetMsmqBinding_ITransportsService" type="tns:ITransportsService">
@@ -27,6 +39,18 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/msmq" />
     <wsdl:operation name="CreateDriver">
       <soap12:operation soapAction="http://tempuri.org/ITransportsService/CreateDriver" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDriver">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/UpdateDriver" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDriver">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/RemoveDriver" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

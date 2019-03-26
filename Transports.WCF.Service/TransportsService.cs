@@ -20,12 +20,52 @@ namespace Transports.WCF.Service
             try
             {
                 Console.WriteLine("Recieved driver: " + driver);
+
                 _driversRepo.Create(JsonConvert.DeserializeObject<Driver>(driver));
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error: " + e.Message);
 
+            }
+        }
+
+        [OperationBehavior(TransactionScopeRequired = true, TransactionAutoComplete = true)]
+        public void UpdateDriver(string driver)
+        {
+            try
+            {
+                Console.WriteLine("Recieved updated driver: " + driver);
+                var driverObj = JsonConvert.DeserializeObject<Driver>(driver);
+
+                var guid = driverObj.DriverId;
+                var item = _driversRepo.Get(x => x.DriverId == guid);
+
+                item.Name = driverObj.Name;
+                item.Age = driverObj.Age;
+                item.Rang = driverObj.Rang;
+
+                _driversRepo.Update(item);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+
+            }
+        }
+
+        [OperationBehavior(TransactionScopeRequired = true, TransactionAutoComplete = true)]
+        public void RemoveDriver(string driverId)
+        {
+            try
+            {
+                Console.WriteLine("Remove driver with id: " + driverId);
+                var guid = Guid.Parse(driverId);
+                _driversRepo.Remove(_driversRepo.Get(x => x.DriverId == guid));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
             }
         }
     }

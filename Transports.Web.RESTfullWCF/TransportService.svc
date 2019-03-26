@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Transports.Web.WCF.TransportService" CodeBehind="TransportService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Transports.Web.RESTfullWCF.TransportService" CodeBehind="TransportService.svc.cs" %>

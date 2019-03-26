@@ -7,4 +7,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdateDriver">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="updatedDriver" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveDriver">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="driverId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

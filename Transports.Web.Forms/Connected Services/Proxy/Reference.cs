@@ -20,6 +20,18 @@ namespace Transports.Web.Forms.Proxy {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/CreateDriver")]
         System.Threading.Tasks.Task CreateDriverAsync(string driver);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/UpdateDriver")]
+        void UpdateDriver(string updatedDriver);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/UpdateDriver")]
+        System.Threading.Tasks.Task UpdateDriverAsync(string updatedDriver);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/RemoveDriver")]
+        void RemoveDriver(string driverId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/RemoveDriver")]
+        System.Threading.Tasks.Task RemoveDriverAsync(string driverId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +67,22 @@ namespace Transports.Web.Forms.Proxy {
         
         public System.Threading.Tasks.Task CreateDriverAsync(string driver) {
             return base.Channel.CreateDriverAsync(driver);
+        }
+        
+        public void UpdateDriver(string updatedDriver) {
+            base.Channel.UpdateDriver(updatedDriver);
+        }
+        
+        public System.Threading.Tasks.Task UpdateDriverAsync(string updatedDriver) {
+            return base.Channel.UpdateDriverAsync(updatedDriver);
+        }
+        
+        public void RemoveDriver(string driverId) {
+            base.Channel.RemoveDriver(driverId);
+        }
+        
+        public System.Threading.Tasks.Task RemoveDriverAsync(string driverId) {
+            return base.Channel.RemoveDriverAsync(driverId);
         }
     }
 }
