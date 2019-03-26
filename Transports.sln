@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Web.RESTfullWCF", "Transports.Web.RESTfullWCF\Transports.Web.RESTfullWCF.csproj", "{76F0461F-EF17-469A-8D4F-DA8D152EAEB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.WCF.Service", "Transports.WCF.Service\Transports.WCF.Service.csproj", "{A9B8E9E3-4BED-4033-9D19-45B7CBC4A8D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3D3D0DDB-ACE3-4328-AB1B-253ED94F6D65} = {3D3D0DDB-ACE3-4328-AB1B-253ED94F6D65}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,18 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Transactions;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using Transports.Core.Models;
 using Transports.Core.Models.SQL;
+using Transports.Web.Forms.Proxy;
 
 namespace Transports.Web.Forms
 {
     public partial class DriverCreatePage : System.Web.UI.Page
     {
         private Core.Repositories.ContextRepository<Driver> repo = new Core.Repositories.ContextRepository<Driver>();
+        private readonly TransportsServiceClient _wcfClient = new TransportsServiceClient();
+
         private Driver _loadedDriver;
         private Guid _id;
 
@@ -57,7 +65,23 @@ namespace Transports.Web.Forms
             Enum.TryParse(driverRang.Text, out RangEnum rang);
             driver.Rang = rang;
 
-            repo.Create(driver);
+            // repo.Create(driver);
+
+            _wcfClient.Open();
+
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var serialized = JsonConvert.SerializeObject(driver);
+                Debug.WriteLine(serialized);
+
+                _wcfClient.CreateDriver(serialized);
+
+                Thread.Sleep(1000);
+
+                scope.Complete();
+            }
+
+            _wcfClient.Close();
 
             Response.Redirect("drivers");
         }
