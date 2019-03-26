@@ -140,9 +140,13 @@ namespace Transports.WCF.Service
         {
             try
             {
-                Console.WriteLine("Recieved driver: " + route);
+                Console.WriteLine("Recieved route: " + route);
 
-                _driversRepo.Create(JsonConvert.DeserializeObject<Driver>(route));
+                var routeObj = JsonConvert.DeserializeObject<Route>(route);
+
+                routeObj.Shift = _shiftsRepo.Get(x => x.ShiftId == routeObj.RouteId);
+
+                _routesRepo.Create(routeObj);
             }
             catch (Exception e)
             {
@@ -156,17 +160,20 @@ namespace Transports.WCF.Service
         {
             try
             {
-                Console.WriteLine("Recieved updated driver: " + route);
-                var driverObj = JsonConvert.DeserializeObject<Driver>(route);
+                Console.WriteLine("Recieved updated route: " + route);
+                var routeObj = JsonConvert.DeserializeObject<Route>(route);
 
-                var guid = driverObj.DriverId;
-                var item = _driversRepo.Get(x => x.DriverId == guid);
+                var guid = routeObj.RouteId;
 
-                item.Name = driverObj.Name;
-                item.Age = driverObj.Age;
-                item.Rang = driverObj.Rang;
+                var item = _routesRepo.Get(x => x.RouteId == guid);
 
-                _driversRepo.Update(item);
+                item.EstimatedTime = routeObj.EstimatedTime;
+                item.IsTrafficJam = routeObj.IsTrafficJam;
+                item.Length = routeObj.Length;
+
+                item.Shift = _shiftsRepo.Get(x => x.ShiftId == routeObj.RouteId);
+
+                _routesRepo.Update(item);
             }
             catch (Exception e)
             {
@@ -180,9 +187,9 @@ namespace Transports.WCF.Service
         {
             try
             {
-                Console.WriteLine("Remove driver with id: " + routeId);
+                Console.WriteLine("Remove route with id: " + routeId);
                 var guid = Guid.Parse(routeId);
-                _driversRepo.Remove(_driversRepo.Get(x => x.DriverId == guid));
+                _routesRepo.Remove(_routesRepo.Get(x => x.RouteId == guid));
             }
             catch (Exception e)
             {

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Threading;
+using System.Transactions;
+using Newtonsoft.Json;
 using Transports.Core.Models.SQL;
+using Transports.Web.Forms.Proxy;
 
 namespace Transports.Web.Forms
 {
@@ -7,6 +11,8 @@ namespace Transports.Web.Forms
     {
         private Core.Repositories.ContextRepository<Route> repo = new Core.Repositories.ContextRepository<Route>();
         private Core.Repositories.ContextRepository<Shift> repoShifts = new Core.Repositories.ContextRepository<Shift>();
+        private readonly TransportsServiceClient _wcfClient = new TransportsServiceClient();
+
 
         private Route _loadedRoute;
         private Guid _id;
@@ -15,6 +21,7 @@ namespace Transports.Web.Forms
         protected void Page_Load(object sender, EventArgs e)
         {
             var id = Request.QueryString["ID"];
+            _wcfClient.Open();
 
             if (id != null)
             {
@@ -51,34 +58,57 @@ namespace Transports.Web.Forms
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            Route Route = new Route();
+            var route = new Route();
 
-            Route.IsTrafficJam = bool.Parse(traffic.Text);
-            Route.Length = int.Parse(routeLength.Text);
-            Route.EstimatedTime = int.Parse(estimate.Text);
+            route.ShiftId = Guid.NewGuid();
+            route.IsTrafficJam = bool.Parse(traffic.Text);
+            route.Length = int.Parse(routeLength.Text);
+            route.EstimatedTime = int.Parse(estimate.Text);
 
             var shiftId = new Guid(dropdown.SelectedValue);
+            route.ShiftId = shiftId;
 
-            Route.Shift = repoShifts.Get(x => x.ShiftId == shiftId);
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var serialized = JsonConvert.SerializeObject(route);
 
-            repo.Create(Route);
+                _wcfClient.CreateRoute(serialized);
+
+                scope.Complete();
+            }
+
+            Thread.Sleep(3000);
+
+            // Route.Shift = repoShifts.Get(x => x.ShiftId == shiftId);
+
+            // repo.Create(Route);
 
             Response.Redirect("Routes");
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var Route = repo.Get(x => x.RouteId == _id);
+            var route = repo.Get(x => x.RouteId == _id);
 
-            Route.IsTrafficJam = bool.Parse(traffic.Text);
-            Route.Length = int.Parse(routeLength.Text);
-            Route.EstimatedTime = int.Parse(estimate.Text);
+            route.IsTrafficJam = bool.Parse(traffic.Text);
+            route.Length = int.Parse(routeLength.Text);
+            route.EstimatedTime = int.Parse(estimate.Text);
 
             var shiftId = new Guid(dropdown.SelectedValue);
+            route.ShiftId = shiftId;
 
-            Route.Shift = repoShifts.Get(x => x.ShiftId == shiftId);
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var serialized = JsonConvert.SerializeObject(route);
 
-            repo.Update(Route);
+                _wcfClient.UpdateRoute(serialized);
+
+                scope.Complete();
+            }
+
+            //Route.Shift = repoShifts.Get(x => x.ShiftId == shiftId);
+
+            //repo.Update(Route);
 
             Response.Redirect("Routes");
         }
