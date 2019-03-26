@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e30af44e-82e6-4de5-9c38-c1b3987c8540" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="12c6986c-9f0e-4566-a6ec-d495487d180a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,10 +22,10 @@
     <MetadataSource Address="http://localhost:6666" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="1b7e2fb9-8790-47a7-893b-032c6b2d6f7e" SourceId="1" SourceUrl="http://localhost:6666/?xsd=xsd0" />
-    <MetadataFile FileName="TransportsService.wsdl" MetadataType="Wsdl" ID="5de2428a-eb8c-4dbb-865f-69c5bcf3fc4b" SourceId="1" SourceUrl="http://localhost:6666/?wsdl" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="ba77cc22-560e-404f-a88b-1ec364cbb5ad" SourceId="1" SourceUrl="http://localhost:6666/?xsd=xsd1" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="5c1eea10-db98-446a-b430-74e74d0d0003" SourceId="1" SourceUrl="http://localhost:6666/?disco" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="20e6c1ef-2d1a-4d2f-ac9b-a39308b1212a" SourceId="1" SourceUrl="http://localhost:6666/?xsd=xsd0" />
+    <MetadataFile FileName="TransportsService.wsdl" MetadataType="Wsdl" ID="9bc025a1-a13c-443c-b495-4f993f41bed5" SourceId="1" SourceUrl="http://localhost:6666/?wsdl" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="612407df-db38-4b70-869d-e3480f8f8151" SourceId="1" SourceUrl="http://localhost:6666/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="019e9e96-58cd-4c0b-aca9-0d9014725ac3" SourceId="1" SourceUrl="http://localhost:6666/?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

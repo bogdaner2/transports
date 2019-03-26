@@ -21,4 +21,46 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CreateShift">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="shift" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateShift">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="updatedShift" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveShift">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="shiftId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateRoute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="route" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateRoute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="updatedRoute" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveRoute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="routeId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

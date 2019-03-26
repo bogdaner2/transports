@@ -1,16 +1,23 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Transactions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Newtonsoft.Json;
 using Transports.Core.Models.SQL;
+using Transports.Web.Forms.Proxy;
 
 namespace Transports.Web.Forms
 {
     public partial class ShiftAddEditPage : System.Web.UI.Page
     {
         private Core.Repositories.ContextRepository<Shift> repo = new Core.Repositories.ContextRepository<Shift>();
+        private readonly TransportsServiceClient _wcfClient = new TransportsServiceClient();
+
         private Shift _loadedShift;
         private Guid _id;
 
@@ -21,6 +28,7 @@ namespace Transports.Web.Forms
         protected void Page_Load(object sender, EventArgs e)
         {
             var id = Request.QueryString["ID"];
+            _wcfClient.Open();
 
             if (id != null)
             {
@@ -51,24 +59,45 @@ namespace Transports.Web.Forms
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            Shift Shift = new Shift();
+            var shift = new Shift();
 
-            Shift.Start = _startDate;
-            Shift.End = _endDate;
+            shift.ShiftId = Guid.NewGuid();
+            shift.Start = _startDate;
+            shift.End = _endDate;
 
-            repo.Create(Shift);
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var serialized = JsonConvert.SerializeObject(shift);
+
+                _wcfClient.CreateShift(serialized);
+
+                scope.Complete();
+            }
+
+            Thread.Sleep(3000);
+
+            //repo.Create(shift);
 
             Response.Redirect("Shifts");
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var Shift = repo.Get(x => x.ShiftId == _id);
+            var shift = repo.Get(x => x.ShiftId == _id);
 
-            Shift.Start = _startDate;
-            Shift.End = _endDate;
+            shift.Start = _startDate;
+            shift.End = _endDate;
 
-            repo.Update(Shift);
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
+            {
+                var serialized = JsonConvert.SerializeObject(shift);
+
+                _wcfClient.UpdateShift(serialized);
+
+                scope.Complete();
+            }
+
+            // repo.Update(shift);
 
             Response.Redirect("Shifts");
         }

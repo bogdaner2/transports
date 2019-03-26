@@ -32,6 +32,42 @@ namespace Transports.Web.Forms.Proxy {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/RemoveDriver")]
         System.Threading.Tasks.Task RemoveDriverAsync(string driverId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/CreateShift")]
+        void CreateShift(string shift);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/CreateShift")]
+        System.Threading.Tasks.Task CreateShiftAsync(string shift);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/UpdateShift")]
+        void UpdateShift(string updatedShift);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/UpdateShift")]
+        System.Threading.Tasks.Task UpdateShiftAsync(string updatedShift);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/RemoveShift")]
+        void RemoveShift(string shiftId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/RemoveShift")]
+        System.Threading.Tasks.Task RemoveShiftAsync(string shiftId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/CreateRoute")]
+        void CreateRoute(string route);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/CreateRoute")]
+        System.Threading.Tasks.Task CreateRouteAsync(string route);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/UpdateRoute")]
+        void UpdateRoute(string updatedRoute);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/UpdateRoute")]
+        System.Threading.Tasks.Task UpdateRouteAsync(string updatedRoute);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/RemoveRoute")]
+        void RemoveRoute(string routeId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ITransportsService/RemoveRoute")]
+        System.Threading.Tasks.Task RemoveRouteAsync(string routeId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,6 +119,54 @@ namespace Transports.Web.Forms.Proxy {
         
         public System.Threading.Tasks.Task RemoveDriverAsync(string driverId) {
             return base.Channel.RemoveDriverAsync(driverId);
+        }
+        
+        public void CreateShift(string shift) {
+            base.Channel.CreateShift(shift);
+        }
+        
+        public System.Threading.Tasks.Task CreateShiftAsync(string shift) {
+            return base.Channel.CreateShiftAsync(shift);
+        }
+        
+        public void UpdateShift(string updatedShift) {
+            base.Channel.UpdateShift(updatedShift);
+        }
+        
+        public System.Threading.Tasks.Task UpdateShiftAsync(string updatedShift) {
+            return base.Channel.UpdateShiftAsync(updatedShift);
+        }
+        
+        public void RemoveShift(string shiftId) {
+            base.Channel.RemoveShift(shiftId);
+        }
+        
+        public System.Threading.Tasks.Task RemoveShiftAsync(string shiftId) {
+            return base.Channel.RemoveShiftAsync(shiftId);
+        }
+        
+        public void CreateRoute(string route) {
+            base.Channel.CreateRoute(route);
+        }
+        
+        public System.Threading.Tasks.Task CreateRouteAsync(string route) {
+            return base.Channel.CreateRouteAsync(route);
+        }
+        
+        public void UpdateRoute(string updatedRoute) {
+            base.Channel.UpdateRoute(updatedRoute);
+        }
+        
+        public System.Threading.Tasks.Task UpdateRouteAsync(string updatedRoute) {
+            return base.Channel.UpdateRouteAsync(updatedRoute);
+        }
+        
+        public void RemoveRoute(string routeId) {
+            base.Channel.RemoveRoute(routeId);
+        }
+        
+        public System.Threading.Tasks.Task RemoveRouteAsync(string routeId) {
+            return base.Channel.RemoveRouteAsync(routeId);
         }
     }
 }
