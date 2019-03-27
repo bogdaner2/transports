@@ -60,13 +60,13 @@ namespace Transports.Web.Forms
         {
             var route = new Route();
 
-            route.ShiftId = Guid.NewGuid();
+            route.RouteId = Guid.NewGuid();
             route.IsTrafficJam = bool.Parse(traffic.Text);
             route.Length = int.Parse(routeLength.Text);
             route.EstimatedTime = int.Parse(estimate.Text);
 
-            var shiftId = new Guid(dropdown.SelectedValue);
-            route.ShiftId = shiftId;
+            // var shiftId = new Guid(dropdown.SelectedValue);
+            route.ShiftId = new Guid(dropdown.SelectedValue);
 
             using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
             {

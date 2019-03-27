@@ -144,7 +144,9 @@ namespace Transports.WCF.Service
 
                 var routeObj = JsonConvert.DeserializeObject<Route>(route);
 
-                routeObj.Shift = _shiftsRepo.Get(x => x.ShiftId == routeObj.RouteId);
+                var shift = _shiftsRepo.Get(x => x.ShiftId == routeObj.RouteId);
+
+                routeObj.Shift = shift;
 
                 _routesRepo.Create(routeObj);
             }
