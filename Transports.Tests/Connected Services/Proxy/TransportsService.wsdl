@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TransportsService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetMsmqBinding_ITransportsService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:6666/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:6666/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ITransportsService_CreateDriver_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateDriver" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_UpdateDriver_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateDriver" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_RemoveDriver_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDriver" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_CreateShift_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateShift" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_UpdateShift_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateShift" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_RemoveShift_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveShift" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_CreateRoute_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateRoute" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_UpdateRoute_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRoute" />
+  </wsdl:message>
+  <wsdl:message name="ITransportsService_RemoveRoute_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveRoute" />
+  </wsdl:message>
+  <wsdl:portType name="ITransportsService">
+    <wsdl:operation name="CreateDriver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/CreateDriver" message="tns:ITransportsService_CreateDriver_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDriver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/UpdateDriver" message="tns:ITransportsService_UpdateDriver_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDriver">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/RemoveDriver" message="tns:ITransportsService_RemoveDriver_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateShift">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/CreateShift" message="tns:ITransportsService_CreateShift_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShift">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/UpdateShift" message="tns:ITransportsService_UpdateShift_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveShift">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/RemoveShift" message="tns:ITransportsService_RemoveShift_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateRoute">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/CreateRoute" message="tns:ITransportsService_CreateRoute_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRoute">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/UpdateRoute" message="tns:ITransportsService_UpdateRoute_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRoute">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITransportsService/RemoveRoute" message="tns:ITransportsService_RemoveRoute_InputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetMsmqBinding_ITransportsService" type="tns:ITransportsService">
+    <wsp:PolicyReference URI="#NetMsmqBinding_ITransportsService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/msmq" />
+    <wsdl:operation name="CreateDriver">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/CreateDriver" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDriver">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/UpdateDriver" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDriver">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/RemoveDriver" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="CreateShift">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/CreateShift" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateShift">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/UpdateShift" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveShift">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/RemoveShift" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRoute">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/CreateRoute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRoute">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/UpdateRoute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRoute">
+      <soap12:operation soapAction="http://tempuri.org/ITransportsService/RemoveRoute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TransportsService">
+    <wsdl:port name="NetMsmqBinding_ITransportsService" binding="tns:NetMsmqBinding_ITransportsService">
+      <soap12:address location="net.msmq://localhost/private/transports" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.msmq://localhost/private/transports</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
