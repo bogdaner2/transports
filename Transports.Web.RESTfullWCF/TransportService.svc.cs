@@ -65,6 +65,11 @@ namespace Transports.Web.RESTfullWCF
             return _driverRepo.Remove(_driverRepo.Get(x => x.DriverId == guid));
         }
 
+        public void ClearDrivers()
+        {
+            _driverRepo.Clear();
+        }
+
         #endregion
 
         #region Shifts

@@ -9,7 +9,7 @@ namespace Transports.Tests.DriversMockRepository
 {
     public class DriverMockRepository: IRepository<Driver>
     {
-        private List<Driver> _drivers { get; } = new List<Driver>();
+        private List<Driver> _drivers = new List<Driver>();
 
         public IEnumerable<Driver> GetAll()
         {
@@ -50,6 +50,11 @@ namespace Transports.Tests.DriversMockRepository
             {
                 return false;   
             }
+        }
+
+        public void Clear()
+        {
+            _drivers = new List<Driver>();
         }
     }
 }

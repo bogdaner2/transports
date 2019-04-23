@@ -67,5 +67,10 @@ namespace Transports.Core.Repositories
                 return false;
             }
         }
+
+        public void Clear()
+        {
+            
+        }
     }
 }

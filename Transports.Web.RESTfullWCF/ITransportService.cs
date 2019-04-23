@@ -42,6 +42,14 @@ namespace Transports.Web.RESTfullWCF
             RequestFormat = WebMessageFormat.Json)]
         bool DeleteDriver(string id);
 
+        [OperationContract]
+        [WebInvoke(
+            Method = "DELETE",
+            UriTemplate = "api/drivers/all",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json)]
+        void ClearDrivers();
+
         #endregion
 
         #region Shifts

@@ -11,5 +11,6 @@ namespace Transports.Core.Interfaces
         T Create(T item);
         bool Update(T item);
         bool Remove(T item);
+        void Clear();
     }
 }
