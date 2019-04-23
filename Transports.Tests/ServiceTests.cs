@@ -3,49 +3,38 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Transports.Core.DependencyInjection;
 using Transports.Core.Interfaces;
 using Transports.Core.Models;
 using Transports.Core.Models.SQL;
-using Transports.Tests.Proxy;
+using Transports.Tests.DriversMockRepository;
+using Transports.Web.RESTfullWCF;
 
 namespace Transports.Tests
 {
     [TestFixture]
     public class ServiceTests
     {
-        private int addedItems = 0;
-        private int removedItems = 0;
-        private TransportsServiceClient _wcfClient;
+        private ITransportService _service;
 
-
-        List<Driver> drivers = new List<Driver>
+        public ServiceTests()
         {
-            new Driver { DriverId = Guid.NewGuid(), Name = "test", Age = 18, Rang = RangEnum.A},
-            new Driver { DriverId = Guid.NewGuid(), Name = "test1", Age = 18, Rang = RangEnum.A},
-            new Driver { DriverId = Guid.NewGuid(), Name = "test2", Age = 18, Rang = RangEnum.A}
-        };
-
-        [SetUp]
-        public void Init()
-        {
-            _wcfClient = new TransportsServiceClient();
-            var mock = new Mock<IRepository<Driver>>();
-            mock.Setup(r => r.GetAll()).Returns(drivers);
-            mock.Setup(r => r.Get(It.IsAny<Expression<Func<Driver, bool>>>())).Returns(drivers[new Random().Next(0, 2)]);
-            mock.Setup(r => r.Create(It.IsAny<Driver>())).Callback((Driver item) =>
-            {
-                addedItems++;
-                drivers.Add(item);
-            });
-            mock.Setup(r => r.Remove(It.IsAny<Driver>())).Callback((Driver result) => removedItems++);
-
-            ServiceLocator.SetDriverRepo(mock.Object);
+            _service = new TransportService(new DriverMockRepository());
         }
 
         [Test]
-        public void Return_Driver_Collection()
+        public void GET_ALL_DRIVERS_RETURN_COLLECTION()
         {
+            var list = _service.GetDrivers();
+            Assert.IsTrue(typeof(List<Driver>) == list.GetType());
+        }
+
+        [Test]
+        public void GET_ALL_DRIVERS_EMPTY_COLLECTION_IF_NO_ITEMS_ADDED()
+        {
+            var list = _service.GetDrivers();
+            Assert.IsTrue(list.Count == 0);
         }
     }
 }

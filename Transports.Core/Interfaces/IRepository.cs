@@ -9,6 +9,7 @@ namespace Transports.Core.Interfaces
         IEnumerable<T> GetAll();
         T Get(Expression<Func<T, bool>> predicate);
         T Create(T item);
+        bool Update(T item);
         bool Remove(T item);
     }
 }

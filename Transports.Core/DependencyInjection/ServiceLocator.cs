@@ -6,7 +6,7 @@ namespace Transports.Core.DependencyInjection
 {
     public static class ServiceLocator
     {
-        public static IRepository<Driver> DriversRepo { get; set; }
+        public static IRepository<Driver> DriversRepo { get; set; } 
         public static ContextRepository<Shift> _shiftsRepo = new ContextRepository<Shift>();
         public static ContextRepository<Route> _routesRepo = new ContextRepository<Route>();
 

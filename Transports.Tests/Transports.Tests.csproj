@@ -62,12 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DriversMockRepository\DriverMockRepository.cs" />
     <Compile Include="ServiceTests.cs" />
-    <Compile Include="Connected Services\Proxy\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,38 +71,17 @@
       <Project>{3d3d0ddb-ace3-4328-ab1b-253ed94f6d65}</Project>
       <Name>Transports.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Transports.Web.RESTfullWCF\Transports.Web.RESTfullWCF.csproj">
+      <Project>{76F0461F-EF17-469A-8D4F-DA8D152EAEB2}</Project>
+      <Name>Transports.Web.RESTfullWCF</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\Proxy\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Proxy\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Proxy\TransportsService.wsdl" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Proxy\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Proxy\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Proxy\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Proxy\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Proxy\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

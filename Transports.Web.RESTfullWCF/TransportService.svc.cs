@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Transports.Core.Interfaces;
 using Transports.Core.Models.SQL;
 using Transports.Core.Repositories;
 
@@ -8,9 +9,31 @@ namespace Transports.Web.RESTfullWCF
 {
     public class TransportService : ITransportService
     {
-        private readonly ContextRepository<Driver> _driverRepo = new ContextRepository<Driver>();
-        private readonly ContextRepository<Route> _routesRepo = new ContextRepository<Route>();
-        private readonly ContextRepository<Shift> _shiftsRepo = new ContextRepository<Shift>();
+        private readonly IRepository<Driver> _driverRepo;
+        private readonly IRepository<Route> _routesRepo;
+        private readonly IRepository<Shift> _shiftsRepo;
+
+        public TransportService()
+        {
+            _driverRepo = new ContextRepository<Driver>();
+            _routesRepo = new ContextRepository<Route>();
+            _shiftsRepo = new ContextRepository<Shift>();
+        }
+
+        public TransportService(
+            IRepository<Driver> driverRepo,
+            IRepository<Route> routesRepo,
+            IRepository<Shift> shiftsRepo
+        ) {
+            _driverRepo = driverRepo;
+            _routesRepo = routesRepo;
+            _shiftsRepo = shiftsRepo;
+        }
+
+        public TransportService(IRepository<Driver> driverRepo)
+        {
+            _driverRepo = driverRepo;
+        }
 
         #region Drivers
 

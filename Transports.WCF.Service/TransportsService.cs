@@ -5,6 +5,8 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Transports.Core.DependencyInjection;
+using Transports.Core.Interfaces;
 using Transports.Core.Models.SQL;
 using Transports.Core.Repositories;
 
@@ -12,9 +14,9 @@ namespace Transports.WCF.Service
 {
     public class TransportsService : ITransportsService
     {
-        private readonly ContextRepository<Driver> _driversRepo = new ContextRepository<Driver>();
-        private readonly ContextRepository<Shift> _shiftsRepo = new ContextRepository<Shift>();
-        private readonly ContextRepository<Route> _routesRepo = new ContextRepository<Route>();
+        private readonly IRepository<Driver> _driversRepo = new ContextRepository<Driver>();
+        private readonly IRepository<Shift> _shiftsRepo = new ContextRepository<Shift>();
+        private readonly IRepository<Route> _routesRepo = new ContextRepository<Route>(); 
 
         #region drivers
 
@@ -33,6 +35,21 @@ namespace Transports.WCF.Service
 
             }
         }
+
+        [OperationBehavior(TransactionScopeRequired = true, TransactionAutoComplete = true)]
+        public void GetDrivers()
+        {
+            try
+            {
+                _driversRepo.GetAll();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+
+            }
+        }
+
 
         [OperationBehavior(TransactionScopeRequired = true, TransactionAutoComplete = true)]
         public void UpdateDriver(string driver)
