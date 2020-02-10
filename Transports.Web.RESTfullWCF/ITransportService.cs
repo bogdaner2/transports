@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using System.Web.Script.Services;
 using Transports.Core.Models.SQL;
 
 namespace Transports.Web.RESTfullWCF
@@ -26,7 +27,7 @@ namespace Transports.Web.RESTfullWCF
             RequestFormat = WebMessageFormat.Json)]
         Driver CreateDriver(Driver driver);
 
-        [OperationContract]
+        [OperationContract] 
         [WebInvoke(
             Method = "PUT",
             UriTemplate = "api/drivers",
@@ -36,8 +37,8 @@ namespace Transports.Web.RESTfullWCF
 
         [OperationContract]
         [WebInvoke(
-            Method = "DELETE",
-            UriTemplate = "api/drivers/{id}",
+            Method = "PUT",
+            UriTemplate = "api/drivers/delete",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
         bool DeleteDriver(string id);

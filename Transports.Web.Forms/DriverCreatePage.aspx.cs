@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Transactions;
 using Newtonsoft.Json;
@@ -10,8 +15,9 @@ namespace Transports.Web.Forms
 {
     public partial class DriverCreatePage : System.Web.UI.Page
     {
-        private Core.Repositories.ContextRepository<Driver> repo = new Core.Repositories.ContextRepository<Driver>();
-        private readonly TransportsServiceClient _wcfClient = new TransportsServiceClient();
+        //private Core.Repositories.ContextRepository<Driver> repo = new Core.Repositories.ContextRepository<Driver>();
+        //private readonly TransportsServiceClient _wcfClient = new TransportsServiceClient();
+        private readonly string Url = "http://localhost:51727/TransportService.svc/api/drivers";
 
         private Driver _loadedDriver;
         private Guid _id;
@@ -20,7 +26,7 @@ namespace Transports.Web.Forms
         {
             var id = Request.QueryString["ID"];
 
-            _wcfClient.Open();
+            //_wcfClient.Open();
 
 
             if (id != null)
@@ -33,8 +39,13 @@ namespace Transports.Web.Forms
             {
 
                 if (id != null)
-                { 
-                    _loadedDriver = repo.Get(x => x.DriverId == _id);
+                {
+
+                    var client = new HttpClient();
+                    var res = client.GetAsync(Url).GetAwaiter().GetResult();
+                    var drivers = JsonConvert.DeserializeObject<List<Driver>>(res.Content.ReadAsStringAsync().Result);
+                    var driver = drivers.FirstOrDefault(x => x.DriverId == _id);
+                    _loadedDriver = driver;
 
                     driverName.Text = _loadedDriver.Name;
                     driverAge.Text = _loadedDriver.Age.ToString();
@@ -53,48 +64,40 @@ namespace Transports.Web.Forms
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            Driver driver = new Driver();
+            var driver = new Driver();
 
             driver.Name = driverName.Text;
             driver.Age = int.Parse(driverAge.Text);
             Enum.TryParse(driverRang.Text, out RangEnum rang);
             driver.Rang = rang;
 
-            // repo.Create(driver);
-
-            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
-            {
-                var serialized = JsonConvert.SerializeObject(driver);
-
-                _wcfClient.CreateDriver(serialized);
-
-                scope.Complete();
-            }
-
-            Thread.Sleep(3000);
-
+            var client = new HttpClient();
+            var content = JsonConvert.SerializeObject(driver);
+            var buffer = Encoding.UTF8.GetBytes(content);
+            var bac = new ByteArrayContent(buffer);
+            bac.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            client.PostAsync(Url, bac).GetAwaiter().GetResult();
 
             Response.Redirect("drivers");
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            var driver = repo.Get(x => x.DriverId == _id);
-            driver.Name = driverName.Text;
+            var driver = new Driver
+            {
+                DriverId = _id,
+                Name = driverName.Text
+            };
             driver.Age = int.Parse(driverAge.Text);
             Enum.TryParse(driverRang.Text, out RangEnum rang);
             driver.Rang = rang;
 
-            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required))
-            {
-                var serialized = JsonConvert.SerializeObject(driver);
-
-                _wcfClient.UpdateDriver(serialized);
-
-                scope.Complete();
-            }
-
-            // repo.Update(driver);
+            var client = new HttpClient();
+            var content = JsonConvert.SerializeObject(driver);
+            var buffer = Encoding.UTF8.GetBytes(content);
+            var bac = new ByteArrayContent(buffer);
+            bac.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            client.PutAsync(Url, bac).GetAwaiter().GetResult();
 
             Response.Redirect("drivers");
         }
