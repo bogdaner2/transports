@@ -33,9 +33,9 @@
         </ListBox>
         <StackPanel Orientation="Vertical" Margin="404,0,0,10">
             <Label Margin="10,70,10,0" Content="Input start date: "></Label>
-            <DatePicker Margin="10,0,10,0" Height="23" DisplayDate="{Binding System:DateTime.Now}" SelectedDate="{Binding SelectedShift.Start, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
+            <DatePicker Margin="10,0,10,0" Height="23" DisplayDate="{Binding DateTime.Now}" SelectedDate="{Binding SelectedShift.Start, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
             <Label Margin="10,0,10,0" Content="Input end date: "></Label>
-            <DatePicker Margin="10,0,10,0" Height="23" DisplayDate="{Binding System:DateTime.Now}" SelectedDate="{Binding SelectedShift.End, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
+            <DatePicker Margin="10,0,10,0" Height="23" DisplayDate="{Binding DateTime.Now}" SelectedDate="{Binding SelectedShift.End, Mode=TwoWay, TargetNullValue={x:Static System:DateTime.Now}}"/>
             <Button Margin="80,20,80,0" Content="Create" Click="Add_Shift_OnClick"/>
             <Button Margin="80,20,80,0" Content="Delete" Click="Remove_Shift_OnClick"/>
             <Button Margin="80,20,80,0" Visibility="{Binding UpdateBtnVisibility}" Content="Update" Click="Update_Shift_OnClick"/>

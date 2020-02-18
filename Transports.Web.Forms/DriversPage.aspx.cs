@@ -17,7 +17,7 @@ namespace Transports.Web.Forms
     {
         private readonly Core.Repositories.ContextRepository<Driver> _repo = new Core.Repositories.ContextRepository<Driver>();
         //private readonly TransportsServiceClient _wcfClient = new TransportsServiceClient();
-        private readonly string Url = "http://localhost:51727/TransportService.svc/api/drivers";
+        public readonly string Url = "http://localhost:51727/TransportService.svc/api/drivers";
 
         protected void Page_Load(object sender, EventArgs e)
         {

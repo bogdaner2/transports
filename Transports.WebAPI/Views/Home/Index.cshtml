@@ -1,0 +1,173 @@
+﻿<div>
+    <span id="label">Drivers</span>
+    <div id="drivers-container"></div>
+    <div id='form-container'>
+        <form id="formadura4ka">
+            <div class="form-group">
+                <label  for="name">Name</label>
+                <input id="name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" placeholder="Age">
+            </div>
+            <div class="form-group">
+                <label for="rang">Rang</label>
+                <input type="number" class="form-control" id="rang" placeholder="Rang">
+            </div>
+            <button type="button" id="sub-btn" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+<style>
+    #label {
+        font-size: 40px;
+        padding-bottom: 10px;
+        letter-spacing: 10px;
+        font-weight: bold;
+    }
+    .driver-item {
+        margin-bottom: 20px;
+        border: 1px solid gainsboro;
+        padding:5px;
+        max-width: 350px;
+    }
+    .card-body span {
+        margin-bottom: 20px;
+        height: 20px;
+    }
+    #form-container {
+        top: 90px;
+        right: 30%;
+        position: absolute;
+    }
+    .delete {
+        background-color: #f44336;
+    }
+    .update {
+        background-color: yellow;
+    }
+</style>
+<script>
+
+    var items = null;
+    var isUpdate = false;
+    var updateItemId = '';
+
+    function GET() {
+        var container = document.getElementById('drivers-container');
+        $('#drivers-container').empty();
+
+
+        function renderDriver(item) {
+            var div = document.createElement('div');
+            div.classList.add('driver-item');
+
+            var driver = '<div class="card"><div class="card-body"> ' +
+                '<span>Id :' + item.DriverId + '</span><br />' +
+                '<span>Name :' + item.Name + '</span><br />' +
+                '<span>Age :' + item.Age + '</span><br />' +
+                '<span>Rang :' + item.Rang + '</span><br />'
+                + '<div className="d-flex"> ' +
+                `<button class="btn btn-warning btn-update" onclick="updateDriverForm('${item.DriverId}')">Update</button> ` +
+                `<button class="btn btn-danger" onclick="DeleteDriver('${item.DriverId}')">Delete</button>` +
+                '</div>'
+                + '</div>'
+                + '</div>';
+
+            div.innerHTML = driver;
+            container.appendChild(div);
+        }
+
+        $.ajax({
+            type: "GET", 
+            url: 'api/drivers',
+            dataType: "json", 
+            contentType: "application/json; charset=utf-8", 
+            processdata: true,
+            success: function (response) {
+                items = response;
+                response.forEach(renderDriver);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.statusText);
+            }
+        });
+
+       
+    }
+    
+    function CreateDriver(data) {
+        $.ajax({
+            type: "POST", 
+            url: 'api/drivers',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8", 
+            success: function (response) {
+                GET();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.statusText);
+            }
+        });
+    }
+
+    function updateDriverForm(id) {
+        var driver = items.find(x => x.DriverId === id);
+        $('#name').val(driver.Name);
+        $('#age').val(driver.Age);
+        $('#rang').val(driver.Rang);
+
+
+        isUpdate = true;
+        updateItemId = driver.DriverId;
+    }
+
+    function UpdateDriver(data) {
+        $.ajax({
+            type: "PUT", 
+            url: 'api/drivers',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8", 
+            success: function (response) {
+                GET();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.statusText);
+            }
+        });
+    }
+
+    function DeleteDriver(id) {
+        $.ajax({
+            url: 'api/drivers?id=' + id,
+            type: 'DELETE',
+            success: function (result) {
+                GET();
+            }
+        });
+        
+    }
+
+    $("#sub-btn").click(function () {
+        var data = {
+            Name: $('#name').val(),
+            Age: $('#age').val(),
+            Rang: $('#rang').val()
+        };
+
+        if (isUpdate) {
+            data['DriverId'] = updateItemId;
+            UpdateDriver(data);
+            isUpdate = false;
+
+            return;
+        }
+
+        CreateDriver(data);
+    });
+
+    GET();
+</script>

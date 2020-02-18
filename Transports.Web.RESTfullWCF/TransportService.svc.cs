@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Transports.Core.Interfaces;
 using Transports.Core.Models.SQL;
 using Transports.Core.Repositories;
@@ -39,6 +40,9 @@ namespace Transports.Web.RESTfullWCF
 
         public List<Driver> GetDrivers()
         {
+            HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Methods", "Get");
+            HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Headers", "Content-Type");
             return _driverRepo.GetAll().ToList();
         }
 

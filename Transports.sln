@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Desktop", "Transports.Desktop\Transports.Desktop.csproj", "{88A3F5F4-B454-45D9-B496-A68F25957563}"
 EndProject
@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.WCF.Service", "T
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.Tests", "Transports.Tests\Transports.Tests.csproj", "{DA2BAF95-5B68-4F0C-B60E-FD159DDD7715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transports.WebAPI", "Transports.WebAPI\Transports.WebAPI.csproj", "{B82173E6-6B50-4C8E-9B78-BE9728C290E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{DA2BAF95-5B68-4F0C-B60E-FD159DDD7715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA2BAF95-5B68-4F0C-B60E-FD159DDD7715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA2BAF95-5B68-4F0C-B60E-FD159DDD7715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B82173E6-6B50-4C8E-9B78-BE9728C290E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B82173E6-6B50-4C8E-9B78-BE9728C290E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B82173E6-6B50-4C8E-9B78-BE9728C290E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B82173E6-6B50-4C8E-9B78-BE9728C290E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
