@@ -98,13 +98,15 @@
     }
     
     function CreateDriver(data) {
+        var jsonData = JSON.stringify(data);
         $.ajax({
             type: "POST", 
             url: 'api/drivers',
-            data: JSON.stringify(data),
+            data: jsonData,
             dataType: 'json',
             contentType: "application/json; charset=utf-8", 
             success: function (response) {
+                parent.postMessage(JSON.stringify({type: 'POST'}),"http://localhost:3000");
                 GET();
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -132,6 +134,7 @@
             dataType: 'json',
             contentType: "application/json; charset=utf-8", 
             success: function (response) {
+                parent.postMessage(JSON.stringify({type: 'PUT', payload: JSON.stringify(data)}),"http://localhost:3000");
                 GET();
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -145,6 +148,7 @@
             url: 'api/drivers?id=' + id,
             type: 'DELETE',
             success: function (result) {
+                parent.postMessage(JSON.stringify({type: 'DELETE', payload: id}),"http://localhost:3000");
                 GET();
             }
         });

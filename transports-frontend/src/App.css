@@ -43,7 +43,43 @@
   margin-bottom: 25px;
 }
 
-.togleframe {
+#togle_frame {
   width: 100px;
   margin-left: calc(50% - 50px);
+}
+
+.form-container {
+  padding-left: 40px;
+  margin-top: 200px;
+}
+
+.form-group input[type=text], input[type=number], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group input[type=button] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-group input[type=button]:hover {
+  background-color: #45a049;
+}
+
+.form-group div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
 }
