@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
 using System.Web.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Web.Http.Cors;
 using Transports.Core.Interfaces;
 using Transports.Core.Models.SQL;
 using Transports.Core.Repositories;
 
 namespace Transports.WebAPI.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class DriversController : ApiController
     {
         private readonly IRepository<Driver> _driversRepo = new ContextRepository<Driver>();
